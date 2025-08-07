@@ -92,7 +92,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center space-x-2">
           <Mail className="w-4 h-4 text-purple-300" />
-          <span>support@nextelbpo.com</span>
+          <span>support@nextelbpo.co</span>
         </div>
         <div className="flex items-center space-x-2">
           <Clock className="w-4 h-4 text-purple-300" />

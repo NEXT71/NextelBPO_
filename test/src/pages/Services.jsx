@@ -411,9 +411,7 @@ const Services = () => {
                     ))}
                   </ul>
                   
-                  <button className="w-full bg-gradient-to-r from-purple-600/80 to-pink-600/80 hover:from-purple-500 hover:to-pink-500 text-white py-3 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-purple-500/20">
-                    Access Campaign
-                  </button>
+                
                 </div>
               </div>
             ))}

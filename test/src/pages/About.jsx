@@ -355,7 +355,7 @@ const About = () => {
             onClick={() => {
               const subject = encodeURIComponent("Partnership Inquiry - NextelBPO");
               const body = encodeURIComponent("Hello NextelBPO team,\n\nI'm interested in learning more about your services.\n\nBest regards,\n[Your Name]");
-              window.location.href = `mailto:support@nextelbpo.com?subject=${subject}&body=${body}`;
+              window.location.href = `mailto:support@nextelbpo.co?subject=${subject}&body=${body}`;
             }}
           >
             <div className="flex items-center">
@@ -365,7 +365,7 @@ const About = () => {
               <div>
                 <p className="text-sm text-gray-600 mb-1">Email us at</p>
                 <div className="text-xl font-semibold text-blue-600">
-                  support@nextelbpo.com
+                  support@nextelbpo.co
                 </div>
               </div>
             </div>

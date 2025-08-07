@@ -63,7 +63,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />
-                <a href="mailto:support@nextelbpo.com" className="hover:text-white transition-colors">support@nextelbpo.com</a>
+                <a href="mailto:support@nextelbpo.co" className="hover:text-white transition-colors">support@nextelbpo.co</a>
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />

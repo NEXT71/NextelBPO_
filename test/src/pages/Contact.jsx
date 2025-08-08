@@ -154,7 +154,7 @@ const Contact = () => {
                       <div>
                         <h3 className="font-bold text-gray-800 mb-1">Email</h3>
                         <p className="text-gray-600">
-                          <a href="mailto:support@nextelbpo.co" className="hover:text-blue-600 transition-colors duration-300">support@nextelbpo.co</a>
+                          <a href="mailto:info@nextelbpo.co" className="hover:text-blue-600 transition-colors duration-300">info@nextelbpo.co</a>
                         </p>
                       </div>
                     </div>

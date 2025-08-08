@@ -197,22 +197,7 @@ const TeamPage = () => {
                       <p className="text-gray-600 mb-6 leading-relaxed">
                         {member.bio}
                       </p>
-                      
-                      {/* Social links */}
-                      <div className="flex justify-center space-x-3">
-                        {member.social.map((social) => (
-                          <a
-                            key={social.platform}
-                            href={social.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-50 to-purple-50 border border-gray-200/80 text-gray-500 hover:text-white hover:from-blue-600 hover:to-purple-600 hover:border-transparent hover:shadow-lg transition-all duration-300"
-                            aria-label={`${member.name}'s ${social.platform}`}
-                          >
-                            {social.icon}
-                          </a>
-                        ))}
-                      </div>
+                                          
                     </div>
                   </div>
                 ))}

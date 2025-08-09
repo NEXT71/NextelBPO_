@@ -56,7 +56,7 @@ const OfficeLocationsMap = () => {
       name: 'NextelBPO 5.0', 
       city: 'Rawalpindi, Pakistan', 
       x: 650, 
-      y: 200,
+      y: 150,
       address: 'Commercial Market D Block, Satellite Town',
       description: 'Our newest location with state-of-the-art facilities and services.',
       coordinates: '33.640000, 73.065000'

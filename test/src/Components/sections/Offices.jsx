@@ -9,37 +9,57 @@ const OfficeLocationsMap = () => {
   const [autoRotate, setAutoRotate] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
-  // Office locations with complete addresses
+  // Updated office locations with complete addresses
   const offices = [
     { 
       id: 1, 
-      name: 'NextelBPO 2.0', 
-      city: ' Rawalpindi, Pakistan', 
-      x: 500, 
-      y: 250,
-      address: ' Saddar Bazaar, Rawalpindi',
+      name: 'Nextel BPO - Main Branch', 
+      city: 'Rawalpindi, Pakistan', 
+      x: 450, 
+      y: 200,
+      address: 'Sabah Plaza Saddar, Rawalpindi',
       description: 'Our flagship location in the heart of Rawalpindi\'s commercial district.',
-      coordinates: '33.59813938627853, 73.04900650108829' // Latitude, Longitude for precise mapping
+      coordinates: '33.59813938627853, 73.04900650108829'
     },
     { 
       id: 2, 
-      name: 'NextelBPO 3.0', 
+      name: 'NextelBPO 2.0', 
       city: 'Rawalpindi, Pakistan', 
       x: 500, 
-      y: 100,
-      address: 'Satellite Town,Rawalpindi',
+      y: 250,
+      address: 'Near Corner Food Saddar, Rawalpindi',
       description: 'Centrally located office providing comprehensive business solutions.',
-      coordinates: '33.6385163826533, 73.06287297064223'
+      coordinates: '33.600000, 73.050000'
     },
     { 
       id: 3, 
-      name: 'NextelBPO 4.0 ', 
+      name: 'NextelBPO 3.0', 
+      city: 'Rawalpindi, Pakistan', 
+      x: 550, 
+      y: 150,
+      address: 'Commercial Market B Block, Satellite Town',
+      description: 'Modern facility in the bustling Satellite Town commercial area.',
+      coordinates: '33.6385163826533, 73.06287297064223'
+    },
+    { 
+      id: 4, 
+      name: 'NextelBPO 4.0', 
       city: 'Rawalpindi, Pakistan', 
       x: 600, 
-      y: 320,
-      address: 'Main Dhok Saidan Road, Rawalpindi',
+      y: 300,
+      address: 'Kalma Chowk, Rawalpindi',
       description: 'Community-focused office delivering personalized business services.',
       coordinates: '33.575514505093224, 73.03289072639484'
+    },
+    { 
+      id: 5, 
+      name: 'NextelBPO 5.0', 
+      city: 'Rawalpindi, Pakistan', 
+      x: 650, 
+      y: 200,
+      address: 'Commercial Market D Block, Satellite Town',
+      description: 'Our newest location with state-of-the-art facilities and services.',
+      coordinates: '33.640000, 73.065000'
     }
   ];
 
@@ -124,7 +144,7 @@ const OfficeLocationsMap = () => {
           </h2>
           
           <p className="text-2xl text-gray-600 max-w-5xl mx-auto leading-relaxed mb-8 font-light">
-            Strategically located across the region to provide you with world-class BPO services 
+            Strategically located across Rawalpindi to provide you with world-class BPO services 
             and exceptional customer support wherever you are.
           </p>
 
@@ -291,8 +311,8 @@ const OfficeLocationsMap = () => {
           </svg>
         </div>
 
-        {/* Office Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {/* Office Cards Grid - Updated for 5 offices */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
           {offices.map((office, index) => (
             <div
               key={office.id}

@@ -21,27 +21,21 @@ const TeamPage = () => {
           position: "Co-Founder & CEO",
           image: "/Maaz Abbasi.JPG",
           bio: "10+ years in BPO industry, driving company strategy and growth.",
-          social: [
-            { platform: "LinkedIn", url: "https://www.linkedin.com/in/maaz-abbasi-989865172/", icon: <Linkedin size={18} /> },
-          ]
+          
         },
         {
           name: "AbuBakar Ahmed",
           position: "Co-Founder & President",
           image: "/AbuBakar.jpeg",
           bio: "Operations expert specializing in process optimization.",
-          social: [
-            { platform: "LinkedIn", url: "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/", icon: <Linkedin size={18} /> },
-          ]
+          
         },
         {
           name: "Sameer Malik",
           position: "Co-Founder",
           image: "/Sameer Malik.JPG",
           bio: "Strategic business development with extensive industry connections.",
-          social: [
-            { platform: "LinkedIn", url: "#", icon: <Linkedin size={18} /> },
-          ]
+        
         }
       ]
     },
@@ -52,23 +46,16 @@ const TeamPage = () => {
         {
           name: "Muhammad Yasir",
           image: "/Muhammad Yasir.JPG",
-          social: [
-            { platform: "LinkedIn", url: "https://www.linkedin.com/in/yasir-muahmmad-406314160/", icon: <Linkedin size={18} /> }
-          ]
         },
         {
           name: "Waleed Khan",
           image: "/Waleed Khan.JPG",
-          social: [
-            { platform: "LinkedIn", url: "#", icon: <Linkedin size={18} /> }
-          ]
+          
         },
         {
           name: "Abdul Moeed",
           image: "/Abdul Moed.JPG",
-          social: [
-            { platform: "LinkedIn", url: "#", icon: <Linkedin size={18} /> }
-          ]
+          
         }
       ]
     }
@@ -210,22 +197,7 @@ const TeamPage = () => {
                       <p className="text-gray-600 mb-6 leading-relaxed">
                         {member.bio}
                       </p>
-                      
-                      {/* Social links */}
-                      <div className="flex justify-center space-x-3">
-                        {member.social.map((social) => (
-                          <a
-                            key={social.platform}
-                            href={social.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-50 to-purple-50 border border-gray-200/80 text-gray-500 hover:text-white hover:from-blue-600 hover:to-purple-600 hover:border-transparent hover:shadow-lg transition-all duration-300"
-                            aria-label={`${member.name}'s ${social.platform}`}
-                          >
-                            {social.icon}
-                          </a>
-                        ))}
-                      </div>
+                                          
                     </div>
                   </div>
                 ))}

@@ -92,7 +92,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center space-x-2">
           <Mail className="w-4 h-4 text-purple-300" />
-          <span>support@nextelbpo.co</span>
+          <span>info@nextelbpo.co</span>
         </div>
         <div className="flex items-center space-x-2">
           <Clock className="w-4 h-4 text-purple-300" />
@@ -318,10 +318,7 @@ const Navbar = () => {
 
             {/* CTA Button & Mobile Toggle */}
             <div className="flex items-center space-x-4">
-              <button className="hidden lg:flex items-center bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 group">
-                Get Quote
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
+             
 
               {/* Mobile Menu Toggle */}
               <button

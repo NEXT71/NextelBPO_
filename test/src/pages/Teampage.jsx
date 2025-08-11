@@ -19,21 +19,21 @@ const TeamPage = () => {
         {
           name: "Maaz Abbasi",
           position: "Co-Founder & CEO",
-          image: "/Maaz Abbasi.JPG",
+          image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
           bio: "10+ years in BPO industry, driving company strategy and growth.",
           
         },
         {
           name: "AbuBakar Ahmed",
           position: "Co-Founder & President",
-          image: "/AbuBakar.jpeg",
+          image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
           bio: "Operations expert specializing in process optimization.",
           
         },
         {
           name: "Sameer Malik",
           position: "Co-Founder",
-          image: "/Sameer Malik.JPG",
+          image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face",
           bio: "Strategic business development with extensive industry connections.",
         
         }
@@ -45,16 +45,22 @@ const TeamPage = () => {
       members: [
         {
           name: "Muhammad Yasir",
-          image: "/Muhammad Yasir.JPG",
+          position: "Operations Manager",
+          image: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=300&h=300&fit=crop&crop=face",
+          bio: "Experienced operations professional ensuring smooth workflow and quality delivery.",
         },
         {
           name: "Waleed Khan",
-          image: "/Waleed Khan.JPG",
+          position: "Senior Operations Specialist",
+          image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face",
+          bio: "Quality assurance expert with focus on client satisfaction and process improvement.",
           
         },
         {
           name: "Abdul Moeed",
-          image: "/Abdul Moed.JPG",
+          position: "Operations Coordinator",
+          image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&crop=face",
+          bio: "Detail-oriented coordinator managing multiple client projects efficiently.",
           
         }
       ]
@@ -152,52 +158,130 @@ const TeamPage = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {department.members.map((member) => (
+                {department.members.map((member, index) => (
                   <div
                     key={member.name}
-                    className="group relative bg-white rounded-3xl p-8 overflow-hidden transform hover:-translate-y-2 transition-all duration-500 hover:shadow-xl border border-gray-200/80 hover:border-blue-400/50"
+                    className="group relative bg-gradient-to-br from-slate-900/90 via-purple-900/80 to-slate-900/90 rounded-2xl p-8 overflow-hidden transform hover:-translate-y-8 hover:rotateX-5 transition-all duration-1000 hover:shadow-2xl border border-emerald-400/30 hover:border-emerald-400/80"
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      perspective: '1000px',
+                      boxShadow: '0 0 0 1px rgba(16, 185, 129, 0.2), 0 0 50px rgba(16, 185, 129, 0.1)'
+                    }}
                   >
-                    {/* Animated background effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-purple-50/30"
-                        style={{
-                          maskImage: "radial-gradient(circle at center, black 0%, transparent 70%)",
-                          WebkitMaskImage: "radial-gradient(circle at center, black 0%, transparent 70%)"
-                        }}
-                      ></div>
+                    {/* Matrix rain effect */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-1000 overflow-hidden">
+                      {[...Array(15)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="absolute top-0 text-emerald-400 text-xs font-mono animate-pulse"
+                          style={{
+                            left: `${i * 7}%`,
+                            animationDelay: `${Math.random() * 2}s`,
+                            animationDuration: `${2 + Math.random() * 3}s`,
+                            transform: `translateY(-100%)`,
+                            animation: `matrix-rain ${3 + Math.random() * 2}s linear infinite`
+                          }}
+                        >
+                          {Math.random() > 0.5 ? '1' : '0'}
+                        </div>
+                      ))}
                     </div>
 
-                    {/* Profile image with futuristic border */}
-                    <div className="relative mb-6 mx-auto w-32 h-32">
-                      <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 group-hover:border-blue-400/60 transition-all duration-500"></div>
-                      <div className="absolute inset-0 rounded-full border border-purple-400/20 group-hover:border-purple-400/50 transition-all duration-500 delay-75"></div>
+                    {/* Holographic scan lines */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-1000">
+                      <div className="absolute inset-0" style={{
+                        background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(16, 185, 129, 0.03) 2px, rgba(16, 185, 129, 0.03) 4px)'
+                      }}></div>
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-pulse"></div>
+                      <div className="absolute bottom-0 right-0 w-1 h-full bg-gradient-to-t from-transparent via-purple-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                    </div>
+
+                    {/* 3D floating elements */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-1000">
+                      <div className="absolute top-4 right-4 w-3 h-3 border border-emerald-400/60 transform rotate-45 animate-spin" style={{ animationDuration: '4s' }}></div>
+                      <div className="absolute bottom-8 left-6 w-2 h-2 bg-purple-400/60 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
+                      <div className="absolute top-1/2 right-6 w-4 h-4 border-l-2 border-b-2 border-emerald-400/40 animate-pulse"></div>
+                    </div>
+
+                    {/* Profile image with 3D hologram effect */}
+                    <div className="relative mb-8 mx-auto w-40 h-40 group-hover:scale-110 transition-transform duration-1000"
+                         style={{ transformStyle: 'preserve-3d' }}>
                       
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center overflow-hidden relative z-10 group-hover:scale-105 transition-transform duration-500">
+                      {/* Hologram base */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/10 via-purple-400/10 to-emerald-400/10 rounded-full blur-2xl group-hover:blur-3xl transition-all duration-1000 animate-pulse"></div>
+                      
+                      {/* 3D rotating frame */}
+                      <div className="absolute inset-0 border-2 border-emerald-400/40 rounded-full group-hover:border-emerald-400/80 transition-all duration-1000">
+                        <div className="absolute inset-2 border border-purple-400/30 rounded-full group-hover:border-purple-400/60 transition-all duration-1000"></div>
+                        <div className="absolute inset-4 border border-emerald-400/20 rounded-full group-hover:border-emerald-400/50 transition-all duration-1000"></div>
+                      </div>
+
+                      {/* Image container with hologram effect */}
+                      <div className="relative w-full h-full rounded-full overflow-hidden bg-slate-800 group-hover:bg-slate-700 transition-colors duration-1000"
+                           style={{
+                             transform: 'translateZ(20px)',
+                             boxShadow: 'inset 0 0 50px rgba(16, 185, 129, 0.1)'
+                           }}>
                         <img 
                           src={member.image} 
                           alt={member.name}
-                          className="w-full h-full object-cover rounded-full"
+                          className="w-full h-full object-cover rounded-full group-hover:brightness-125 group-hover:contrast-110 transition-all duration-1000"
+                          style={{
+                            filter: 'sepia(0.1) hue-rotate(120deg) saturate(1.2)'
+                          }}
                         />
+                        
+                        {/* Holographic overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/0 via-emerald-400/10 to-purple-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-full"></div>
+                      </div>
+
+                      {/* ID Badge floating effect */}
+                      <div className="absolute -bottom-2 -right-2 bg-slate-800/90 backdrop-blur-sm border border-emerald-400/40 rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-all duration-1000 transform group-hover:scale-100 scale-75"
+                           style={{ transformStyle: 'preserve-3d', transform: 'translateZ(30px)' }}>
+                        <span className="text-emerald-400 text-xs font-mono">ID: {String(index + 1).padStart(3, '0')}</span>
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="relative z-10 text-center">
-                      <h3 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                    {/* Content with futuristic styling */}
+                    <div className="relative z-10 text-center" style={{ transform: 'translateZ(10px)' }}>
+                      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-all duration-700 font-mono tracking-wider"
+                          style={{ 
+                            textShadow: '0 0 20px rgba(16, 185, 129, 0.3)',
+                            transform: 'translateZ(15px)'
+                          }}>
                         {member.name}
                       </h3>
                       
-                      <div className="mb-4">
-                        <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-gray-200/80 text-blue-600 text-sm font-medium group-hover:from-blue-100 group-hover:to-purple-100 group-hover:border-blue-200 transition-all duration-300">
-                          {member.position}
+                      <div className="mb-6">
+                        <span className="inline-block px-4 py-2 bg-slate-800/80 backdrop-blur-sm border border-emerald-400/40 rounded text-emerald-300 text-sm font-mono group-hover:border-emerald-400/80 group-hover:bg-slate-700/80 transition-all duration-700"
+                              style={{
+                                boxShadow: 'inset 0 0 20px rgba(16, 185, 129, 0.1)',
+                                transform: 'translateZ(10px)'
+                              }}>
+                          &gt; {member.position}
                         </span>
                       </div>
                       
-                      <p className="text-gray-600 mb-6 leading-relaxed">
+                      <p className="text-gray-300 mb-6 leading-relaxed group-hover:text-gray-200 transition-colors duration-700 font-mono text-sm"
+                         style={{ 
+                           textShadow: '0 0 10px rgba(255, 255, 255, 0.1)',
+                           transform: 'translateZ(5px)'
+                         }}>
                         {member.bio}
                       </p>
-                                          
+
+                      {/* Access level indicator */}
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-1000">
+                        <div className="flex space-x-1">
+                          {[...Array(5)].map((_, i) => (
+                            <div
+                              key={i}
+                              className={`w-2 h-1 ${i < 4 ? 'bg-emerald-400' : 'bg-gray-600'} rounded-full animate-pulse`}
+                              style={{ animationDelay: `${i * 0.2}s` }}
+                            ></div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}

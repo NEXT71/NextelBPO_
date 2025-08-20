@@ -76,7 +76,7 @@ const Services = () => {
       }
     }, 3000);
     return () => clearInterval(interval);
-  }, [autoRotate]);
+  }, [autoRotate, SERVICES.length]);
 
   useEffect(() => {
     setIsVisible(true);
@@ -169,6 +169,41 @@ const Services = () => {
             <div className="w-1 h-4 bg-purple-500/30"></div>
             <span className="text-purple-100 text-sm font-mono">{currentTime.toLocaleTimeString()}</span>
           </div>
+
+          <h2 className="text-7xl md:text-8xl font-black text-white mb-8 tracking-tight leading-tight">
+            Our{" "}
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
+              Services
+            </span>
+          </h2>
+          
+          <div className="max-w-4xl mx-auto mb-12">
+            <p className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
+              Comprehensive Business Solutions
+            </p>
+            <p className="text-lg text-purple-200/80">
+              Tailored services designed to drive growth, efficiency, and customer satisfaction across industries.
+            </p>
+          </div>
+
+          {/* Metrics Dashboard */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-6xl mx-auto mb-8">
+            {[
+              { label: "Happy Clients", value: "500+", icon: <Users className="w-5 h-5" /> },
+              { label: "Projects Completed", value: "1200+", icon: <CheckCircle className="w-5 h-5" /> },
+              { label: "Success Rate", value: "98%", icon: <TrendingUp className="w-5 h-5" /> },
+              { label: "Response Time", value: "<1hr", icon: <Activity className="w-5 h-5" /> }
+            ].map((metric, idx) => (
+              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-purple-400">{metric.icon}</div>
+                  <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
+                </div>
+                <div className="text-2xl font-bold text-white">{metric.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">

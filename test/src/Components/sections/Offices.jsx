@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, Zap, TrendingUp, Star, CheckCircle, ArrowRight } from 'lucide-react';
+import { MapPin, Zap, TrendingUp, Star, CheckCircle, ArrowRight, Users, Activity, Clock } from 'lucide-react';
 
 const OfficeLocationsMap = () => {
   const [hoveredOffice, setHoveredOffice] = useState(null);
@@ -8,8 +8,8 @@ const OfficeLocationsMap = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoRotate, setAutoRotate] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Updated office locations with complete addresses
   const offices = [
     { 
       id: 1, 
@@ -63,7 +63,6 @@ const OfficeLocationsMap = () => {
     }
   ];
 
-  // Auto-rotate offices highlight
   useEffect(() => {
     const interval = setInterval(() => {
       if (autoRotate && !isHovering) {
@@ -75,6 +74,8 @@ const OfficeLocationsMap = () => {
 
   useEffect(() => {
     setIsVisible(true);
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const handleOfficeClick = (office) => {
@@ -95,7 +96,6 @@ const OfficeLocationsMap = () => {
   };
 
   const openGoogleMaps = (office) => {
-    // Use coordinates if available for precise location, otherwise use address
     const mapUrl = office.coordinates 
       ? `https://www.google.com/maps?q=${office.coordinates}`
       : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address)}`;
@@ -104,79 +104,120 @@ const OfficeLocationsMap = () => {
   };
 
   return (
-    <section className="py-12 bg-white relative overflow-hidden min-h-screen flex items-center">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234F46E5' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+    <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900 relative overflow-hidden">
+      {/* Futuristic Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"></div>
+        
+        {/* Animated Grid */}
+        <div className="absolute inset-0 opacity-20" style={{
+          backgroundImage: `
+            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
         }}></div>
+
+        {/* Floating Orbs */}
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
+            style={{
+              width: `${Math.random() * 200 + 100}px`,
+              height: `${Math.random() * 200 + 100}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              filter: 'blur(1px)'
+            }}
+          />
+        ))}
+
+        {/* Neural Network Lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8B5CF6" />
+              <stop offset="100%" stopColor="#EC4899" />
+            </linearGradient>
+          </defs>
+          {[...Array(12)].map((_, i) => (
+            <line
+              key={i}
+              x1={`${Math.random() * 100}%`}
+              y1={`${Math.random() * 100}%`}
+              x2={`${Math.random() * 100}%`}
+              y2={`${Math.random() * 100}%`}
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              className="animate-pulse"
+              style={{ animationDelay: `${i * 0.2}s` }}
+            />
+          ))}
+        </svg>
       </div>
 
-      {/* Floating Elements */}
-      {[...Array(15)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-1 h-1 bg-blue-400/30 rounded-full animate-pulse"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`,
-            animationDuration: `${3 + Math.random() * 2}s`
-          }}
-        />
-      ))}
-
-      <div className="container mx-auto px-4 relative z-10 w-full">
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header Section */}
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-block relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-            <div className="relative p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full">
-              <MapPin className="w-12 h-12 text-white" />
-            </div>
+          {/* Status Bar */}
+          <div className="inline-flex items-center gap-4 bg-black/20 backdrop-blur-lg border border-purple-500/20 rounded-full px-6 py-3 mb-8">
+            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+            <span className="text-purple-100 text-sm font-mono">Global Network: ACTIVE</span>
+            <div className="w-1 h-4 bg-purple-500/30"></div>
+            <span className="text-purple-100 text-sm font-mono">{currentTime.toLocaleTimeString()}</span>
           </div>
           
-          <h2 className="text-6xl md:text-7xl font-black text-gray-900 mb-8 tracking-tight leading-tight">
+          <h2 className="text-7xl md:text-8xl font-black text-white mb-8 tracking-tight leading-tight">
             Our{" "}
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent">
               Offices
             </span>
           </h2>
           
-          <p className="text-2xl text-gray-600 max-w-5xl mx-auto leading-relaxed mb-8 font-light">
-            Strategically located across Rawalpindi to provide you with world-class BPO services 
-            and exceptional customer support wherever you are.
-          </p>
+          <div className="max-w-4xl mx-auto mb-12">
+            <p className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
+              Strategic Global Network
+            </p>
+            <p className="text-lg text-purple-200/80">
+              Positioned across Pakistan • Ready to serve • Always connected
+            </p>
+          </div>
 
-          {/* Control Panel */}
-          <div className="flex items-center justify-center gap-6 mb-8">
-            <div className="flex items-center gap-3 bg-gray-100 rounded-full px-6 py-3">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
-              <span className="text-gray-700 font-medium">{offices.length} Locations</span>
-            </div>
-            <div className="flex items-center gap-3 bg-gray-100 rounded-full px-6 py-3">
-              <Star className="w-5 h-5 text-yellow-500" />
-              <span className="text-gray-700 font-medium">Premium Service</span>
-            </div>
+          {/* Metrics Dashboard */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8">
+            {[
+              { label: "Active Locations", value: offices.length.toString(), icon: <MapPin className="w-5 h-5" /> },
+              { label: "Coverage Area", value: "100%", icon: <TrendingUp className="w-5 h-5" /> },
+              { label: "Response Time", value: "<1hr", icon: <Activity className="w-5 h-5" /> }
+            ].map((metric, idx) => (
+              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-purple-400">{metric.icon}</div>
+                  <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
+                </div>
+                <div className="text-2xl font-bold text-white">{metric.value}</div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* World Map with Office Locations */}
-        <div className="relative w-full bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl overflow-hidden shadow-2xl border border-gray-200 mb-16">
+        {/* World Map */}
+        <div className="relative w-full bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl mb-16">
           <svg 
             viewBox="0 0 1000 500" 
             className="w-full h-auto"
             style={{ minHeight: '500px' }}
           >
-            {/* Dotted pattern definition */}
             <defs>
               <pattern id="dotPattern" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
-                <circle cx="3" cy="3" r="1" fill="#9CA3AF" opacity="0.7"/>
+                <circle cx="3" cy="3" r="1" fill="#64748B" opacity="0.7"/>
               </pattern>
               
               <linearGradient id="oceanGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style={{stopColor:'#f0f9ff', stopOpacity:1}} />
-                <stop offset="100%" style={{stopColor:'#e0f2fe', stopOpacity:1}} />
+                <stop offset="0%" style={{stopColor:'#0F172A', stopOpacity:1}} />
+                <stop offset="100%" style={{stopColor:'#1E293B', stopOpacity:1}} />
               </linearGradient>
 
               <filter id="glow">
@@ -188,35 +229,25 @@ const OfficeLocationsMap = () => {
               </filter>
               
               <linearGradient id="pinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style={{stopColor: '#3B82F6'}} />
-                <stop offset="100%" style={{stopColor: '#1D4ED8'}} />
+                <stop offset="0%" style={{stopColor: '#8B5CF6'}} />
+                <stop offset="100%" style={{stopColor: '#7C3AED'}} />
               </linearGradient>
               <linearGradient id="pinGradientHover" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style={{stopColor: '#DC2626'}} />
-                <stop offset="100%" style={{stopColor: '#B91C1C'}} />
+                <stop offset="0%" style={{stopColor: '#EC4899'}} />
+                <stop offset="100%" style={{stopColor: '#DB2777'}} />
               </linearGradient>
             </defs>
             
-            {/* Ocean background */}
             <rect width="1000" height="500" fill="url(#oceanGradient)"/>
             
-            {/* World map continents */}
-            <path d="M 50 80 L 80 50 L 120 45 L 160 50 L 200 60 L 240 70 L 280 80 L 320 90 L 340 100 L 350 120 L 345 140 L 330 160 L 310 180 L 290 190 L 270 195 L 250 190 L 230 185 L 210 175 L 190 165 L 170 155 L 150 145 L 130 135 L 110 125 L 90 115 L 70 105 L 55 90 Z" fill="url(#dotPattern)"/>
-            <path d="M 380 40 L 420 35 L 450 50 L 460 80 L 455 110 L 440 120 L 420 115 L 400 105 L 385 90 L 375 70 L 375 50 Z" fill="url(#dotPattern)"/>
-            <path d="M 280 210 L 300 200 L 320 205 L 340 215 L 360 230 L 370 250 L 375 270 L 380 290 L 385 310 L 390 330 L 385 350 L 375 370 L 360 385 L 340 395 L 320 400 L 300 395 L 280 385 L 265 370 L 255 350 L 250 330 L 248 310 L 250 290 L 255 270 L 265 250 L 275 230 Z" fill="url(#dotPattern)"/>
-            <path d="M 480 80 L 520 70 L 560 75 L 590 85 L 610 95 L 620 110 L 615 125 L 600 135 L 580 140 L 560 138 L 540 135 L 520 130 L 500 125 L 485 115 L 475 100 L 478 85 Z" fill="url(#dotPattern)"/>
-            <path d="M 500 160 L 540 150 L 580 155 L 610 165 L 630 180 L 640 200 L 645 220 L 648 240 L 650 260 L 648 280 L 645 300 L 640 320 L 630 340 L 615 355 L 595 365 L 575 370 L 555 368 L 535 365 L 515 360 L 500 350 L 490 335 L 485 320 L 483 300 L 485 280 L 490 260 L 495 240 L 498 220 L 500 200 L 502 180 Z" fill="url(#dotPattern)"/>
-            <path d="M 630 70 L 680 60 L 730 65 L 780 70 L 830 75 L 880 80 L 920 90 L 950 100 L 970 115 L 975 130 L 970 145 L 960 160 L 945 170 L 925 175 L 900 178 L 875 180 L 850 178 L 825 175 L 800 170 L 775 165 L 750 158 L 725 150 L 700 140 L 680 130 L 665 115 L 655 100 L 650 85 L 645 70 Z" fill="url(#dotPattern)"/>
-            <path d="M 680 180 L 720 175 L 750 185 L 770 200 L 780 220 L 775 240 L 765 255 L 750 265 L 730 270 L 710 268 L 690 265 L 675 255 L 665 240 L 662 225 L 665 210 L 672 195 Z" fill="url(#dotPattern)"/>
-            <path d="M 780 240 L 820 235 L 850 245 L 870 260 L 880 275 L 875 285 L 865 290 L 850 288 L 835 285 L 820 280 L 805 275 L 790 268 L 778 255 Z" fill="url(#dotPattern)"/>
-            <path d="M 840 320 L 890 310 L 930 320 L 960 335 L 970 350 L 965 365 L 950 375 L 930 380 L 910 378 L 890 375 L 870 370 L 850 365 L 835 355 L 828 340 L 832 325 Z" fill="url(#dotPattern)"/>
-            <path d="M 900 130 L 920 125 L 935 135 L 940 150 L 935 165 L 925 170 L 910 168 L 900 160 L 895 145 L 898 135 Z" fill="url(#dotPattern)"/>
-            <path d="M 485 95 L 500 90 L 510 100 L 508 115 L 500 120 L 490 118 L 485 110 L 483 102 Z" fill="url(#dotPattern)"/>
-            
+            {/* World map continents - Pakistan region focused */}
+            <path d="M 480 150 L 520 140 L 560 145 L 590 155 L 610 165 L 620 180 L 615 195 L 600 205 L 580 210 L 560 208 L 540 205 L 520 200 L 500 195 L 485 185 L 475 170 L 478 155 Z" fill="url(#dotPattern)"/>
+            <path d="M 500 210 L 540 200 L 580 205 L 610 215 L 630 230 L 640 250 L 645 270 L 648 290 L 650 310 L 648 330 L 645 350 L 640 370 L 630 390 L 615 405 L 595 415 L 575 420 L 555 418 L 535 415 L 515 410 L 500 400 L 490 385 L 485 370 L 483 350 L 485 330 L 490 310 L 495 290 L 498 270 L 500 250 L 502 230 Z" fill="url(#dotPattern)"/>
+
             {/* Office location markers */}
             {offices.map((office, index) => (
               <g key={office.id}>
-                {/* Highlight indicator for current office */}
+                {/* Highlight indicator */}
                 {currentIndex === index && !isHovering && (
                   <g>
                     <circle 
@@ -224,7 +255,7 @@ const OfficeLocationsMap = () => {
                       cy={office.y} 
                       r="25" 
                       fill="none" 
-                      stroke="#3B82F6" 
+                      stroke="#8B5CF6" 
                       strokeWidth="2" 
                       opacity="0.6"
                       className="animate-pulse"
@@ -234,7 +265,7 @@ const OfficeLocationsMap = () => {
                       cy={office.y} 
                       r="35" 
                       fill="none" 
-                      stroke="#3B82F6" 
+                      stroke="#8B5CF6" 
                       strokeWidth="1" 
                       opacity="0.3"
                       className="animate-ping"
@@ -251,10 +282,8 @@ const OfficeLocationsMap = () => {
                   onClick={() => handleOfficeClick(office)}
                   filter={currentIndex === index && !isHovering ? "url(#glow)" : "none"}
                 >
-                  {/* Pin shadow */}
                   <ellipse cx="1" cy="22" rx="8" ry="3" fill="rgba(0,0,0,0.2)"/>
                   
-                  {/* Pin body with gradient */}
                   <path
                     d="M0 0 C-8 0 -15 7 -15 15 C-15 20 -10 25 0 35 C10 25 15 20 15 15 C15 7 8 0 0 0 Z"
                     fill={hoveredOffice === office.id ? "url(#pinGradientHover)" : "url(#pinGradient)"}
@@ -262,9 +291,8 @@ const OfficeLocationsMap = () => {
                     strokeWidth="3"
                   />
                   
-                  {/* Pin center */}
                   <circle cx="0" cy="15" r="6" fill="white"/>
-                  <circle cx="0" cy="15" r="3" fill={hoveredOffice === office.id ? "#DC2626" : "#3B82F6"}/>
+                  <circle cx="0" cy="15" r="3" fill={hoveredOffice === office.id ? "#EC4899" : "#8B5CF6"}/>
                 </g>
                 
                 {/* Enhanced Tooltip */}
@@ -311,7 +339,7 @@ const OfficeLocationsMap = () => {
           </svg>
         </div>
 
-        {/* Office Cards Grid - Updated for 5 offices */}
+        {/* Office Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
           {offices.map((office, index) => (
             <div
@@ -324,32 +352,32 @@ const OfficeLocationsMap = () => {
               onClick={() => handleOfficeClick(office)}
             >
               <div className={`
-                relative bg-white rounded-2xl overflow-hidden
-                border border-gray-200 hover:border-blue-400
+                relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-2xl overflow-hidden
+                border border-slate-700/50 hover:border-purple-500/50
                 shadow-lg hover:shadow-xl
                 transform transition-all duration-500
                 ${hoveredOffice === office.id ? 'scale-105 -translate-y-2' : ''}
-                ${currentIndex === index && !isHovering ? 'ring-2 ring-blue-400 ring-offset-2 ring-offset-white' : ''}
+                ${currentIndex === index && !isHovering ? 'ring-2 ring-purple-400 ring-offset-2 ring-offset-slate-950' : ''}
                 h-full
               `}>
                 
                 {/* Highlight Indicator */}
                 {currentIndex === index && !isHovering && (
                   <div className="absolute top-4 right-4 z-20">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full animate-ping"></div>
-                    <div className="absolute top-0 w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-purple-500 rounded-full animate-ping"></div>
+                    <div className="absolute top-0 w-3 h-3 bg-purple-500 rounded-full"></div>
                   </div>
                 )}
 
                 {/* Header Section */}
-                <div className="relative bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
+                <div className="relative bg-gradient-to-r from-purple-600 to-pink-600 p-6 text-white">
                   <div className="flex items-center gap-4">
                     <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
                       <MapPin className="w-6 h-6" />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold">{office.name}</h3>
-                      <p className="text-blue-100 text-sm">{office.city}</p>
+                      <p className="text-purple-100 text-sm">{office.city}</p>
                     </div>
                   </div>
                   <div className="mt-4 text-sm bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full inline-block">
@@ -360,17 +388,17 @@ const OfficeLocationsMap = () => {
                 
                 {/* Content Section */}
                 <div className="p-6 flex flex-col h-auto">
-                  <p className="text-gray-600 mb-4 leading-relaxed text-sm">
+                  <p className="text-slate-300 mb-4 leading-relaxed text-sm">
                     {office.description}
                   </p>
                   
-                  <div className="text-xs text-gray-500 mb-4">
+                  <div className="text-xs text-slate-500 mb-4">
                     📍 {office.address}
                   </div>
                   
                   {/* Action Button */}
                   <button 
-                    className="w-full group/btn bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
+                    className="w-full group/btn bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
                     onClick={(e) => {
                       e.stopPropagation();
                       openGoogleMaps(office);
@@ -387,19 +415,19 @@ const OfficeLocationsMap = () => {
 
         {/* Selected Office Details */}
         {selectedOffice && (
-          <div className="mt-8 bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl p-8 border border-gray-200 animate-fadeIn shadow-xl">
+          <div className="mt-8 bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 shadow-xl animate-fadeIn">
             <div className="text-center mb-8">
-              <div className="inline-block p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-4">
+              <div className="inline-block p-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full mb-4">
                 <MapPin className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedOffice.name}</h3>
-              <p className="text-blue-600 font-semibold text-lg">{selectedOffice.city}</p>
-              <p className="text-gray-500">{selectedOffice.address}</p>
+              <h3 className="text-3xl font-bold text-white mb-2">{selectedOffice.name}</h3>
+              <p className="text-purple-400 font-semibold text-lg">{selectedOffice.city}</p>
+              <p className="text-slate-400">{selectedOffice.address}</p>
             </div>
             
             <div className="flex justify-center">
               <button 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold px-8 py-3 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold px-8 py-3 rounded-full hover:opacity-90 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
                 onClick={() => openGoogleMaps(selectedOffice)}
               >
                 <MapPin className="w-5 h-5" />
@@ -411,12 +439,12 @@ const OfficeLocationsMap = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <div className="inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full p-1 shadow-xl">
+          <div className="inline-flex items-center gap-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full p-1 shadow-xl">
             <div className="bg-white/20 backdrop-blur-sm rounded-full px-6 py-3">
               <span className="text-white font-semibold">Ready to visit us?</span>
             </div>
             <button 
-              className="bg-white text-blue-600 font-bold px-8 py-3 rounded-full hover:bg-blue-50 transition-all duration-300 transform hover:scale-105"
+              className="bg-white text-purple-600 font-bold px-8 py-3 rounded-full hover:bg-purple-50 transition-all duration-300 transform hover:scale-105"
               onClick={() => {
                 const office = selectedOffice || offices[0];
                 openGoogleMaps(office);
@@ -428,7 +456,6 @@ const OfficeLocationsMap = () => {
         </div>
       </div>
     </section>
-  );
 };
 
 export default OfficeLocationsMap;

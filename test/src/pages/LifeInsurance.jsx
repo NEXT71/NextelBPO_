@@ -75,13 +75,6 @@ const LifeInsuranceSales = () => {
         </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
-          {/* Status Bar */}
-          <div className="inline-flex items-center gap-4 bg-black/20 backdrop-blur-lg border border-blue-500/20 rounded-full px-6 py-3 mb-8">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-blue-100 text-sm font-mono">Sales Engine: COMPLIANT</span>
-            <div className="w-1 h-4 bg-blue-500/30"></div>
-            <span className="text-blue-100 text-sm font-mono">{currentTime.toLocaleTimeString()}</span>
-          </div>
 
           <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-600 tracking-tight">
             Life Insurance Sales

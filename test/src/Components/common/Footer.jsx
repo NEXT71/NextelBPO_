@@ -59,7 +59,7 @@ const Footer = () => {
             <address className="not-italic space-y-3 text-purple-100">
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 text-purple-300 mt-0.5 mr-3 flex-shrink-0" />
-                <span>Saddar, Rawalpindi, Pakistan</span>
+                <span>838 walker rd STE 21-2 Dover DE 19904</span>
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />
@@ -67,7 +67,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />
-                <a href="tel:+15551234567" className="hover:text-white transition-colors">+92 370-5546296</a>
+                <a href="tel:+1 (659) 220-0667 className="hover:text-white transition-colors">+1 (659) 220-0667</a>
               </div>
               <div className="flex items-center">
                 <Clock className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />

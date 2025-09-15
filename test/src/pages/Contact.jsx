@@ -237,7 +237,7 @@ const Contact = () => {
                   <div className="mt-10 rounded-xl overflow-hidden border border-slate-700/50">
                     <iframe
                       title="NextelBPO Location"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.934389074088!2d73.06077031520235!3d33.56141398074888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df94f5e2b3283d%3A0x3e4a7c6a6a4a4a4a!2sSaddar%2C%20Rawalpindi%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3069.250788830402!2d-75.54148968462361!3d39.17080247952947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b8fb214c2a9d61%3A0x1c32f8f1f1d07d82!2s838%20Walker%20Rd%20STE%2021-2%2C%20Dover%2C%20DE%2019904%2C%20USA!5e0!3m2!1sen!2s!4v1694898200000!5m2!1sen!2s" 
                       width="100%"
                       height="250"
                       style={{ border: 0 }}

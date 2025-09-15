@@ -191,8 +191,7 @@ const Contact = () => {
                       <div>
                         <h3 className="font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">NextelBPO Headquarters</h3>
                         <address className="not-italic text-slate-400 leading-relaxed">
-                          <p>Saddar, Rawalpindi</p>
-                          <p>Pakistan</p>
+                          <p>838 walker rd STE 21-2 Dover DE 19904</p>
                         </address>
                       </div>
                     </div>

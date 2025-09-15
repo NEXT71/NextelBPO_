@@ -203,7 +203,7 @@ const Contact = () => {
                       <div>
                         <h3 className="font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">Phone</h3>
                         <p className="text-slate-400">
-                          <a href="tel:+923705546296" className="hover:text-purple-400 transition-colors duration-300">+92 (370) 554-6296</a>
+                          <a href="tel:+1 (659) 220-0667" className="hover:text-purple-400 transition-colors duration-300">+1 (659) 220-0667</a>
                         </p>
                       </div>
                     </div>
@@ -419,7 +419,7 @@ const Contact = () => {
             
             <div className="space-y-4">
               <a
-                href="https://wa.me/923705546296"
+                href="https://wa.me/+1 (659) 220-0667"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full group flex items-center justify-between px-6 py-4 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-xl font-semibold hover:from-green-700 hover:to-green-600 transition-all shadow-lg hover:shadow-xl"
@@ -429,7 +429,7 @@ const Contact = () => {
               </a>
               
               <a
-                href="tel:+923705546296"
+                href="tel:+1 (659) 220-0667"
                 className="w-full group flex items-center justify-between px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl"
               >
                 <span>Call Directly</span>

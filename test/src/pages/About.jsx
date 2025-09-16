@@ -1,10 +1,100 @@
-import { useState, useEffect } from 'react';
-import { ArrowRight, Users, Clock, Check, Shield, Mail, Linkedin, Star, Zap, TrendingUp, Activity } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react';
+import { 
+  ArrowRight, Users, Clock, Check, Shield, Mail, Linkedin, 
+  Star, Zap, TrendingUp, Activity 
+} from 'lucide-react';
+
+// Extract data to separate constants for better maintainability
+const MILESTONES = [
+  { year: "2018", event: "NextelBPO Founded", description: "Started with a vision to transform business operations" },
+  { year: "2022", event: "200+ Employees", description: "Reached a major milestone in team growth" },
+  { year: "2024", event: "Global Recognition", description: "Named Industry Leader by BPO Excellence Awards" }
+];
+
+const LEADERSHIP_TEAM = [
+  {
+    name: "Maaz Abbasi",
+    position: "Co-Founder & CEO",
+    description: "Visionary leader with 10+ years in BPO industry, driving company strategy and growth.",
+    image: "/Maaz Abbasi.JPG",
+    social: [
+      { platform: "LinkedIn", url: "https://www.linkedin.com/in/maaz-abbasi-989865172/", icon: <Linkedin size={18} /> },
+    ]
+  },
+  {
+    name: "AbuBakar Ahmed",
+    position: "Co-Founder & President",
+    description: "Operations expert specializing in process optimization and team development.",
+    image: "/AbuBakar.jpeg",
+    social: [
+      { platform: "LinkedIn", url: "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/", icon: <Linkedin size={18} /> }
+    ]
+  }
+];
+
+const TAB_CONTENT = {
+  mission: {
+    title: "Our Mission",
+    content: "To empower businesses with innovative Nextel BPO solutions that drive success. We aim to deliver exceptional lead generation, life insurance sales, quality assurance, inbound and customer services, and transcription services tailored to meet the unique needs of our clients."
+  },
+  vision: {
+    title: "Our Vision",
+    content: "To be the leading provider of comprehensive Nextel BPO services globally. We envision a future where our innovative solutions and dedicated service transform how businesses operate, enabling them to thrive in a competitive marketplace."
+  },
+  values: {
+    title: "Our Values",
+    content: "Excellence, Integrity, Innovation, and Partnership drive everything we do. We are committed to building long-term relationships based on trust, transparency, and mutual success."
+  }
+};
+
+const METRICS = [
+  { label: "Years of Excellence", value: "6+", icon: <TrendingUp className="w-5 h-5" /> },
+  { label: "Global Professionals", value: "200+", icon: <Users className="w-5 h-5" /> },
+  { label: "Client Satisfaction", value: "99.9%", icon: <Activity className="w-5 h-5" /> }
+];
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState('mission');
   const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Memoized values for performance
+  const currentTabContent = useMemo(() => TAB_CONTENT[activeTab], [activeTab]);
+  const structuredData = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "NextelBPO",
+      "foundingDate": "2018",
+      "description": "NextelBPO is a leading BPO company founded in 2018, specializing in lead generation, customer support, life insurance sales, and transcription services.",
+      "numberOfEmployees": "200+",
+      "founder": [
+        {
+          "@type": "Person",
+          "name": "Maaz Abbasi",
+          "jobTitle": "Co-Founder & CEO",
+          "sameAs": "https://www.linkedin.com/in/maaz-abbasi-989865172/"
+        },
+        {
+          "@type": "Person",
+          "name": "AbuBakar Ahmed", 
+          "jobTitle": "Co-Founder & President",
+          "sameAs": "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "838 walker rd STE 21-2",
+        "addressLocality": "Dover",
+        "addressRegion": "DE",
+        "postalCode": "19904",
+        "addressCountry": "US"
+      },
+      "email": "info@nextelbpo.co",
+      "telephone": "+1-659-220-0667"
+    }
+  }), []);
 
   useEffect(() => {
     setIsVisible(true);
@@ -50,43 +140,7 @@ const About = () => {
       ogTag.setAttribute('content', tag.content);
     });
 
-    // Structured Data for About Page
-    const structuredData = {
-      "@context": "https://schema.org",
-      "@type": "AboutPage",
-      "mainEntity": {
-        "@type": "Organization",
-        "name": "NextelBPO",
-        "foundingDate": "2018",
-        "description": "NextelBPO is a leading BPO company founded in 2018, specializing in lead generation, customer support, life insurance sales, and transcription services.",
-        "numberOfEmployees": "200+",
-        "founder": [
-          {
-            "@type": "Person",
-            "name": "Maaz Abbasi",
-            "jobTitle": "Co-Founder & CEO",
-            "sameAs": "https://www.linkedin.com/in/maaz-abbasi-989865172/"
-          },
-          {
-            "@type": "Person",
-            "name": "AbuBakar Ahmed", 
-            "jobTitle": "Co-Founder & President",
-            "sameAs": "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
-          }
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "838 walker rd STE 21-2",
-          "addressLocality": "Dover",
-          "addressRegion": "DE",
-          "postalCode": "19904",
-          "addressCountry": "US"
-        },
-        "email": "info@nextelbpo.co",
-        "telephone": "+1-659-220-0667"
-      }
-    };
-
+    // Structured Data
     const existingScript = document.querySelector('script[type="application/ld+json"]');
     if (existingScript) {
       existingScript.remove();
@@ -98,28 +152,142 @@ const About = () => {
     document.head.appendChild(script);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [structuredData]);
 
-  const tabContent = {
-    mission: {
-      title: "Our Mission",
-      content: "To empower businesses with innovative Nextel BPO solutions that drive success. We aim to deliver exceptional lead generation, life insurance sales, quality assurance, inbound and customer services, and transcription services tailored to meet the unique needs of our clients."
-    },
-    vision: {
-      title: "Our Vision",
-      content: "To be the leading provider of comprehensive Nextel BPO services globally. We envision a future where our innovative solutions and dedicated service transform how businesses operate, enabling them to thrive in a competitive marketplace."
-    },
-    values: {
-      title: "Our Values",
-      content: "Excellence, Integrity, Innovation, and Partnership drive everything we do. We are committed to building long-term relationships based on trust, transparency, and mutual success."
-    }
-  };
+  // Floating Orbs Background Component
+  const FloatingOrbs = () => (
+    <>
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
+          style={{
+            width: `${Math.random() * 200 + 100}px`,
+            height: `${Math.random() * 200 + 100}px`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            filter: 'blur(1px)'
+          }}
+        />
+      ))}
+    </>
+  );
 
-  const milestones = [
-    { year: "2018", event: "NextelBPO Founded", description: "Started with a vision to transform business operations" },
-    { year: "2022", event: "200+ Employees", description: "Reached a major milestone in team growth" },
-    { year: "2024", event: "Global Recognition", description: "Named Industry Leader by BPO Excellence Awards" }
-  ];
+  // Neural Network Lines Component
+  const NeuralNetworkLines = () => (
+    <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#8B5CF6" />
+          <stop offset="100%" stopColor="#EC4899" />
+        </linearGradient>
+      </defs>
+      {[...Array(12)].map((_, i) => (
+        <line
+          key={i}
+          x1={`${Math.random() * 100}%`}
+          y1={`${Math.random() * 100}%`}
+          x2={`${Math.random() * 100}%`}
+          y2={`${Math.random() * 100}%`}
+          stroke="url(#lineGradient)"
+          strokeWidth="1"
+          className="animate-pulse"
+          style={{ animationDelay: `${i * 0.2}s` }}
+        />
+      ))}
+    </svg>
+  );
+
+  // Metrics Dashboard Component
+  const MetricsDashboard = () => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+      {METRICS.map((metric, idx) => (
+        <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="text-purple-400">{metric.icon}</div>
+            <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
+          </div>
+          <div className="text-2xl font-bold text-white">{metric.value}</div>
+        </div>
+      ))}
+    </div>
+  );
+
+  // Leadership Card Component
+  const LeadershipCard = ({ member, index }) => (
+    <article
+      className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 overflow-hidden transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl hover:border-purple-500/50"
+      itemScope
+      itemType="https://schema.org/Person"
+    >
+      {/* Hover Glow Effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+      {/* Avatar */}
+      <div className="relative mb-6 mx-auto w-32 h-32">
+        <div className="absolute inset-0 rounded-full border-2 border-purple-400/30 group-hover:border-purple-400/60 transition-all duration-500"></div>
+        <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center overflow-hidden relative z-10 group-hover:scale-105 transition-transform duration-500">
+          <img 
+            src={member.image} 
+            alt={member.name}
+            className="w-full h-full object-cover rounded-full"
+            itemProp="image"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 text-center">
+        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300" itemProp="name">
+          {member.name}
+        </h3>
+        
+        <div className="mb-4">
+          <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30 text-purple-300 text-sm font-medium" itemProp="jobTitle">
+            {member.position}
+          </span>
+        </div>
+        
+        <p className="text-slate-400 mb-6 leading-relaxed" itemProp="description">
+          {member.description}
+        </p>
+        
+        {/* Social links */}
+        <div className="flex justify-center space-x-3">
+          {member.social.map((social, idx) => (
+            <a
+              key={idx}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 hover:text-white hover:from-purple-600 hover:to-pink-600 hover:border-transparent hover:shadow-lg transition-all duration-300"
+              itemProp="sameAs"
+            >
+              {social.icon}
+            </a>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+
+  // Timeline Item Component
+  const TimelineItem = ({ milestone, index }) => (
+    <div className="relative pl-20 pb-12 last:pb-0">
+      <div className="absolute left-6 w-4 h-4 bg-purple-600 rounded-full border-4 border-slate-950 shadow-lg"></div>
+      <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-purple-500/50">
+        <div className="flex items-center mb-2">
+          <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold mr-4">
+            {milestone.year}
+          </span>
+          <h3 className="text-xl font-bold text-white">{milestone.event}</h3>
+        </div>
+        <p className="text-slate-400">{milestone.description}</p>
+      </div>
+    </div>
+  );
 
   return (
     <main className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -158,44 +326,8 @@ const About = () => {
             backgroundSize: '50px 50px'
           }}></div>
 
-          {/* Floating Orbs */}
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
-              style={{
-                width: `${Math.random() * 200 + 100}px`,
-                height: `${Math.random() * 200 + 100}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                filter: 'blur(1px)'
-              }}
-            />
-          ))}
-
-          {/* Neural Network Lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#8B5CF6" />
-                <stop offset="100%" stopColor="#EC4899" />
-              </linearGradient>
-            </defs>
-            {[...Array(12)].map((_, i) => (
-              <line
-                key={i}
-                x1={`${Math.random() * 100}%`}
-                y1={`${Math.random() * 100}%`}
-                x2={`${Math.random() * 100}%`}
-                y2={`${Math.random() * 100}%`}
-                stroke="url(#lineGradient)"
-                strokeWidth="1"
-                className="animate-pulse"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              />
-            ))}
-          </svg>
+          <FloatingOrbs />
+          <NeuralNetworkLines />
         </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
@@ -212,22 +344,7 @@ const About = () => {
             </p>
           </div>
 
-          {/* Metrics Dashboard */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {[
-              { label: "Years of Excellence", value: "6+", icon: <TrendingUp className="w-5 h-5" /> },
-              { label: "Global Professionals", value: "200+", icon: <Users className="w-5 h-5" /> },
-              { label: "Client Satisfaction", value: "99.9%", icon: <Activity className="w-5 h-5" /> }
-            ].map((metric, idx) => (
-              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="text-purple-400">{metric.icon}</div>
-                  <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
-                </div>
-                <div className="text-2xl font-bold text-white">{metric.value}</div>
-              </div>
-            ))}
-          </div>
+          <MetricsDashboard />
         </div>
       </section>
 
@@ -319,7 +436,7 @@ const About = () => {
               <div className="flex flex-col md:flex-row">
                 <div className="md:w-1/3 bg-gradient-to-br from-purple-600 to-pink-600 p-8">
                   <div className="space-y-4">
-                    {Object.keys(tabContent).map((tab) => (
+                    {Object.keys(TAB_CONTENT).map((tab) => (
                       <button
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -329,7 +446,7 @@ const About = () => {
                             : 'text-white hover:bg-white hover:bg-opacity-20'
                         }`}
                       >
-                        {tabContent[tab].title}
+                        {TAB_CONTENT[tab].title}
                       </button>
                     ))}
                   </div>
@@ -338,10 +455,10 @@ const About = () => {
                 <div className="md:w-2/3 p-8 md:p-12">
                   <div className="animate-fadeIn">
                     <h3 className="text-3xl font-bold text-white mb-6">
-                      {tabContent[activeTab].title}
+                      {currentTabContent.title}
                     </h3>
                     <p className="text-slate-300 text-lg leading-relaxed">
-                      {tabContent[activeTab].content}
+                      {currentTabContent.content}
                     </p>
                   </div>
                 </div>
@@ -367,19 +484,8 @@ const About = () => {
             <div className="relative">
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-600 to-pink-600"></div>
               
-              {milestones.map((milestone, index) => (
-                <div key={index} className="relative pl-20 pb-12 last:pb-0">
-                  <div className="absolute left-6 w-4 h-4 bg-purple-600 rounded-full border-4 border-slate-950 shadow-lg"></div>
-                  <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-purple-500/50">
-                    <div className="flex items-center mb-2">
-                      <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold mr-4">
-                        {milestone.year}
-                      </span>
-                      <h3 className="text-xl font-bold text-white">{milestone.event}</h3>
-                    </div>
-                    <p className="text-slate-400">{milestone.description}</p>
-                  </div>
-                </div>
+              {MILESTONES.map((milestone, index) => (
+                <TimelineItem key={index} milestone={milestone} index={index} />
               ))}
             </div>
           </div>
@@ -400,81 +506,8 @@ const About = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  name: "Maaz Abbasi",
-                  position: "Co-Founder & CEO",
-                  description: "Visionary leader with 10+ years in BPO industry, driving company strategy and growth.",
-                  image: "/Maaz Abbasi.JPG",
-                  social: [
-                    { platform: "LinkedIn", url: "https://www.linkedin.com/in/maaz-abbasi-989865172/", icon: <Linkedin size={18} /> },
-                  ]
-                },
-                {
-                  name: "AbuBakar Ahmed",
-                  position: "Co-Founder & President",
-                  description: "Operations expert specializing in process optimization and team development.",
-                  image: "/AbuBakar.jpeg",
-                  social: [
-                    { platform: "LinkedIn", url: "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/", icon: <Linkedin size={18} /> }
-                  ]
-                }
-              ].map((member, index) => (
-                <article
-                  key={index}
-                  className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 overflow-hidden transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl hover:border-purple-500/50"
-                  itemScope
-                  itemType="https://schema.org/Person"
-                >
-                  {/* Hover Glow Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                  {/* Avatar */}
-                  <div className="relative mb-6 mx-auto w-32 h-32">
-                    <div className="absolute inset-0 rounded-full border-2 border-purple-400/30 group-hover:border-purple-400/60 transition-all duration-500"></div>
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center overflow-hidden relative z-10 group-hover:scale-105 transition-transform duration-500">
-                      <img 
-                        src={member.image} 
-                        alt={member.name}
-                        className="w-full h-full object-cover rounded-full"
-                        itemProp="image"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative z-10 text-center">
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300" itemProp="name">
-                      {member.name}
-                    </h3>
-                    
-                    <div className="mb-4">
-                      <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30 text-purple-300 text-sm font-medium" itemProp="jobTitle">
-                        {member.position}
-                      </span>
-                    </div>
-                    
-                    <p className="text-slate-400 mb-6 leading-relaxed" itemProp="description">
-                      {member.description}
-                    </p>
-                    
-                    {/* Social links */}
-                    <div className="flex justify-center space-x-3">
-                      {member.social.map((social, idx) => (
-                        <a
-                          key={idx}
-                          href={social.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 hover:text-white hover:from-purple-600 hover:to-pink-600 hover:border-transparent hover:shadow-lg transition-all duration-300"
-                          itemProp="sameAs"
-                        >
-                          {social.icon}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </article>
+              {LEADERSHIP_TEAM.map((member, index) => (
+                <LeadershipCard key={index} member={member} index={index} />
               ))}
             </div>
           </div>

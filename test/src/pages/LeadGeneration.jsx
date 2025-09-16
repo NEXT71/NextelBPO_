@@ -10,6 +10,76 @@ const LeadGeneration = () => {
   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+
+    // SEO Meta Tags
+    document.title = 'NextelBPO Lead Generation Services - High-Converting Sales Leads';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Professional B2B lead generation services with 3-5x higher conversion rates. BANT qualified leads, dedicated teams, and real-time reporting. Boost your sales pipeline with NextelBPO.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Professional B2B lead generation services with 3-5x higher conversion rates. BANT qualified leads, dedicated teams, and real-time reporting. Boost your sales pipeline with NextelBPO.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'B2B lead generation, qualified leads, sales leads, lead qualification, BANT leads, telemarketing services, appointment setting, sales outsourcing';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'NextelBPO Lead Generation - High-Converting Sales Leads' },
+      { property: 'og:description', content: 'Professional B2B lead generation services with 3-5x higher conversion rates and BANT qualified prospects.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Lead Generation",
+      "provider": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "description": "Professional B2B lead generation and sales development services"
+      },
+      "description": "High-quality B2B lead generation services with BANT qualification and dedicated teams",
+      "areaServed": "Worldwide",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": "+1-659-220-0667",
+        "serviceUrl": window.location.href
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -17,8 +87,109 @@ const LeadGeneration = () => {
     contentSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Service data
+  const processSteps = [
+    {
+      icon: <Target className="w-8 h-8" />,
+      title: "Target Identification",
+      description: "We analyze your ideal customer profile and identify high-potential targets using advanced data analytics"
+    },
+    {
+      icon: <Phone className="w-8 h-8" />,
+      title: "Outreach Campaign",
+      description: "Multi-channel approach including calls, emails, and social media with personalized messaging"
+    },
+    {
+      icon: <Shield className="w-8 h-8" />,
+      title: "Lead Qualification",
+      description: "Rigorous BANT qualification process to ensure only sales-ready leads reach your team"
+    }
+  ];
+
+  // Benefits data
+  const benefits = [
+    {
+      title: "Higher Conversion Rates",
+      description: "Our qualified leads convert 3-5x better than purchased lists or cold marketing campaigns",
+      icon: <TrendingUp className="w-6 h-6" />,
+      metric: "3-5x"
+    },
+    {
+      title: "Cost Effective ROI",
+      description: "Pay only for qualified leads, not vague marketing metrics or unqualified prospects",
+      icon: <Target className="w-6 h-6" />,
+      metric: "ROI+"
+    },
+    {
+      title: "Dedicated Team",
+      description: "Your own trained professionals focused exclusively on your campaign and industry",
+      icon: <Users className="w-6 h-6" />,
+      metric: "24/7"
+    },
+    {
+      title: "Real-time Reporting",
+      description: "Transparent metrics and insights into your lead pipeline with live dashboard access",
+      icon: <Activity className="w-6 h-6" />,
+      metric: "Live"
+    }
+  ];
+
+  // Industries data
+  const industries = [
+    { name: "Insurance", icon: <Shield className="w-6 h-6" /> },
+    { name: "Real Estate", icon: <Target className="w-6 h-6" /> },
+    { name: "Healthcare", icon: <Activity className="w-6 h-6" /> },
+    { name: "Technology", icon: <Zap className="w-6 h-6" /> },
+    { name: "Telecommunications", icon: <Phone className="w-6 h-6" /> },
+    { name: "Financial Services", icon: <TrendingUp className="w-6 h-6" /> }
+  ];
+
+  // FAQ data
+  const faqs = [
+    {
+      question: "How do you ensure lead quality?",
+      answer: "We use a comprehensive multi-step verification process including BANT qualification (Budget, Authority, Need, Timeline), custom criteria you specify, and behavioral scoring to ensure only high-quality prospects reach your sales team."
+    },
+    {
+      question: "What's the typical lead volume we can expect?",
+      answer: "Volume depends on your industry, target market, and budget, but most clients see 50-200 qualified leads per month from our campaigns. We provide detailed projections during our initial consultation."
+    },
+    {
+      question: "How quickly can you start generating leads?",
+      answer: "After our initial strategy session and campaign setup (1-2 days), we can typically start delivering qualified leads within 5-7 business days. Rush setup is available for urgent projects."
+    },
+    {
+      question: "Do you work with international markets?",
+      answer: "Yes, we have extensive experience generating leads across North America, Europe, Middle East, and Asia-Pacific regions. Our multilingual team ensures cultural and linguistic accuracy in all markets."
+    }
+  ];
+
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>NextelBPO Lead Generation Services - Professional B2B Sales Lead Solutions</h1>
+        <p>
+          NextelBPO delivers industry-leading B2B lead generation services with 3-5x higher conversion rates 
+          than traditional marketing methods. Our BANT qualified leads, dedicated teams, and multi-channel 
+          approach drive measurable revenue growth for businesses across 15+ industries.
+        </p>
+        <p>
+          With advanced target identification, personalized outreach campaigns, and rigorous lead qualification, 
+          we ensure your sales team receives only the highest quality prospects. Our real-time reporting and 
+          dedicated account management provide complete transparency into campaign performance.
+        </p>
+        <p>
+          Our lead generation services include comprehensive prospect research, multi-touch campaigns across 
+          phone, email, and social channels, BANT qualification, CRM integration, and ongoing lead nurturing 
+          until prospects are sales-ready.
+        </p>
+        <p>
+          Contact NextelBPO today to boost your sales pipeline with high-converting qualified leads. 
+          Email info@nextelbpo.co or call +1 (659) 220-0667 to discuss your lead generation requirements.
+        </p>
+      </div>
+
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}
@@ -34,8 +205,8 @@ const LeadGeneration = () => {
             backgroundSize: '50px 50px'
           }}></div>
 
-          {/* Floating Orbs */}
-          {[...Array(8)].map((_, i) => (
+          {/* Floating Orbs - Reduced number for performance */}
+          {[...Array(4)].map((_, i) => (
             <div
               key={i}
               className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
@@ -50,7 +221,7 @@ const LeadGeneration = () => {
             />
           ))}
 
-          {/* Neural Network Lines */}
+          {/* Neural Network Lines - Reduced number for performance */}
           <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -58,7 +229,7 @@ const LeadGeneration = () => {
                 <stop offset="100%" stopColor="#EC4899" />
               </linearGradient>
             </defs>
-            {[...Array(12)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <line
                 key={i}
                 x1={`${Math.random() * 100}%`}
@@ -164,23 +335,7 @@ const LeadGeneration = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-3 gap-8 mb-12">
-                    {[
-                      {
-                        icon: <Target className="w-8 h-8" />,
-                        title: "Target Identification",
-                        description: "We analyze your ideal customer profile and identify high-potential targets using advanced data analytics"
-                      },
-                      {
-                        icon: <Phone className="w-8 h-8" />,
-                        title: "Outreach Campaign",
-                        description: "Multi-channel approach including calls, emails, and social media with personalized messaging"
-                      },
-                      {
-                        icon: <Shield className="w-8 h-8" />,
-                        title: "Lead Qualification",
-                        description: "Rigorous BANT qualification process to ensure only sales-ready leads reach your team"
-                      }
-                    ].map((step, index) => (
+                    {processSteps.map((step, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="w-12 h-12 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-purple-600 group-hover:to-pink-600 group-hover:text-white transition-all duration-300">
                           <div className="text-purple-400 group-hover:text-white">
@@ -232,32 +387,7 @@ const LeadGeneration = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-2 gap-6">
-                    {[
-                      {
-                        title: "Higher Conversion Rates",
-                        description: "Our qualified leads convert 3-5x better than purchased lists or cold marketing campaigns",
-                        icon: <TrendingUp className="w-6 h-6" />,
-                        metric: "3-5x"
-                      },
-                      {
-                        title: "Cost Effective ROI",
-                        description: "Pay only for qualified leads, not vague marketing metrics or unqualified prospects",
-                        icon: <Target className="w-6 h-6" />,
-                        metric: "ROI+"
-                      },
-                      {
-                        title: "Dedicated Team",
-                        description: "Your own trained professionals focused exclusively on your campaign and industry",
-                        icon: <Users className="w-6 h-6" />,
-                        metric: "24/7"
-                      },
-                      {
-                        title: "Real-time Reporting",
-                        description: "Transparent metrics and insights into your lead pipeline with live dashboard access",
-                        icon: <Activity className="w-6 h-6" />,
-                        metric: "Live"
-                      }
-                    ].map((benefit, index) => (
+                    {benefits.map((benefit, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="flex items-start gap-4 mb-4">
                           <div className="w-12 h-12 bg-gradient-to-r from-green-500/20 to-purple-500/20 rounded-xl flex items-center justify-center">
@@ -292,14 +422,7 @@ const LeadGeneration = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    {[
-                      { name: "Insurance", icon: <Shield className="w-6 h-6" /> },
-                      { name: "Real Estate", icon: <Target className="w-6 h-6" /> },
-                      { name: "Healthcare", icon: <Activity className="w-6 h-6" /> },
-                      { name: "Technology", icon: <Zap className="w-6 h-6" /> },
-                      { name: "Telecommunications", icon: <Phone className="w-6 h-6" /> },
-                      { name: "Financial Services", icon: <TrendingUp className="w-6 h-6" /> }
-                    ].map((industry, index) => (
+                    {industries.map((industry, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center">
@@ -345,24 +468,7 @@ const LeadGeneration = () => {
                   </div>
                   
                   <div className="space-y-4">
-                    {[
-                      {
-                        question: "How do you ensure lead quality?",
-                        answer: "We use a comprehensive multi-step verification process including BANT qualification (Budget, Authority, Need, Timeline), custom criteria you specify, and behavioral scoring to ensure only high-quality prospects reach your sales team."
-                      },
-                      {
-                        question: "What's the typical lead volume we can expect?",
-                        answer: "Volume depends on your industry, target market, and budget, but most clients see 50-200 qualified leads per month from our campaigns. We provide detailed projections during our initial consultation."
-                      },
-                      {
-                        question: "How quickly can you start generating leads?",
-                        answer: "After our initial strategy session and campaign setup (1-2 days), we can typically start delivering qualified leads within 5-7 business days. Rush setup is available for urgent projects."
-                      },
-                      {
-                        question: "Do you work with international markets?",
-                        answer: "Yes, we have extensive experience generating leads across North America, Europe, Middle East, and Asia-Pacific regions. Our multilingual team ensures cultural and linguistic accuracy in all markets."
-                      }
-                    ].map((faq, index) => (
+                    {faqs.map((faq, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500">
                         <div className="p-6">
                           <div className="flex justify-between items-center mb-4">

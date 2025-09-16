@@ -10,6 +10,76 @@ const Transcription = () => {
   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+
+    // SEO Meta Tags
+    document.title = 'NextelBPO Transcription Services - Accurate & Secure Solutions';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Professional transcription services with 99%+ accuracy, HIPAA compliance, and 24-48 hour turnaround. Legal, medical, academic, and general transcription solutions.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Professional transcription services with 99%+ accuracy, HIPAA compliance, and 24-48 hour turnaround. Legal, medical, academic, and general transcription solutions.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'transcription services, audio transcription, video transcription, medical transcription, legal transcription, academic transcription, HIPAA compliant transcription';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'NextelBPO Transcription Services - Accurate & Secure Solutions' },
+      { property: 'og:description', content: 'Professional transcription services with 99%+ accuracy, HIPAA compliance, and 24-48 hour turnaround.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Transcription Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "description": "Professional transcription services provider"
+      },
+      "description": "Accurate and secure transcription services for legal, medical, academic, and general purposes",
+      "areaServed": "Worldwide",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": "+1-659-220-0667",
+        "serviceUrl": window.location.href
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -20,8 +90,129 @@ const Transcription = () => {
     });
   };
 
+  // Services data
+  const services = [
+    {
+      title: "General Transcription",
+      description: "Interviews, meetings, podcasts, and more",
+      icon: <Mic className="w-6 h-6" />,
+      features: ["98%+ accuracy", "Speaker identification", "Timestamps available", "Multiple formats"]
+    },
+    {
+      title: "Legal Transcription",
+      description: "Court proceedings, depositions, affidavits",
+      icon: <Shield className="w-6 h-6" />,
+      features: ["99%+ accuracy", "Certified transcribers", "Confidentiality guaranteed", "Court-ready formatting"]
+    },
+    {
+      title: "Medical Transcription",
+      description: "Patient records, doctor's notes, medical reports",
+      icon: <Activity className="w-6 h-6" />,
+      features: ["HIPAA compliant", "Medical terminology", "Secure transfer", "Quality assurance"]
+    },
+    {
+      title: "Academic Transcription",
+      description: "Lectures, research interviews, focus groups",
+      icon: <Users className="w-6 h-6" />,
+      features: ["Specialist terminology", "Citation formatting", "Research standards", "Peer review ready"]
+    }
+  ];
+
+  // Industries data
+  const industries = [
+    {
+      industry: "Legal",
+      description: "Court reporters, law firms, and legal departments",
+      icon: <Shield className="w-6 h-6" />,
+      specialties: ["Court proceedings", "Depositions", "Legal interviews", "Contract reviews"]
+    },
+    {
+      industry: "Medical",
+      description: "Hospitals, clinics, and healthcare providers",
+      icon: <Activity className="w-6 h-6" />,
+      specialties: ["Patient consultations", "Medical conferences", "Research interviews", "Clinical notes"]
+    },
+    {
+      industry: "Media & Entertainment",
+      description: "Journalists, filmmakers, and content creators",
+      icon: <Mic className="w-6 h-6" />,
+      specialties: ["Podcasts", "Interviews", "Documentary footage", "Media conferences"]
+    },
+    {
+      industry: "Academic & Research",
+      description: "Universities, researchers, and students",
+      icon: <Users className="w-6 h-6" />,
+      specialties: ["Research interviews", "Academic lectures", "Focus groups", "Thesis defense"]
+    }
+  ];
+
+  // Benefits data
+  const benefits = [
+    {
+      title: "Security & Confidentiality",
+      description: "Enterprise-grade security with encrypted file transfer and strict confidentiality agreements",
+      icon: <Shield className="w-6 h-6" />,
+      features: ["HIPAA Compliance", "GDPR Ready", "NDA Protection", "Encrypted Transfer"]
+    },
+    {
+      title: "Accuracy Guarantee",
+      description: "Three-step quality assurance process ensures 99%+ accuracy",
+      icon: <CheckCircle className="w-6 h-6" />,
+      features: ["Native speakers", "Professional editors", "Quality control", "Proofreading"]
+    },
+    {
+      title: "Fast Turnaround",
+      description: "Flexible options from same-day to standard delivery",
+      icon: <Clock className="w-6 h-6" />,
+      features: ["Same-day service", "24-hour turnaround", "Standard 3-5 days", "Bulk processing"]
+    }
+  ];
+
+  // FAQ data
+  const faqs = [
+    {
+      question: "What file formats do you accept?",
+      answer: "We accept all common audio and video formats including MP3, WAV, MP4, MOV, WMV, and more. We can also work with digital dictation files from most systems. If you have an unusual format, our technical team can usually accommodate it."
+    },
+    {
+      question: "How do you handle poor quality recordings?",
+      answer: "Our team is experienced with challenging audio conditions. We use professional audio enhancement tools and techniques to improve clarity. We'll assess your files and provide recommendations for improvement if needed."
+    },
+    {
+      question: "Can you provide timestamps in transcripts?",
+      answer: "Yes, we can provide timestamps at regular intervals (every 30 seconds, 1 minute, etc.) or at speaker changes, whichever you prefer. We can also provide precise timestamps for specific sections upon request."
+    },
+    {
+      question: "Do you offer verbatim transcription?",
+      answer: "Yes, we offer both verbatim (word-for-word including filler words and false starts) and clean read (edited for readability while maintaining meaning) transcription options. You can specify your preference when placing your order."
+    }
+  ];
+
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>NextelBPO Transcription Services - Professional Audio & Video Transcription</h1>
+        <p>
+          NextelBPO provides professional transcription services with 99%+ accuracy rates, HIPAA compliance, 
+          and fast turnaround times. Our services include legal transcription, medical transcription, academic 
+          transcription, and general transcription for various industries.
+        </p>
+        <p>
+          With enterprise-grade security measures, encrypted file transfer, and strict confidentiality agreements, 
+          we ensure your sensitive information remains protected. Our three-step quality assurance process guarantees 
+          accurate transcripts every time.
+        </p>
+        <p>
+          We serve legal professionals, healthcare providers, academic institutions, media companies, and businesses 
+          worldwide. Our transcribers are specialized in industry-specific terminology and formatting requirements.
+        </p>
+        <p>
+          Contact NextelBPO today for professional transcription solutions. Email info@nextelbpo.co or call 
+          +1 (659) 220-0667 to discuss your transcription needs.
+        </p>
+      </div>
+
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}
@@ -37,8 +228,8 @@ const Transcription = () => {
             backgroundSize: '50px 50px'
           }}></div>
 
-          {/* Floating Orbs */}
-          {[...Array(8)].map((_, i) => (
+          {/* Floating Orbs - Reduced for performance */}
+          {[...Array(4)].map((_, i) => (
             <div
               key={i}
               className="absolute rounded-full bg-gradient-to-br from-indigo-400/10 to-purple-600/10 animate-pulse"
@@ -53,7 +244,7 @@ const Transcription = () => {
             />
           ))}
 
-          {/* Neural Network Lines */}
+          {/* Neural Network Lines - Reduced for performance */}
           <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -61,7 +252,7 @@ const Transcription = () => {
                 <stop offset="100%" stopColor="#8B5CF6" />
               </linearGradient>
             </defs>
-            {[...Array(12)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <line
                 key={i}
                 x1={`${Math.random() * 100}%`}
@@ -128,7 +319,7 @@ const Transcription = () => {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6lx mx-auto">
             {/* Tabs Navigation */}
             <div className="flex flex-wrap justify-center gap-4 mb-16">
               {[
@@ -139,7 +330,7 @@ const Transcription = () => {
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => setActiveTab(tag.id)}
                   className={`group inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
@@ -167,32 +358,7 @@ const Transcription = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-2 gap-6">
-                    {[
-                      {
-                        title: "General Transcription",
-                        description: "Interviews, meetings, podcasts, and more",
-                        icon: <Mic className="w-6 h-6" />,
-                        features: ["98%+ accuracy", "Speaker identification", "Timestamps available", "Multiple formats"]
-                      },
-                      {
-                        title: "Legal Transcription",
-                        description: "Court proceedings, depositions, affidavits",
-                        icon: <Shield className="w-6 h-6" />,
-                        features: ["99%+ accuracy", "Certified transcribers", "Confidentiality guaranteed", "Court-ready formatting"]
-                      },
-                      {
-                        title: "Medical Transcription",
-                        description: "Patient records, doctor's notes, medical reports",
-                        icon: <Activity className="w-6 h-6" />,
-                        features: ["HIPAA compliant", "Medical terminology", "Secure transfer", "Quality assurance"]
-                      },
-                      {
-                        title: "Academic Transcription",
-                        description: "Lectures, research interviews, focus groups",
-                        icon: <Users className="w-6 h-6" />,
-                        features: ["Specialist terminology", "Citation formatting", "Research standards", "Peer review ready"]
-                      }
-                    ].map((service, index) => (
+                    {services.map((service, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="flex items-start gap-4 mb-4">
                           <div className="w-12 h-12 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl flex items-center justify-center">
@@ -258,32 +424,7 @@ const Transcription = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-2 gap-6 mb-8">
-                    {[
-                      {
-                        industry: "Legal",
-                        description: "Court reporters, law firms, and legal departments",
-                        icon: <Shield className="w-6 h-6" />,
-                        specialties: ["Court proceedings", "Depositions", "Legal interviews", "Contract reviews"]
-                      },
-                      {
-                        industry: "Medical",
-                        description: "Hospitals, clinics, and healthcare providers",
-                        icon: <Activity className="w-6 h-6" />,
-                        specialties: ["Patient consultations", "Medical conferences", "Research interviews", "Clinical notes"]
-                      },
-                      {
-                        industry: "Media & Entertainment",
-                        description: "Journalists, filmmakers, and content creators",
-                        icon: <Mic className="w-6 h-6" />,
-                        specialties: ["Podcasts", "Interviews", "Documentary footage", "Media conferences"]
-                      },
-                      {
-                        industry: "Academic & Research",
-                        description: "Universities, researchers, and students",
-                        icon: <Users className="w-6 h-6" />,
-                        specialties: ["Research interviews", "Academic lectures", "Focus groups", "Thesis defense"]
-                      }
-                    ].map((item, index) => (
+                    {industries.map((item, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="flex items-start gap-4 mb-4">
                           <div className="w-12 h-12 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl flex items-center justify-center">
@@ -342,26 +483,7 @@ const Transcription = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-3 gap-6">
-                    {[
-                      {
-                        title: "Security & Confidentiality",
-                        description: "Enterprise-grade security with encrypted file transfer and strict confidentiality agreements",
-                        icon: <Shield className="w-6 h-6" />,
-                        features: ["HIPAA Compliance", "GDPR Ready", "NDA Protection", "Encrypted Transfer"]
-                      },
-                      {
-                        title: "Accuracy Guarantee",
-                        description: "Three-step quality assurance process ensures 99%+ accuracy",
-                        icon: <CheckCircle className="w-6 h-6" />,
-                        features: ["Native speakers", "Professional editors", "Quality control", "Proofreading"]
-                      },
-                      {
-                        title: "Fast Turnaround",
-                        description: "Flexible options from same-day to standard delivery",
-                        icon: <Clock className="w-6 h-6" />,
-                        features: ["Same-day service", "24-hour turnaround", "Standard 3-5 days", "Bulk processing"]
-                      }
-                    ].map((benefit, index) => (
+                    {benefits.map((benefit, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="w-12 h-12 bg-gradient-to-r from-green-500/20 to-indigo-500/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
                           <div className="text-green-400">
@@ -397,24 +519,7 @@ const Transcription = () => {
                   </div>
                   
                   <div className="space-y-4">
-                    {[
-                      {
-                        question: "What file formats do you accept?",
-                        answer: "We accept all common audio and video formats including MP3, WAV, MP4, MOV, WMV, and more. We can also work with digital dictation files from most systems. If you have an unusual format, our technical team can usually accommodate it."
-                      },
-                      {
-                        question: "How do you handle poor quality recordings?",
-                        answer: "Our team is experienced with challenging audio conditions. We use professional audio enhancement tools and techniques to improve clarity. We'll assess your files and provide recommendations for improvement if needed."
-                      },
-                      {
-                        question: "Can you provide timestamps in transcripts?",
-                        answer: "Yes, we can provide timestamps at regular intervals (every 30 seconds, 1 minute, etc.) or at speaker changes, whichever you prefer. We can also provide precise timestamps for specific sections upon request."
-                      },
-                      {
-                        question: "Do you offer verbatim transcription?",
-                        answer: "Yes, we offer both verbatim (word-for-word including filler words and false starts) and clean read (edited for readability while maintaining meaning) transcription options. You can specify your preference when placing your order."
-                      }
-                    ].map((faq, index) => (
+                    {faqs.map((faq, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all duration-500">
                         <div className="p-6">
                           <div className="flex justify-between items-center mb-4">

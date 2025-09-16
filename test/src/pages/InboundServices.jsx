@@ -10,6 +10,76 @@ const InboundServices = () => {
   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+
+    // SEO Meta Tags
+    document.title = 'NextelBPO Inbound Services - 24/7 Customer Support Solutions';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Professional 24/7 inbound customer support services with multilingual agents, 98% satisfaction rate, and seamless CRM integration. Enhance your customer experience with NextelBPO.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Professional 24/7 inbound customer support services with multilingual agents, 98% satisfaction rate, and seamless CRM integration. Enhance your customer experience with NextelBPO.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'inbound customer service, 24/7 support, call center services, customer support outsourcing, multilingual support, help desk services';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'NextelBPO Inbound Services - 24/7 Customer Support' },
+      { property: 'og:description', content: 'Professional 24/7 inbound customer support services with multilingual agents and 98% satisfaction rate.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Customer Support",
+      "provider": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "description": "Leading provider of inbound customer support services"
+      },
+      "description": "24/7 professional inbound customer support services with multilingual agents",
+      "areaServed": "Worldwide",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": "+1-659-220-0667",
+        "serviceUrl": window.location.href
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -17,8 +87,108 @@ const InboundServices = () => {
     contentSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Service data
+  const services = [
+    {
+      title: "Customer Support",
+      description: "Technical support, product inquiries, and account management",
+      icon: <Headset className="w-6 h-6" />,
+      features: ["Technical troubleshooting", "Product information", "Account assistance"]
+    },
+    {
+      title: "Order Processing",
+      description: "Order taking, payment processing, and shipping updates",
+      icon: <ShoppingCart className="w-6 h-6" />,
+      features: ["Order entry", "Payment processing", "Status updates"]
+    },
+    {
+      title: "Appointment Scheduling",
+      description: "Calendar management and booking coordination",
+      icon: <Calendar className="w-6 h-6" />,
+      features: ["Calendar coordination", "Booking management", "Reminder services"]
+    },
+    {
+      title: "Emergency Dispatch",
+      description: "24/7 emergency call handling and response coordination",
+      icon: <AlertTriangle className="w-6 h-6" />,
+      features: ["Emergency response", "Dispatch coordination", "24/7 availability"]
+    }
+  ];
+
+  // Benefits data
+  const benefits = [
+    {
+      title: "98% Customer Satisfaction",
+      description: "Our professionally trained agents deliver exceptional service that boosts your CSAT scores",
+      icon: <CheckCircle className="w-6 h-6" />,
+      metric: "98%"
+    },
+    {
+      title: "60% Cost Reduction",
+      description: "Reduce overhead costs compared to in-house teams",
+      icon: <TrendingUp className="w-6 h-6" />,
+      metric: "60%"
+    },
+    {
+      title: "24-hour Ramp-up",
+      description: "Quickly scale up or down based on seasonal demand",
+      icon: <Clock className="w-6 h-6" />,
+      metric: "24h"
+    },
+    {
+      title: "Omnichannel Support",
+      description: "Phone, email, chat and social media customer service",
+      icon: <Zap className="w-6 h-6" />,
+      metric: "Multi"
+    }
+  ];
+
+  // FAQ data
+  const faqs = [
+    {
+      question: "What languages do your agents support?",
+      answer: "Our agents are fluent in English, Spanish, French, German, and several other languages. We can provide support in over 10 languages with native-level proficiency."
+    },
+    {
+      question: "How do you ensure quality with remote agents?",
+      answer: "We implement rigorous quality assurance measures including real-time call monitoring, regular scoring, ongoing training sessions, and customer feedback analysis."
+    },
+    {
+      question: "Can you integrate with our existing CRM?",
+      answer: "Yes, we have experience integrating with all major CRM platforms including Salesforce, HubSpot, Zendesk, and custom solutions. Our technical team ensures seamless data flow."
+    },
+    {
+      question: "What's your average response time?",
+      answer: "Our average speed to answer is under 30 seconds for standard service levels, with emergency lines answered immediately. We maintain 98% customer satisfaction across all interactions."
+    }
+  ];
+
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>NextelBPO Inbound Services - Professional Customer Support Solutions</h1>
+        <p>
+          NextelBPO provides industry-leading 24/7 inbound customer support services with multilingual agents, 
+          achieving a 98% customer satisfaction rate. Our services include technical support, order processing, 
+          appointment scheduling, and emergency dispatch for businesses worldwide.
+        </p>
+        <p>
+          With average response times under 30 seconds and support for over 10 languages, we deliver exceptional 
+          customer experiences that drive loyalty and growth. Our quality assurance processes ensure consistent 
+          service excellence across all customer interactions.
+        </p>
+        <p>
+          NextelBPO's inbound services help businesses reduce operational costs by up to 60% while maintaining 
+          high-quality customer support. We seamlessly integrate with your existing CRM systems and provide 
+          detailed analytics to track performance metrics.
+        </p>
+        <p>
+          Contact NextelBPO today to enhance your customer service capabilities with our professional 
+          inbound support solutions. Email info@nextelbpo.co or call +1 (659) 220-0667 to get started.
+        </p>
+      </div>
+
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}
@@ -34,8 +204,8 @@ const InboundServices = () => {
             backgroundSize: '50px 50px'
           }}></div>
 
-          {/* Floating Orbs */}
-          {[...Array(8)].map((_, i) => (
+          {/* Floating Orbs - Reduced number for performance */}
+          {[...Array(4)].map((_, i) => (
             <div
               key={i}
               className="absolute rounded-full bg-gradient-to-br from-blue-400/10 to-purple-600/10 animate-pulse"
@@ -50,7 +220,7 @@ const InboundServices = () => {
             />
           ))}
 
-          {/* Neural Network Lines */}
+          {/* Neural Network Lines - Reduced number for performance */}
           <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -58,7 +228,7 @@ const InboundServices = () => {
                 <stop offset="100%" stopColor="#8B5CF6" />
               </linearGradient>
             </defs>
-            {[...Array(12)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <line
                 key={i}
                 x1={`${Math.random() * 100}%`}
@@ -75,7 +245,6 @@ const InboundServices = () => {
         </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
-
           <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-600 tracking-tight">
             Inbound Services
           </h1>
@@ -231,32 +400,7 @@ const InboundServices = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-2 gap-6">
-                    {[
-                      {
-                        title: "Customer Support",
-                        description: "Technical support, product inquiries, and account management",
-                        icon: <Headset className="w-6 h-6" />,
-                        features: ["Technical troubleshooting", "Product information", "Account assistance"]
-                      },
-                      {
-                        title: "Order Processing",
-                        description: "Order taking, payment processing, and shipping updates",
-                        icon: <ShoppingCart className="w-6 h-6" />,
-                        features: ["Order entry", "Payment processing", "Status updates"]
-                      },
-                      {
-                        title: "Appointment Scheduling",
-                        description: "Calendar management and booking coordination",
-                        icon: <Calendar className="w-6 h-6" />,
-                        features: ["Calendar coordination", "Booking management", "Reminder services"]
-                      },
-                      {
-                        title: "Emergency Dispatch",
-                        description: "24/7 emergency call handling and response coordination",
-                        icon: <AlertTriangle className="w-6 h-6" />,
-                        features: ["Emergency response", "Dispatch coordination", "24/7 availability"]
-                      }
-                    ].map((service, index) => (
+                    {services.map((service, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="flex items-center gap-4 mb-4">
                           <div className="w-12 h-12 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl flex items-center justify-center">
@@ -296,32 +440,7 @@ const InboundServices = () => {
                   </div>
                   
                   <div className="grid md:grid-cols-2 gap-6">
-                    {[
-                      {
-                        title: "98% Customer Satisfaction",
-                        description: "Our professionally trained agents deliver exceptional service that boosts your CSAT scores",
-                        icon: <CheckCircle className="w-6 h-6" />,
-                        metric: "98%"
-                      },
-                      {
-                        title: "60% Cost Reduction",
-                        description: "Reduce overhead costs compared to in-house teams",
-                        icon: <TrendingUp className="w-6 h-6" />,
-                        metric: "60%"
-                      },
-                      {
-                        title: "24-hour Ramp-up",
-                        description: "Quickly scale up or down based on seasonal demand",
-                        icon: <Clock className="w-6 h-6" />,
-                        metric: "24h"
-                      },
-                      {
-                        title: "Omnichannel Support",
-                        description: "Phone, email, chat and social media customer service",
-                        icon: <Zap className="w-6 h-6" />,
-                        metric: "Multi"
-                      }
-                    ].map((benefit, index) => (
+                    {benefits.map((benefit, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2">
                         <div className="flex items-start gap-4 mb-4">
                           <div className="w-12 h-12 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-xl flex items-center justify-center">
@@ -356,24 +475,7 @@ const InboundServices = () => {
                   </div>
                   
                   <div className="space-y-4">
-                    {[
-                      {
-                        question: "What languages do your agents support?",
-                        answer: "Our agents are fluent in English, Spanish, French, German, and several other languages. We can provide support in over 10 languages with native-level proficiency."
-                      },
-                      {
-                        question: "How do you ensure quality with remote agents?",
-                        answer: "We implement rigorous quality assurance measures including real-time call monitoring, regular scoring, ongoing training sessions, and customer feedback analysis."
-                      },
-                      {
-                        question: "Can you integrate with our existing CRM?",
-                        answer: "Yes, we have experience integrating with all major CRM platforms including Salesforce, HubSpot, Zendesk, and custom solutions. Our technical team ensures seamless data flow."
-                      },
-                      {
-                        question: "What's your average response time?",
-                        answer: "Our average speed to answer is under 30 seconds for standard service levels, with emergency lines answered immediately. We maintain 98% customer satisfaction across all interactions."
-                      }
-                    ].map((faq, index) => (
+                    {faqs.map((faq, index) => (
                       <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-500">
                         <div className="p-6">
                           <div className="flex justify-between items-center mb-4">

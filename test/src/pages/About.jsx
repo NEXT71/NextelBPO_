@@ -9,6 +9,94 @@ const About = () => {
   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+
+    // SEO Meta Tags
+    document.title = 'About NextelBPO - Our Story, Mission & Leadership | Founded 2018';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Learn about NextelBPO\'s journey since 2018. Meet our leadership team, discover our mission to transform business operations, and see why 200+ professionals trust our vision.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Learn about NextelBPO\'s journey since 2018. Meet our leadership team, discover our mission to transform business operations, and see why 200+ professionals trust our vision.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'NextelBPO company history, BPO leadership team, Maaz Abbasi CEO, AbuBakar Ahmed President, company mission vision values, BPO company founded 2018, Delaware BPO company';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'About NextelBPO - Our Story, Mission & Leadership' },
+      { property: 'og:description', content: 'Learn about NextelBPO\'s journey since 2018. Meet our leadership team and discover our mission to transform business operations.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data for About Page
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "foundingDate": "2018",
+        "description": "NextelBPO is a leading BPO company founded in 2018, specializing in lead generation, customer support, life insurance sales, and transcription services.",
+        "numberOfEmployees": "200+",
+        "founder": [
+          {
+            "@type": "Person",
+            "name": "Maaz Abbasi",
+            "jobTitle": "Co-Founder & CEO",
+            "sameAs": "https://www.linkedin.com/in/maaz-abbasi-989865172/"
+          },
+          {
+            "@type": "Person",
+            "name": "AbuBakar Ahmed", 
+            "jobTitle": "Co-Founder & President",
+            "sameAs": "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
+          }
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "838 walker rd STE 21-2",
+          "addressLocality": "Dover",
+          "addressRegion": "DE",
+          "postalCode": "19904",
+          "addressCountry": "US"
+        },
+        "email": "info@nextelbpo.co",
+        "telephone": "+1-659-220-0667"
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -34,7 +122,27 @@ const About = () => {
   ];
 
   return (
-    <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <main className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>About NextelBPO - Premier BPO Company Since 2018</h1>
+        <p>
+          NextelBPO was founded in 2018 by visionary leaders Maaz Abbasi (CEO) and AbuBakar Ahmed (President) 
+          with a mission to transform business process outsourcing. Based in Dover, Delaware, our company has grown 
+          to over 200 professionals serving clients worldwide.
+        </p>
+        <p>
+          Our comprehensive BPO services include lead generation, inbound customer support, life insurance sales, 
+          and transcription services. We maintain a 99.9% client satisfaction rate and have been recognized as 
+          an industry leader in BPO excellence.
+        </p>
+        <p>
+          Maaz Abbasi, our Co-Founder and CEO, brings over 10 years of BPO industry experience, driving company 
+          strategy and growth. AbuBakar Ahmed, our Co-Founder and President, specializes in operations and process 
+          optimization, ensuring exceptional service delivery.
+        </p>
+      </div>
+
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}
@@ -91,15 +199,14 @@ const About = () => {
         </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
-
           <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 tracking-tight">
             About NextelBPO
           </h1>
           
           <div className="max-w-4xl mx-auto mb-12">
-            <p className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
+            <h2 className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
               Pioneering BPO Excellence Since 2018
-            </p>
+            </h2>
             <p className="text-lg text-purple-200/80">
               Innovation-driven • Globally-focused • Future-ready solutions
             </p>
@@ -152,7 +259,8 @@ const About = () => {
                   Founded in 2018
                 </h3>
                 <p className="text-slate-300 leading-relaxed">
-                  NextelBPO was born from a vision to transform how businesses operate. Starting as a small team of dedicated professionals.
+                  NextelBPO was born from a vision to transform how businesses operate. Starting as a small team of dedicated professionals, 
+                  our founders Maaz Abbasi and AbuBakar Ahmed set out to create a BPO company that would redefine industry standards.
                 </p>
               </div>
               
@@ -164,7 +272,8 @@ const About = () => {
                   Global Growth
                 </h3>
                 <p className="text-slate-300 leading-relaxed">
-                  Today, our team of over 200+ professionals spans multiple continents, delivering exceptional service worldwide.
+                  Today, our team of over 200+ professionals spans multiple continents, delivering exceptional service worldwide. 
+                  We've maintained our core values while scaling our operations to serve diverse industries and markets.
                 </p>
               </div>
             </div>
@@ -181,7 +290,7 @@ const About = () => {
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold mb-2">USA</div>
-                  <div className="text-purple-100">Countries Served</div>
+                  <div className="text-purple-100">Primary Market</div>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold mb-2">99.9%</div>
@@ -311,9 +420,11 @@ const About = () => {
                   ]
                 }
               ].map((member, index) => (
-                <div
+                <article
                   key={index}
                   className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 overflow-hidden transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl hover:border-purple-500/50"
+                  itemScope
+                  itemType="https://schema.org/Person"
                 >
                   {/* Hover Glow Effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -326,23 +437,24 @@ const About = () => {
                         src={member.image} 
                         alt={member.name}
                         className="w-full h-full object-cover rounded-full"
+                        itemProp="image"
                       />
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="relative z-10 text-center">
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300">
+                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300" itemProp="name">
                       {member.name}
                     </h3>
                     
                     <div className="mb-4">
-                      <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30 text-purple-300 text-sm font-medium">
+                      <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30 text-purple-300 text-sm font-medium" itemProp="jobTitle">
                         {member.position}
                       </span>
                     </div>
                     
-                    <p className="text-slate-400 mb-6 leading-relaxed">
+                    <p className="text-slate-400 mb-6 leading-relaxed" itemProp="description">
                       {member.description}
                     </p>
                     
@@ -355,13 +467,14 @@ const About = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 hover:text-white hover:from-purple-600 hover:to-pink-600 hover:border-transparent hover:shadow-lg transition-all duration-300"
+                          itemProp="sameAs"
                         >
                           {social.icon}
                         </a>
                       ))}
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -422,7 +535,7 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

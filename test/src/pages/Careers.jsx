@@ -52,14 +52,125 @@ const Careers = () => {
     }
   };
 
-  useEffect(() => {
+   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+
+    // SEO Meta Tags
+    document.title = 'NextelBPO Careers - Join Our Team | BPO Career Opportunities';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Explore career opportunities at NextelBPO. Join our team of 200+ professionals in the BPO industry. Submit your resume for future openings in lead generation, customer support, and insurance sales.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Explore career opportunities at NextelBPO. Join our team of 200+ professionals in the BPO industry. Submit your resume for future openings in lead generation, customer support, and insurance sales.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'BPO careers, call center jobs, work from home BPO, customer service jobs, lead generation careers, insurance sales jobs, remote BPO jobs';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'NextelBPO Careers - Join Our BPO Team' },
+      { property: 'og:description', content: 'Career opportunities at NextelBPO. Join our growing team of BPO professionals with excellent growth opportunities.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data for Careers Page
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "NextelBPO Careers",
+      "description": "Career opportunities at NextelBPO",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "numberOfEmployees": "200+",
+        "department": [
+          {
+            "@type": "Organization",
+            "name": "Lead Generation Department"
+          },
+          {
+            "@type": "Organization", 
+            "name": "Customer Support Department"
+          },
+          {
+            "@type": "Organization",
+            "name": "Insurance Sales Department"
+          },
+          {
+            "@type": "Organization",
+            "name": "Transcription Services Department"
+          }
+        ]
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+       {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>NextelBPO Careers - Join Our Growing BPO Team</h1>
+        <p>
+          NextelBPO offers exciting career opportunities in the business process outsourcing industry. 
+          While we currently don't have open positions, we're continuously growing and welcome talented 
+          professionals to submit their resumes for future opportunities.
+        </p>
+        <p>
+          Our company has experienced 250% team growth and maintains professionals across 15+ countries. 
+          We offer excellent career advancement opportunities with 85% of our team members experiencing 
+          professional growth within the organization.
+        </p>
+        <p>
+          NextelBPO provides comprehensive benefits including clear career advancement paths, leadership 
+          development programs, flexible work schedules, remote work opportunities, and exposure to 
+          cutting-edge technology and innovative solutions.
+        </p>
+        <p>
+          We value our global team environment that fosters collaboration across diverse cultures and 
+          continents. Our work culture emphasizes innovation, professional development, and work-life 
+          balance.
+        </p>
+        <p>
+          Submit your resume to join our talent network and be the first to know about new opportunities 
+          in lead generation, customer support, insurance sales, transcription services, and other BPO 
+          specializations.
+        </p>
+      </div>
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}

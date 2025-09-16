@@ -11,6 +11,91 @@ const TeamPage = () => {
   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+
+    // SEO Meta Tags
+    document.title = 'NextelBPO Team - Meet Our Leadership & Operations Experts';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Meet the NextelBPO leadership team and operations experts. Learn about our Co-Founders Maaz Abbasi, AbuBakar Ahmed, Sameer Malik and our dedicated operations professionals.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Meet the NextelBPO leadership team and operations experts. Learn about our Co-Founders Maaz Abbasi, AbuBakar Ahmed, Sameer Malik and our dedicated operations professionals.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'NextelBPO team, BPO leadership, operations team, Maaz Abbasi CEO, AbuBakar Ahmed President, Sameer Malik Co-Founder, BPO professionals';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'NextelBPO Team - Meet Our Leadership & Operations Experts' },
+      { property: 'og:description', content: 'Meet the NextelBPO leadership team and operations experts driving innovation in business process outsourcing.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data for Team Page
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "NextelBPO Team",
+      "description": "Meet the leadership and operations team at NextelBPO",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "employee": [
+          {
+            "@type": "Person",
+            "name": "Maaz Abbasi",
+            "jobTitle": "Co-Founder & CEO",
+            "description": "10+ years in BPO industry, driving company strategy and growth.",
+            "sameAs": "https://www.linkedin.com/in/maaz-abbasi-989865172/"
+          },
+          {
+            "@type": "Person",
+            "name": "AbuBakar Ahmed", 
+            "jobTitle": "Co-Founder & President",
+            "description": "Operations expert specializing in process optimization.",
+            "sameAs": "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
+          },
+          {
+            "@type": "Person",
+            "name": "Sameer Malik",
+            "jobTitle": "Co-Founder",
+            "description": "Strategic business development with extensive industry connections."
+          }
+        ]
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -24,21 +109,20 @@ const TeamPage = () => {
           position: "Co-Founder & CEO",
           image: "/Maaz Abbasi.JPG",
           bio: "10+ years in BPO industry, driving company strategy and growth.",
-          
+          linkedin: "https://www.linkedin.com/in/maaz-abbasi-989865172/"
         },
         {
           name: "AbuBakar Ahmed",
           position: "Co-Founder & President",
           image: "/AbuBakar.jpeg",
           bio: "Operations expert specializing in process optimization.",
-          
+          linkedin: "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
         },
         {
           name: "Sameer Malik",
           position: "Co-Founder",
           image: "/Sameer Malik.JPG",
-          bio: "Strategic business development with extensive industry connections.",
-        
+          bio: "Strategic business development with extensive industry connections."
         }
       ]
     },
@@ -49,19 +133,20 @@ const TeamPage = () => {
         {
           name: "Muhammad Yasir",
           image: "/Muhammad Yasir.JPG",
-          position: "Operations Manager"
+          position: "Operations Manager",
+          bio: "Experienced operations manager with expertise in team leadership and process optimization."
         },
         {
           name: "Waleed Khan",
           image: "/Waleed Khan.JPG",
-          position: "Operations Specialist"
-          
+          position: "Operations Specialist",
+          bio: "Specialized in operational efficiency and client relationship management."
         },
         {
           name: "Abdul Moeed",
           image: "/Abdul Moed.JPG",
-          position: "Operations Coordinator"
-          
+          position: "Operations Coordinator",
+          bio: "Skilled in coordinating daily operations and ensuring service quality standards."
         }
       ]
     }
@@ -69,6 +154,24 @@ const TeamPage = () => {
 
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>NextelBPO Team - Leadership and Operations Experts</h1>
+        <p>
+          Meet the NextelBPO leadership team including Co-Founders Maaz Abbasi (CEO), AbuBakar Ahmed (President), 
+          and Sameer Malik. Our leadership brings decades of combined experience in the BPO industry, driving innovation
+          and excellence in business process outsourcing.
+        </p>
+        <p>
+          Our operations team includes Muhammad Yasir (Operations Manager), Waleed Khan (Operations Specialist),
+          and Abdul Moeed (Operations Coordinator) who ensure seamless service delivery and client satisfaction.
+        </p>
+        <p>
+          NextelBPO was founded in 2018 and has grown to over 50 professionals across multiple departments,
+          serving clients worldwide with lead generation, customer support, life insurance sales, and transcription services.
+        </p>
+      </div>
+
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}
@@ -208,6 +311,8 @@ const TeamPage = () => {
                   <div
                     key={member.name}
                     className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2"
+                    itemScope
+                    itemType="https://schema.org/Person"
                   >
                     {/* Hover Glow Effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -223,6 +328,7 @@ const TeamPage = () => {
                             src={member.image} 
                             alt={member.name}
                             className="w-full h-full object-cover rounded-full"
+                            itemProp="image"
                           />
                         </div>
                         
@@ -234,19 +340,35 @@ const TeamPage = () => {
 
                       {/* Content */}
                       <div className="relative z-10 text-center flex-grow flex flex-col">
-                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300">
+                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300" itemProp="name">
                           {member.name}
                         </h3>
                         
                         <div className="mb-4">
-                          <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-medium group-hover:from-purple-500/20 group-hover:to-pink-500/20 group-hover:border-purple-400/40 transition-all duration-300">
+                          <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-medium group-hover:from-purple-500/20 group-hover:to-pink-500/20 group-hover:border-purple-400/40 transition-all duration-300" itemProp="jobTitle">
                             {member.position}
                           </span>
                         </div>
                         
-                        <p className="text-slate-400 mb-6 leading-relaxed flex-grow">
+                        <p className="text-slate-400 mb-6 leading-relaxed flex-grow" itemProp="description">
                           {member.bio}
                         </p>
+                        
+                        {/* Social links */}
+                        {member.linkedin && (
+                          <div className="flex justify-center">
+                            <a
+                              href={member.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 hover:text-white hover:from-purple-600 hover:to-pink-600 hover:border-transparent hover:shadow-lg transition-all duration-300"
+                              itemProp="sameAs"
+                              aria-label={`Connect with ${member.name} on LinkedIn`}
+                            >
+                              <Linkedin className="w-5 h-5" />
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
 

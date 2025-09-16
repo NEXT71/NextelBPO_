@@ -18,6 +18,81 @@ const Contact = () => {
   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    
+    // SEO Meta Tags
+    document.title = 'Contact NextelBPO - Get in Touch | BPO Services Inquiry';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Contact NextelBPO for BPO services inquiries. Reach our global team via phone, email, or contact form. Fast response times and 24/7 support available.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Contact NextelBPO for BPO services inquiries. Reach our global team via phone, email, or contact form. Fast response times and 24/7 support available.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'contact NextelBPO, BPO services inquiry, call center contact, customer support contact, business process outsourcing contact';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'Contact NextelBPO - Get in Touch for BPO Services' },
+      { property: 'og:description', content: 'Reach out to NextelBPO for BPO service inquiries. Multiple contact channels available with fast response times.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data for Contact Page
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact NextelBPO",
+      "description": "Contact page for NextelBPO BPO services",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "838 walker rd STE 21-2",
+          "addressLocality": "Dover",
+          "addressRegion": "DE",
+          "postalCode": "19904",
+          "addressCountry": "US"
+        },
+        "telephone": "+1 (659) 220-0667",
+        "email": "info@nextelbpo.co",
+        "openingHours": "Mo-Sa 18:40-04:30",
+        "url": window.location.origin
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -69,6 +144,30 @@ const Contact = () => {
 
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>Contact NextelBPO - Get in Touch for BPO Services</h1>
+        <p>
+          Reach out to NextelBPO for all your business process outsourcing needs. Our team of 200+ professionals 
+          is ready to assist with lead generation, customer support, insurance sales, and transcription services.
+        </p>
+        <p>
+          Contact us via phone at +1 (659) 220-0667, email at info@nextelbpo.co, or use our convenient contact form. 
+          We're available Monday through Saturday from 6:40 PM to 4:30 AM with 24/7 emergency support for existing clients.
+        </p>
+        <p>
+          Our headquarters is located at 838 walker rd STE 21-2 Dover DE 19904. We serve clients globally with 
+          team members across 15+ countries, ensuring round-the-clock coverage and support.
+        </p>
+        <p>
+          NextelBPO prides itself on rapid response times, with most inquiries answered within 2 minutes during 
+          business hours. We maintain a 98.5% customer satisfaction rate across all support channels.
+        </p>
+        <p>
+          Whether you're looking to outsource business processes, inquire about our services, or explore partnership 
+          opportunities, our team is ready to assist with customized solutions tailored to your specific needs.
+        </p>
+      </div>
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}

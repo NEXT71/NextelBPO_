@@ -70,6 +70,107 @@ const Services = () => {
   useEffect(() => {
     setIsVisible(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+
+    // SEO Meta Tags
+    document.title = 'NextelBPO Services - Lead Generation, Inbound Support & Insurance Sales';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'NextelBPO offers comprehensive BPO services including lead generation, inbound customer support, life insurance sales, and transcription services. 99.7% success rate with 150+ active clients.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'NextelBPO offers comprehensive BPO services including lead generation, inbound customer support, life insurance sales, and transcription services. 99.7% success rate with 150+ active clients.';
+      document.head.appendChild(meta);
+    }
+
+    // Keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = 'keywords';
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = 'BPO services, lead generation services, inbound call center, transcription services, life insurance sales, customer support outsourcing, business process outsourcing';
+
+    // Open Graph tags
+    const ogTags = [
+      { property: 'og:title', content: 'NextelBPO Services - Premium BPO Solutions' },
+      { property: 'og:description', content: 'Professional BPO services including lead generation, customer support, insurance sales, and transcription services.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href }
+    ];
+
+    ogTags.forEach(tag => {
+      let ogTag = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!ogTag) {
+        ogTag = document.createElement('meta');
+        ogTag.setAttribute('property', tag.property);
+        document.head.appendChild(ogTag);
+      }
+      ogTag.setAttribute('content', tag.content);
+    });
+
+    // Structured Data for Services Page
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Business Process Outsourcing",
+      "provider": {
+        "@type": "Organization",
+        "name": "NextelBPO",
+        "description": "Leading BPO company providing comprehensive business process outsourcing services"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "BPO Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Lead Generation",
+              "description": "Targeted lead generation services to build high-quality sales pipelines"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Inbound Services",
+              "description": "Professional inbound call handling and customer service solutions"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Transcriptions",
+              "description": "Accurate transcription services for medical, legal, and business needs"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Life Insurance Sales",
+              "description": "Specialized outbound sales services for life insurance providers"
+            }
+          }
+        ]
+      }
+    };
+
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -94,6 +195,35 @@ const Services = () => {
 
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Hidden SEO content */}
+      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
+        <h1>NextelBPO Services - Comprehensive BPO Solutions</h1>
+        <p>
+          NextelBPO provides industry-leading business process outsourcing services including professional 
+          lead generation, inbound customer support, transcription services, and specialized life insurance sales. 
+          With a 99.7% success rate and serving 150+ active clients, we deliver exceptional results through 
+          our team of 200+ professionals.
+        </p>
+        <p>
+          Our lead generation services help businesses build high-quality sales pipelines with targeted 
+          lead sourcing, qualification, CRM integration, and performance analytics. We serve industries 
+          including insurance, financial services, real estate, and healthcare.
+        </p>
+        <p>
+          NextelBPO's inbound services provide 24/7 customer support with multilingual capabilities, 
+          call routing, and customer satisfaction tracking for e-commerce, healthcare, telecommunications, 
+          and financial services companies.
+        </p>
+        <p>
+          Our transcription services guarantee 99% accuracy with fast turnaround times, secure handling, 
+          and support for multiple file formats. We specialize in medical, legal, media, and education sectors.
+        </p>
+        <p>
+          The life insurance sales division features trained insurance agents, lead nurturing, appointment 
+          setting, and comprehensive sales reporting for life insurance providers, financial planning firms, 
+          and retirement services companies.
+        </p>
+      </div>
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}

@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import Hero from '../Components/sections/Hero.jsx';
 import Services from '../Components/sections/Services.jsx';
 import Testimonials from '../Components/sections/Testimonials.jsx';
 import Stats from '../Components/sections/Stats.jsx';
-import OfficeLocationsMap from '../Components/sections/Offices.jsx';
+
+// Lazy load heavy components
+const OfficeLocationsMap = lazy(() => import('../Components/sections/Offices.jsx'));
 
 const Home = () => {
   useEffect(() => {
@@ -192,7 +194,10 @@ const Home = () => {
 
       <Hero />
       <Services />
-      <OfficeLocationsMap/>
+      {/* Lazy loaded map component with fallback */}
+      <Suspense fallback={<div className="map-placeholder">Loading map...</div>}>
+        <OfficeLocationsMap/>
+      </Suspense>
       <Stats />
       <Testimonials />
     </main>

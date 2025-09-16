@@ -1,143 +1,216 @@
-import { useState, useRef } from 'react';
-import { Shield, Calendar, TrendingUp, Users, Check, ArrowRight, CheckCircle, Phone, Search } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Shield, Calendar, TrendingUp, Users, Check, ArrowRight, CheckCircle, Phone, Search, Target, Zap, Activity, Star } from 'lucide-react';
 
 const LifeInsuranceSales = () => {
   const [activeTab, setActiveTab] = useState('approach');
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [isVisible, setIsVisible] = useState(false);
   const contentSectionRef = useRef(null);
+
+  useEffect(() => {
+    setIsVisible(true);
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const scrollToContent = () => {
     contentSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
-        {/* Background Elements */}
+      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
+        {/* Futuristic Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5"></div>
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%)
-            `
-          }}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-indigo-500/5"></div>
           
-          {/* Floating Elements */}
-          {[...Array(15)].map((_, i) => (
+          {/* Animated Grid */}
+          <div className="absolute inset-0 opacity-20" style={{
+            backgroundImage: `
+              linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+
+          {/* Floating Orbs */}
+          {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-blue-400/30 rounded-full animate-pulse"
+              className="absolute rounded-full bg-gradient-to-br from-blue-400/10 to-indigo-600/10 animate-pulse"
               style={{
+                width: `${Math.random() * 200 + 100}px`,
+                height: `${Math.random() * 200 + 100}px`,
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
+                animationDelay: `${Math.random() * 2}s`,
+                filter: 'blur(1px)'
               }}
             />
           ))}
-        </div>
 
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="inline-block relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-            <div className="relative p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full">
-              <Shield className="w-12 h-12 text-white" />
-            </div>
-          </div>
-          
-          <h1 className="text-5xl md:text-6xl font-black mb-8 tracking-tight leading-tight">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-600 bg-clip-text text-transparent">Life Insurance</span> Sales Solutions
+          {/* Neural Network Lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#3B82F6" />
+                <stop offset="100%" stopColor="#6366F1" />
+              </linearGradient>
+            </defs>
+            {[...Array(12)].map((_, i) => (
+              <line
+                key={i}
+                x1={`${Math.random() * 100}%`}
+                y1={`${Math.random() * 100}%`}
+                x2={`${Math.random() * 100}%`}
+                y2={`${Math.random() * 100}%`}
+                stroke="url(#lineGradient)"
+                strokeWidth="1"
+                className="animate-pulse"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              />
+            ))}
+          </svg>
+        </div>
+        
+        <div className="relative z-10 container mx-auto px-6 text-center">
+
+          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-600 tracking-tight">
+            Life Insurance Sales
           </h1>
           
-          <p className="text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-8 font-light">
-            Specialized outbound sales services to grow your insurance business
-          </p>
-
-          <div className="flex justify-center">
-            <button 
-              onClick={scrollToContent}
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300"
-            >
-              Learn More
-            </button>
+          <div className="max-w-4xl mx-auto mb-12">
+            <p className="text-2xl md:text-3xl text-blue-100 mb-4 font-light">
+              Specialized Outbound Sales Solutions
+            </p>
+            <p className="text-lg text-blue-200/80">
+              Compliant • Expert • Results-Driven
+            </p>
           </div>
+
+          {/* Metrics Dashboard */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
+            {[
+              { label: "Conversion Rate", value: "15-25%", icon: <TrendingUp className="w-5 h-5" /> },
+              { label: "ROI Increase", value: "3-5x", icon: <Target className="w-5 h-5" /> },
+              { label: "Cost Reduction", value: "40-60%", icon: <Activity className="w-5 h-5" /> }
+            ].map((metric, idx) => (
+              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-blue-400">{metric.icon}</div>
+                  <span className="text-blue-100 text-sm font-medium">{metric.label}</span>
+                </div>
+                <div className="text-2xl font-bold text-white">{metric.value}</div>
+              </div>
+            ))}
+          </div>
+
+          <button 
+            onClick={scrollToContent}
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+          >
+            Explore Our Approach
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </section>
 
       {/* Content Section */}
-      <section ref={contentSectionRef} className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4">
+      <section ref={contentSectionRef} className="py-24 bg-slate-950 relative">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Tabs Navigation */}
             <div className="flex flex-wrap justify-center gap-4 mb-16">
               {[
-                { id: 'approach', label: 'Our Approach' },
-                { id: 'services', label: 'Services' },
-                { id: 'results', label: 'Results' },
-                { id: 'faq', label: 'FAQ' }
+                { id: 'approach', label: 'Our Approach', icon: <Shield className="w-4 h-4" /> },
+                { id: 'services', label: 'Services', icon: <Users className="w-4 h-4" /> },
+                { id: 'results', label: 'Results', icon: <TrendingUp className="w-4 h-4" /> },
+                { id: 'faq', label: 'FAQ', icon: <Star className="w-4 h-4" /> }
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all ${
+                  className={`group inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md'
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                      : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white border border-slate-700/50'
                   }`}
                 >
+                  {tab.icon}
                   {tab.label}
                 </button>
               ))}
             </div>
 
             {/* Tab Content */}
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200">
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl">
               {/* Approach Tab */}
               {activeTab === 'approach' && (
                 <div className="p-8 md:p-12">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-8">Our Sales Approach</h2>
+                  <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+                      <Shield className="w-5 h-5 text-blue-400" />
+                      <span className="text-blue-100 font-medium">Strategic Sales Approach</span>
+                    </div>
+                    <h2 className="text-4xl font-bold text-white mb-4">Our Life Insurance Sales Methodology</h2>
+                    <p className="text-xl text-slate-400 max-w-3xl mx-auto">Compliance-first approach with proven results in the insurance industry</p>
+                  </div>
                   
                   <div className="grid md:grid-cols-3 gap-8 mb-12">
                     {[
                       {
-                        icon: <Users className="w-8 h-8 text-blue-600" />,
+                        icon: <Target className="w-8 h-8" />,
                         title: "Targeted Prospecting",
-                        description: "We identify and qualify ideal candidates for your products"
+                        description: "We identify and qualify ideal candidates for your insurance products using advanced data analytics"
                       },
                       {
-                        icon: <Phone className="w-8 h-8 text-blue-600" />,
+                        icon: <Phone className="w-8 h-8" />,
                         title: "Needs-Based Selling",
-                        description: "Consultative approach focused on client needs and goals"
+                        description: "Consultative approach focused on understanding client needs and financial goals"
                       },
                       {
-                        icon: <Shield className="w-8 h-8 text-blue-600" />,
+                        icon: <Shield className="w-8 h-8" />,
                         title: "Compliance Focused",
-                        description: "All interactions follow strict regulatory guidelines"
+                        description: "All interactions follow strict regulatory guidelines and industry best practices"
                       }
                     ].map((step, index) => (
-                      <div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-200">
-                        <div className="p-6">
-                          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2">
+                        <div className="w-12 h-12 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-xl flex items-center justify-center mb-4 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white transition-all duration-300">
+                          <div className="text-blue-400 group-hover:text-white">
                             {step.icon}
                           </div>
-                          <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">{step.title}</h3>
-                          <p className="text-gray-600">{step.description}</p>
                         </div>
+                        <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors">{step.title}</h3>
+                        <p className="text-slate-400">{step.description}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100">
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-4">Specialized Insurance Sales</h3>
-                    <p className="text-gray-700 mb-6">
+                  <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-2xl p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
+                        <Zap className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-white mb-2">Specialized Insurance Sales</h3>
+                        <p className="text-blue-200">Expert knowledge across all insurance product lines</p>
+                      </div>
+                    </div>
+                    <p className="text-slate-300 mb-6 leading-relaxed">
                       Our agents are specifically trained in life insurance products including term life, whole life, 
                       universal life, and final expense policies. We understand the nuances of each product type and 
-                      how to effectively communicate their benefits.
+                      how to effectively communicate their benefits while maintaining full regulatory compliance.
                     </p>
                     <div className="flex flex-wrap gap-3">
-                      {["Term Life", "Whole Life", "Universal Life", "Final Expense", "Annuities"].map((product, i) => (
-                        <span key={i} className="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm border border-gray-200">
+                      {["Term Life", "Whole Life", "Universal Life", "Final Expense", "Annuities", "Disability Insurance"].map((product, i) => (
+                        <span key={i} className="bg-white/10 border border-blue-500/30 px-4 py-2 rounded-full text-sm font-medium text-blue-200">
                           {product}
                         </span>
                       ))}
@@ -149,56 +222,63 @@ const LifeInsuranceSales = () => {
               {/* Services Tab */}
               {activeTab === 'services' && (
                 <div className="p-8 md:p-12">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-8">Our Life Insurance Sales Services</h2>
+                  <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+                      <Users className="w-5 h-5 text-blue-400" />
+                      <span className="text-blue-100 font-medium">Service Portfolio</span>
+                    </div>
+                    <h2 className="text-4xl font-bold text-white mb-4">Our Life Insurance Sales Services</h2>
+                    <p className="text-xl text-slate-400">Comprehensive solutions for every stage of the sales process</p>
+                  </div>
                   
                   <div className="space-y-6">
                     {[
                       {
                         title: "Lead Generation & Qualification",
                         description: "We identify and pre-qualify potential clients based on your ideal customer profile",
-                        icon: <Search className="w-6 h-6 text-blue-500" />,
-                        features: ["Demographic targeting", "Financial qualification", "Needs assessment"]
+                        icon: <Search className="w-6 h-6" />,
+                        features: ["Demographic targeting", "Financial qualification", "Needs assessment", "Compliance screening"]
                       },
                       {
                         title: "Appointment Setting",
-                        description: "Book qualified appointments for your in-house sales team",
-                        icon: <Calendar className="w-6 h-6 text-blue-500" />,
-                        features: ["Calendar coordination", "Reminder follow-ups", "Pre-call briefing"]
+                        description: "Book qualified appointments for your in-house sales team or licensed agents",
+                        icon: <Calendar className="w-6 h-6" />,
+                        features: ["Calendar coordination", "Reminder follow-ups", "Pre-call briefing", "Prospect preparation"]
                       },
                       {
                         title: "Full Sales Cycle",
                         description: "End-to-end sales process from initial contact to policy issuance",
-                        icon: <TrendingUp className="w-6 h-6 text-blue-500" />,
-                        features: ["Needs analysis", "Product presentation", "Application completion"]
+                        icon: <TrendingUp className="w-6 h-6" />,
+                        features: ["Needs analysis", "Product presentation", "Application completion", "Objection handling"]
                       },
                       {
                         title: "Client Onboarding",
-                        description: "Complete policy setup and initial premium collection",
-                        icon: <CheckCircle className="w-6 h-6 text-blue-500" />,
-                        features: ["Application submission", "Underwriting coordination", "First premium collection"]
+                        description: "Complete policy setup and initial premium collection with ongoing support",
+                        icon: <CheckCircle className="w-6 h-6" />,
+                        features: ["Application submission", "Underwriting coordination", "First premium collection", "Policy delivery"]
                       }
                     ].map((service, index) => (
-                      <div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-200">
-                        <div className="p-6">
-                          <div className="flex items-start gap-4 mb-4">
-                            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-500">
+                        <div className="flex items-start gap-4 mb-4">
+                          <div className="w-12 h-12 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-xl flex items-center justify-center">
+                            <div className="text-blue-400">
                               {service.icon}
                             </div>
-                            <div>
-                              <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">{service.title}</h3>
-                              <p className="text-gray-600">{service.description}</p>
-                            </div>
                           </div>
-                          <div className="pl-14">
-                            <h4 className="font-medium text-gray-700 mb-2">Service Includes:</h4>
-                            <ul className="space-y-2">
-                              {service.features.map((feature, i) => (
-                                <li key={i} className="flex items-center">
-                                  <Check className="w-4 h-4 text-green-500 mr-2" />
-                                  <span className="text-gray-700">{feature}</span>
-                                </li>
-                              ))}
-                            </ul>
+                          <div>
+                            <h3 className="text-xl font-semibold text-white group-hover:text-blue-300 transition-colors">{service.title}</h3>
+                            <p className="text-slate-400">{service.description}</p>
+                          </div>
+                        </div>
+                        <div className="pl-16">
+                          <h4 className="font-medium text-slate-300 mb-3">Service Features:</h4>
+                          <div className="grid grid-cols-2 gap-2">
+                            {service.features.map((feature, i) => (
+                              <div key={i} className="flex items-center">
+                                <Check className="w-4 h-4 text-blue-400 mr-2" />
+                                <span className="text-slate-300">{feature}</span>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -210,58 +290,77 @@ const LifeInsuranceSales = () => {
               {/* Results Tab */}
               {activeTab === 'results' && (
                 <div className="p-8 md:p-12">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-8">Proven Results</h2>
+                  <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+                      <TrendingUp className="w-5 h-5 text-blue-400" />
+                      <span className="text-blue-100 font-medium">Proven Performance</span>
+                    </div>
+                    <h2 className="text-4xl font-bold text-white mb-4">Measurable Results</h2>
+                    <p className="text-xl text-slate-400">Data-driven outcomes that transform your insurance business</p>
+                  </div>
                   
                   <div className="grid md:grid-cols-3 gap-6 mb-12">
                     {[
                       {
                         metric: "15-25%",
                         description: "Average conversion rate on qualified leads",
-                        icon: <TrendingUp className="w-6 h-6 text-green-500" />
+                        icon: <TrendingUp className="w-6 h-6" />,
+                        detail: "Industry average: 5-8%"
                       },
                       {
                         metric: "3-5x",
                         description: "ROI compared to in-house sales teams",
-                        icon: <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        icon: <Target className="w-6 h-6" />,
+                        detail: "Based on client data"
                       },
                       {
                         metric: "40-60%",
                         description: "Reduction in customer acquisition costs",
-                        icon: <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
-                        </svg>
+                        icon: <Activity className="w-6 h-6" />,
+                        detail: "Compared to traditional methods"
                       }
                     ].map((result, index) => (
-                      <div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-200">
-                        <div className="p-6 text-center">
-                          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            {result.icon}
+                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2">
+                        <div className="text-center">
+                          <div className="w-12 h-12 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="text-green-400">
+                              {result.icon}
+                            </div>
                           </div>
-                          <p className="text-3xl font-bold text-blue-600 mb-2">{result.metric}</p>
-                          <p className="text-gray-700">{result.description}</p>
+                          <p className="text-4xl font-bold text-blue-400 mb-2">{result.metric}</p>
+                          <p className="text-white font-medium mb-2">{result.description}</p>
+                          <p className="text-slate-400 text-sm">{result.detail}</p>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100">
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-4">Client Success Stories</h3>
+                  <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-2xl p-8">
+                    <h3 className="text-2xl font-semibold text-white mb-6 flex items-center gap-3">
+                      <Star className="w-8 h-8 text-blue-400" />
+                      Client Success Stories
+                    </h3>
                     <div className="grid md:grid-cols-2 gap-6">
                       {[
                         {
-                          quote: "NextelBPO helped us increase our policy sales by 35% in just six months while reducing our acquisition costs.",
-                          author: "Regional Insurance Provider"
+                          quote: "NextelBPO helped us increase our policy sales by 35% in just six months while reducing our acquisition costs significantly.",
+                          author: "Regional Insurance Provider",
+                          result: "35% increase in sales"
                         },
                         {
-                          quote: "Their agents are as knowledgeable as our in-house team, and their compliance standards are impeccable.",
-                          author: "National Life Insurance Carrier"
+                          quote: "Their agents are as knowledgeable as our in-house team, and their compliance standards are absolutely impeccable.",
+                          author: "National Life Insurance Carrier",
+                          result: "100% compliance rate"
                         }
                       ].map((testimonial, index) => (
-                        <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                          <p className="text-gray-700 italic mb-3">"{testimonial.quote}"</p>
-                          <p className="font-medium text-gray-800">— {testimonial.author}</p>
+                        <div key={index} className="bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300">
+                          <p className="text-slate-300 italic mb-4 leading-relaxed">"{testimonial.quote}"</p>
+                          <div className="flex justify-between items-center">
+                            <p className="font-medium text-white">— {testimonial.author}</p>
+                            <span className="bg-blue-500/20 border border-blue-500/30 px-3 py-1 rounded-full text-blue-300 text-sm">
+                              {testimonial.result}
+                            </span>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -272,42 +371,102 @@ const LifeInsuranceSales = () => {
               {/* FAQ Tab */}
               {activeTab === 'faq' && (
                 <div className="p-8 md:p-12">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-8">Frequently Asked Questions</h2>
+                  <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6">
+                      <Star className="w-5 h-5 text-blue-400" />
+                      <span className="text-blue-100 font-medium">Common Questions</span>
+                    </div>
+                    <h2 className="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+                    <p className="text-xl text-slate-400">Everything you need to know about our insurance sales services</p>
+                  </div>
                   
                   <div className="space-y-4">
                     {[
                       {
                         question: "How do you ensure compliance with insurance regulations?",
-                        answer: "All our agents complete rigorous compliance training and we implement multiple layers of quality assurance. Our processes are designed to meet state insurance regulations and carrier requirements."
+                        answer: "All our agents complete rigorous compliance training specific to insurance regulations in each state we operate. We implement multiple layers of quality assurance, regular compliance audits, and maintain detailed records. Our processes are designed to meet and exceed state insurance regulations and carrier requirements."
                       },
                       {
                         question: "What type of life insurance products can you sell?",
-                        answer: "We're licensed and experienced in selling term life, whole life, universal life, final expense, and annuities. Our agents receive product-specific training for each campaign."
+                        answer: "We're licensed and experienced in selling term life, whole life, universal life, final expense, and annuities. Our agents receive product-specific training for each campaign and stay updated on the latest product features and benefits."
                       },
                       {
                         question: "How do you handle client data security?",
-                        answer: "We implement enterprise-grade security measures including encrypted data transfer, secure storage, and strict access controls to protect sensitive client information."
+                        answer: "We implement enterprise-grade security measures including encrypted data transfer, secure storage systems, and strict access controls. All client information is protected according to HIPAA guidelines and industry best practices for sensitive financial data."
                       },
                       {
                         question: "Can you integrate with our CRM and quoting systems?",
-                        answer: "Yes, we have experience integrating with all major insurance CRMs and quoting platforms to ensure seamless workflow and data accuracy."
+                        answer: "Yes, we have extensive experience integrating with all major insurance CRMs, quoting platforms, and carrier systems. Our technical team ensures seamless workflow integration and real-time data synchronization to maintain accuracy and efficiency."
                       }
                     ].map((faq, index) => (
-                      <div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-200">
-                        <button className="w-full text-left p-6 hover:bg-gray-50 transition-colors flex justify-between items-center">
-                          <span className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">{faq.question}</span>
-                          <svg className="w-5 h-5 text-gray-500 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-                        <div className="px-6 pb-6">
-                          <p className="text-gray-600">{faq.answer}</p>
+                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-500">
+                        <div className="p-6">
+                          <div className="flex justify-between items-center mb-4">
+                            <h4 className="font-semibold text-white group-hover:text-blue-300 transition-colors text-lg">{faq.question}</h4>
+                            <ArrowRight className="w-5 h-5 text-blue-400 transform group-hover:rotate-90 transition-transform duration-300" />
+                          </div>
+                          <p className="text-slate-400 leading-relaxed">{faq.answer}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-slate-950">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="lg:flex">
+              <div className="lg:w-1/2 bg-gradient-to-br from-blue-600 to-indigo-600 p-12 text-white">
+                <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Insurance Sales?</h2>
+                <p className="text-blue-100 mb-6 leading-relaxed">
+                  Join leading insurance companies that trust NextelBPO for compliant, high-converting sales solutions.
+                </p>
+                <div className="space-y-3">
+                  {[
+                    "15-25% average conversion rates",
+                    "100% regulatory compliance",
+                    "Specialized insurance expertise"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-blue-200 mr-3" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="lg:w-1/2 p-12">
+                <h3 className="text-2xl font-bold text-white mb-6">Start Your Sales Journey</h3>
+                <div 
+                  className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-xl p-6 mb-6 cursor-pointer hover:bg-blue-500/20 transition-colors duration-300"
+                  onClick={() => {
+                    const subject = encodeURIComponent("Life Insurance Sales Inquiry - NextelBPO");
+                    const body = encodeURIComponent("Hello NextelBPO team,\n\nI'm interested in learning more about your life insurance sales services.\n\nBest regards,\n[Your Name]");
+                    window.location.href = `mailto:info@nextelbpo.co?subject=${subject}&body=${body}`;
+                  }}
+                >
+                  <div className="flex items-center">
+                    <div className="bg-blue-500/20 p-3 rounded-lg mr-4">
+                      <Shield className="w-6 h-6 text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-slate-400 mb-1">Contact us at</p>
+                      <div className="text-xl font-semibold text-blue-400">
+                        info@nextelbpo.co
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-slate-400">
+                  Our insurance sales specialists typically respond within 24 hours to discuss your specific requirements.
+                </p>
+              </div>
             </div>
           </div>
         </div>

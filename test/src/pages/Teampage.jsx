@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Linkedin, Twitter, Mail, Users, Check, ChevronRight } from 'lucide-react';
+import { ArrowRight, Linkedin, Twitter, Mail, Users, Check, ChevronRight, Activity, TrendingUp, Star, Zap } from 'lucide-react';
 
 const TeamPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeDepartment, setActiveDepartment] = useState('Leadership');
   const [showNoOpeningsModal, setShowNoOpeningsModal] = useState(false);
   const [showHrContactModal, setShowHrContactModal] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     setIsVisible(true);
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const departments = [
@@ -46,15 +49,18 @@ const TeamPage = () => {
         {
           name: "Muhammad Yasir",
           image: "/Muhammad Yasir.JPG",
+          position: "Operations Manager"
         },
         {
           name: "Waleed Khan",
           image: "/Waleed Khan.JPG",
+          position: "Operations Specialist"
           
         },
         {
           name: "Abdul Moeed",
           image: "/Abdul Moed.JPG",
+          position: "Operations Coordinator"
           
         }
       ]
@@ -64,53 +70,96 @@ const TeamPage = () => {
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
+      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
+        {/* Futuristic Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-              radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%)
-            `
-          }}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"></div>
           
-          {[...Array(20)].map((_, i) => (
+          {/* Animated Grid */}
+          <div className="absolute inset-0 opacity-20" style={{
+            backgroundImage: `
+              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+
+          {/* Floating Orbs */}
+          {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-blue-400/40 rounded-full animate-pulse"
+              className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
               style={{
+                width: `${Math.random() * 200 + 100}px`,
+                height: `${Math.random() * 200 + 100}px`,
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
+                animationDelay: `${Math.random() * 2}s`,
+                filter: 'blur(1px)'
               }}
             />
           ))}
-        </div>
 
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-            <div className="relative p-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full">
-              <Users className="w-12 h-12 text-white" />
-            </div>
-          </div>
-          
-          <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-500 bg-clip-text text-transparent">
-              Meet Our Team
-            </span>
+          {/* Neural Network Lines */}
+          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#8B5CF6" />
+                <stop offset="100%" stopColor="#EC4899" />
+              </linearGradient>
+            </defs>
+            {[...Array(12)].map((_, i) => (
+              <line
+                key={i}
+                x1={`${Math.random() * 100}%`}
+                y1={`${Math.random() * 100}%`}
+                x2={`${Math.random() * 100}%`}
+                y2={`${Math.random() * 100}%`}
+                stroke="url(#lineGradient)"
+                strokeWidth="1"
+                className="animate-pulse"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              />
+            ))}
+          </svg>
+        </div>
+        
+        <div className="relative z-10 container mx-auto px-6 text-center">
+
+          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 tracking-tight">
+            Meet Our Team
           </h1>
-          
-          <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-light">
-            The talented professionals driving NextelBPO's global success
-          </p>
+          <div className="max-w-4xl mx-auto mb-12">
+            <p className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
+              The Minds Behind Innovation
+            </p>
+            <p className="text-lg text-purple-200/80">
+              Global talent • Expert leadership • Innovative thinking • Unified vision
+            </p>
+          </div>
+
+          {/* Metrics Dashboard */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {[
+              { label: "Team Members", value: "50+", icon: <Users className="w-5 h-5" /> },
+              { label: "Departments", value: "8", icon: <Star className="w-5 h-5" /> },
+              { label: "Experience", value: "10+ Years", icon: <Activity className="w-5 h-5" /> }
+            ].map((metric, idx) => (
+              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="text-purple-400">{metric.icon}</div>
+                  <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
+                </div>
+                <div className="text-2xl font-bold text-white">{metric.value}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Team Navigation */}
-      <section className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm shadow-sm py-4 border-b border-gray-200">
-        <div className="container mx-auto px-4">
+      <section className="sticky top-0 z-20 bg-slate-950/95 backdrop-blur-sm shadow-lg py-4 border-b border-slate-800">
+        <div className="container mx-auto px-6">
           <div className="flex overflow-x-auto space-x-2 pb-2 scrollbar-hide">
             {departments.map((dept) => (
               <button
@@ -121,8 +170,8 @@ const TeamPage = () => {
                 }}
                 className={`whitespace-nowrap px-6 py-2.5 rounded-full font-medium transition-all duration-300 ${
                   activeDepartment === dept.name
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
+                    : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/50'
                 }`}
               >
                 {dept.name}
@@ -133,8 +182,8 @@ const TeamPage = () => {
       </section>
 
       {/* Team Sections */}
-      <div className="bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="bg-slate-950">
+        <div className="container mx-auto px-6 py-20">
           {departments.map((department) => (
             <section 
               key={department.name}
@@ -142,11 +191,14 @@ const TeamPage = () => {
               className="mb-28 last:mb-0"
             >
               <div className="text-center mb-16 max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+                <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+                  <Zap className="w-5 h-5 text-purple-400" />
+                  <span className="text-purple-100 font-medium">{department.name} Division</span>
+                </div>
+                <h2 className="text-5xl font-bold text-white mb-4">
                   {department.name} Team
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto mb-4"></div>
-                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                <p className="text-xl text-slate-400 max-w-2xl mx-auto">
                   {department.description}
                 </p>
               </div>
@@ -155,49 +207,52 @@ const TeamPage = () => {
                 {department.members.map((member) => (
                   <div
                     key={member.name}
-                    className="group relative bg-white rounded-3xl p-8 overflow-hidden transform hover:-translate-y-2 transition-all duration-500 hover:shadow-xl border border-gray-200/80 hover:border-blue-400/50"
+                    className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2"
                   >
-                    {/* Animated background effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-purple-50/30"
-                        style={{
-                          maskImage: "radial-gradient(circle at center, black 0%, transparent 70%)",
-                          WebkitMaskImage: "radial-gradient(circle at center, black 0%, transparent 70%)"
-                        }}
-                      ></div>
-                    </div>
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div className="relative p-8 flex flex-col h-full">
+                      {/* Profile image with futuristic border */}
+                      <div className="relative mb-6 mx-auto w-32 h-32">
+                        <div className="absolute inset-0 rounded-full border-2 border-purple-400/30 group-hover:border-purple-400/60 transition-all duration-500"></div>
+                        <div className="absolute inset-0 rounded-full border border-pink-400/20 group-hover:border-pink-400/50 transition-all duration-500 delay-75"></div>
+                        
+                        <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-50/10 to-pink-50/10 flex items-center justify-center overflow-hidden relative z-10 group-hover:scale-105 transition-transform duration-500 border border-slate-700/50">
+                          <img 
+                            src={member.image} 
+                            alt={member.name}
+                            className="w-full h-full object-cover rounded-full"
+                          />
+                        </div>
+                        
+                        {/* Status Indicator */}
+                        <div className="absolute -top-2 -right-2">
+                          <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+                        </div>
+                      </div>
 
-                    {/* Profile image with futuristic border */}
-                    <div className="relative mb-6 mx-auto w-32 h-32">
-                      <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 group-hover:border-blue-400/60 transition-all duration-500"></div>
-                      <div className="absolute inset-0 rounded-full border border-purple-400/20 group-hover:border-purple-400/50 transition-all duration-500 delay-75"></div>
-                      
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center overflow-hidden relative z-10 group-hover:scale-105 transition-transform duration-500">
-                        <img 
-                          src={member.image} 
-                          alt={member.name}
-                          className="w-full h-full object-cover rounded-full"
-                        />
+                      {/* Content */}
+                      <div className="relative z-10 text-center flex-grow flex flex-col">
+                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300">
+                          {member.name}
+                        </h3>
+                        
+                        <div className="mb-4">
+                          <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-medium group-hover:from-purple-500/20 group-hover:to-pink-500/20 group-hover:border-purple-400/40 transition-all duration-300">
+                            {member.position}
+                          </span>
+                        </div>
+                        
+                        <p className="text-slate-400 mb-6 leading-relaxed flex-grow">
+                          {member.bio}
+                        </p>
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="relative z-10 text-center">
-                      <h3 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                        {member.name}
-                      </h3>
-                      
-                      <div className="mb-4">
-                        <span className="inline-block px-4 py-1 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-gray-200/80 text-blue-600 text-sm font-medium group-hover:from-blue-100 group-hover:to-purple-100 group-hover:border-blue-200 transition-all duration-300">
-                          {member.position}
-                        </span>
-                      </div>
-                      
-                      <p className="text-gray-600 mb-6 leading-relaxed">
-                        {member.bio}
-                      </p>
-                                          
+                    {/* Animated Border */}
+                    <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
                     </div>
                   </div>
                 ))}
@@ -208,43 +263,56 @@ const TeamPage = () => {
       </div>
 
       {/* Join Team CTA */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-200/80">
+      <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+              <Star className="w-5 h-5 text-purple-400" />
+              <span className="text-purple-100 font-medium">Career Opportunities</span>
+            </div>
+            <h2 className="text-5xl font-bold text-white mb-4">Join Our Growing Team</h2>
+            <p className="text-xl text-slate-400">Be part of the next generation of BPO excellence</p>
+          </div>
+
+          <div className="max-w-6xl mx-auto bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden">
             <div className="lg:flex">
-              <div className="lg:w-1/2 bg-gradient-to-br from-blue-600 to-purple-600 p-12 text-white">
-                <h2 className="text-3xl font-bold mb-6">Join Our Growing Team</h2>
-                <p className="text-blue-100 mb-6 leading-relaxed">
-                  We're always looking for talented professionals to join the NextelBPO family.
-                </p>
-                <div className="space-y-3">
-                  {[
-                    "Competitive compensation & benefits",
-                    "Flexible work environment",
-                    "Continuous learning & growth",
-                    "Impactful work with global clients"
-                  ].map((item) => (
-                    <div key={item} className="flex items-start">
-                      <Check className="w-5 h-5 text-blue-200 mr-3 mt-0.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
+              <div className="lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-600 p-12 text-white relative overflow-hidden">
+                {/* Background Effects */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20"></div>
+                <div className="relative z-10">
+                  <h2 className="text-3xl font-bold mb-6">Join Our Growing Team</h2>
+                  <p className="text-purple-100 mb-6 leading-relaxed">
+                    We're always looking for talented professionals to join the NextelBPO family.
+                  </p>
+                  <div className="space-y-3">
+                    {[
+                      "Competitive compensation & benefits",
+                      "Flexible work environment",
+                      "Continuous learning & growth",
+                      "Impactful work with global clients"
+                    ].map((item) => (
+                      <div key={item} className="flex items-start">
+                        <Check className="w-5 h-5 text-purple-200 mr-3 mt-0.5 flex-shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               
-              <div className="lg:w-1/2 p-12">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">Explore Opportunities</h3>
+              <div className="lg:w-1/2 p-12 bg-slate-900/50">
+                <h3 className="text-2xl font-bold text-white mb-6">Explore Opportunities</h3>
                 <div className="space-y-4">
                   <button 
                     onClick={() => setShowNoOpeningsModal(true)}
-                    className="w-full group flex items-center justify-between px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+                    className="w-full group flex items-center justify-between px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl"
                   >
                     <span>View Open Positions</span>
                     <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
                   </button>
                   <button 
                     onClick={() => setShowHrContactModal(true)}
-                    className="w-full group flex items-center justify-between px-6 py-4 border-2 border-blue-600 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all"
+                    className="w-full group flex items-center justify-between px-6 py-4 border-2 border-purple-600 text-purple-400 rounded-xl font-semibold hover:bg-purple-500/10 transition-all"
                   >
                     <span>Contact HR Team</span>
                     <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
@@ -259,12 +327,12 @@ const TeamPage = () => {
       {/* No Openings Modal */}
       {showNoOpeningsModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-md w-full p-6 space-y-4">
-            <h3 className="text-xl font-bold text-gray-800">No Current Openings</h3>
-            <p className="text-gray-600">There are no job openings available at the moment. Please check back later.</p>
+          <div className="bg-slate-900 rounded-xl max-w-md w-full p-6 space-y-4 border border-slate-700/50">
+            <h3 className="text-xl font-bold text-white">No Current Openings</h3>
+            <p className="text-slate-400">There are no job openings available at the moment. Please check back later.</p>
             <button
               onClick={() => setShowNoOpeningsModal(false)}
-              className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors"
             >
               Close
             </button>
@@ -275,21 +343,21 @@ const TeamPage = () => {
       {/* HR Contact Modal */}
       {showHrContactModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-md w-full p-6 space-y-4">
-            <h3 className="text-xl font-bold text-gray-800">HR Team Contact</h3>
+          <div className="bg-slate-900 rounded-xl max-w-md w-full p-6 space-y-4 border border-slate-700/50">
+            <h3 className="text-xl font-bold text-white">HR Team Contact</h3>
             <div className="space-y-2">
               <div>
-                <p className="text-sm text-gray-500">Name</p>
-                <p className="text-gray-800 font-medium">Rana Qamar Ali</p>
+                <p className="text-sm text-slate-500">Name</p>
+                <p className="text-white font-medium">Rana Qamar Ali</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Phone Number</p>
-                <p className="text-gray-800 font-medium">03705546296</p>
+                <p className="text-sm text-slate-500">Phone Number</p>
+                <p className="text-white font-medium">03705546296</p>
               </div>
             </div>
             <button
               onClick={() => setShowHrContactModal(false)}
-              className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors"
             >
               Close
             </button>

@@ -30,10 +30,7 @@ function App() {
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-grow">
-          <Routes>
-            {/* Temporary test route - remove after verification */}
-            <Route path="/tailwind-test" element={<TailwindTest />} />
-            
+          <Routes>            
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
@@ -44,8 +41,6 @@ function App() {
             <Route path="/services/transcriptions"element={<Transcription />} />
             <Route path="/services/life-insurance-sales"element={<LifeInsuranceSales />} />
             <Route path="/about/team"element={<TeamPage />} />
-            
-            
           </Routes>
         </main>
         <Footer />

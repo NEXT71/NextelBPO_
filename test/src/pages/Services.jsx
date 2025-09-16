@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Search, Phone, FileText, Shield, TrendingUp, Users, Zap, ArrowRight, CheckCircle, Star, Activity } from 'lucide-react';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import { Search, Phone, FileText, Shield, TrendingUp, Users, Zap, CheckCircle, Star, Activity } from 'lucide-react';
 
+// Extract services data to separate file for better maintainability
 const SERVICES = [
   {
     id: 1,
@@ -60,8 +61,48 @@ const SERVICES = [
   }
 ];
 
+// Campaign data
+const CAMPAIGNS = [
+  {
+    title: "FINAL EXPENSE",
+    description: "Comprehensive final expense insurance solutions for families.",
+    image: "https://images.unsplash.com/photo-1573497491765-dccce02b29df?w=500&h=300&fit=crop",
+    features: ["Guaranteed acceptance", "No medical exams", "Immediate coverage", "Affordable premiums"],
+    status: "ACTIVE",
+    progress: 94
+  },
+  {
+    title: "MVA",
+    description: "Motor vehicle accident insurance protection plans.",
+    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&h=300&fit=crop",
+    features: ["Accident forgiveness", "24/7 claims", "Rental coverage", "Legal assistance"],
+    status: "ACTIVE",
+    progress: 87
+  },
+  {
+    title: "Affordable Care Act (ACA)",
+    description: "Connecting U.S. clients to ACA insurance plans.",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&h=300&fit=crop",
+    features: [
+      "Outbound calls to U.S. clients",
+      "Lead pre-qualification for ACA",
+      "Client handoff to agents",
+      "ACA plan awareness support"
+    ],
+    status: "OPTIMIZING",
+    progress: 76
+  },
+  {
+    title: "Medicare",
+    description: "Complete Medicare supplement insurance solutions.",
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&h=300&fit=crop",
+    features: ["Part A/B coverage", "Prescription drugs", "Dental/vision", "No network restrictions"],
+    status: "ACTIVE",
+    progress: 91
+  }
+];
+
 const Services = () => {
-  const [selectedService, setSelectedService] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -193,6 +234,147 @@ const Services = () => {
     alert(`Would navigate to: ${path}`);
   };
 
+  // Service Card Component (kept in same file)
+  const ServiceCard = ({ service, index }) => {
+    return (
+      <div
+        key={service.id}
+        className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 cursor-pointer"
+        onClick={() => handleServiceClick(service.path)}
+        onMouseEnter={() => setHoveredCard(service.id)}
+        onMouseLeave={() => setHoveredCard(null)}
+        style={{ animationDelay: `${index * 100}ms` }}
+      >
+        {/* Hover Glow Effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        {/* Card Content */}
+        <div className="relative p-8 flex flex-col h-full">
+          {/* Icon Section */}
+          <div className="relative mb-6">
+            <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto backdrop-blur-sm border border-purple-500/20">
+              <div className="text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
+                {service.icon}
+              </div>
+            </div>
+            {/* Status Indicator */}
+            <div className="absolute -top-2 -right-2">
+              <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+
+          <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-purple-100 transition-colors">
+            {service.title}
+          </h3>
+          
+          <p className="text-slate-400 mb-6 text-center text-sm leading-relaxed flex-grow">
+            {service.description}
+          </p>
+
+          {/* Features */}
+          <div className="space-y-3 mb-8">
+            {service.features.slice(0, 3).map((feature, idx) => (
+              <div key={idx} className="flex items-center gap-3">
+                <CheckCircle className="w-4 h-4 text-purple-400 flex-shrink-0" />
+                <span className="text-slate-300 text-sm">{feature}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Industries */}
+          <div className="mb-6">
+            <div className="flex flex-wrap gap-2">
+              {service.industries.slice(0, 2).map((industry, idx) => (
+                <span key={idx} className="text-xs bg-slate-800/50 text-slate-400 px-3 py-1 rounded-full border border-slate-700/50">
+                  {industry}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 group-hover:shadow-2xl group-hover:shadow-purple-500/20">
+            Explore Service
+            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </button>
+        </div>
+
+        {/* Animated Border */}
+        <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
+        </div>
+      </div>
+    );
+  };
+
+  // Campaign Card Component (kept in same file)
+  const CampaignCard = ({ campaign, index }) => {
+    return (
+      <div 
+        key={index} 
+        className="group bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500"
+        style={{ animationDelay: `${index * 100}ms` }}
+      >
+        <div className="relative h-48 overflow-hidden">
+          <img 
+            src={campaign.image} 
+            alt={campaign.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          {/* Status Badge */}
+          <div className="absolute top-4 right-4">
+            <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+              campaign.status === 'ACTIVE' 
+                ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+            }`}>
+              {campaign.status}
+            </span>
+          </div>
+
+          <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">{campaign.title}</h3>
+        </div>
+        
+        <div className="p-6">
+          <p className="text-slate-400 mb-4">{campaign.description}</p>
+          
+          {/* Progress Bar */}
+          <div className="mb-4">
+            <div className="flex justify-between text-sm mb-2">
+              <span className="text-slate-400">Performance</span>
+              <span className="text-purple-400 font-medium">{campaign.progress}%</span>
+            </div>
+            <div className="w-full bg-slate-800 rounded-full h-2">
+              <div 
+                className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000"
+                style={{ width: `${campaign.progress}%` }}
+              ></div>
+            </div>
+          </div>
+
+          <ul className="space-y-2 mb-6">
+            {campaign.features.slice(0, 3).map((feature, idx) => (
+              <li key={idx} className="flex items-start">
+                <CheckCircle className="w-4 h-4 text-purple-400 mr-3 mt-0.5 flex-shrink-0" />
+                <span className="text-slate-300 text-sm">{feature}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <button className="w-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 text-purple-100 font-semibold py-3 px-6 rounded-xl hover:from-purple-700/30 hover:to-pink-700/30 transition-all duration-300 border border-purple-500/30 hover:border-purple-500/50">
+            View Campaign Details
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       {/* Hidden SEO content */}
@@ -224,6 +406,7 @@ const Services = () => {
           and retirement services companies.
         </p>
       </div>
+      
       {/* Hero Section */}
       <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
         {/* Futuristic Background Elements */}
@@ -371,69 +554,11 @@ const Services = () => {
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {filteredServices.map((service, index) => (
-              <div
+              <ServiceCard
                 key={service.id}
-                className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 cursor-pointer"
-                onClick={() => handleServiceClick(service.path)}
-                onMouseEnter={() => setHoveredCard(service.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                {/* Hover Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                {/* Card Content */}
-                <div className="relative p-8 flex flex-col h-full">
-                  {/* Icon Section */}
-                  <div className="relative mb-6">
-                    <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto backdrop-blur-sm border border-purple-500/20">
-                      <div className="text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
-                        {service.icon}
-                      </div>
-                    </div>
-                    {/* Status Indicator */}
-                    <div className="absolute -top-2 -right-2">
-                      <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-purple-100 transition-colors">
-                    {service.title}
-                  </h3>
-                  
-                  <p className="text-slate-400 mb-6 text-center text-sm leading-relaxed flex-grow">
-                    {service.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="space-y-3 mb-8">
-                    {service.features.slice(0, 3).map((feature, idx) => (
-                      <div key={idx} className="flex items-center gap-3">
-                        <CheckCircle className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                        <span className="text-slate-300 text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Industries */}
-                  <div className="mb-6">
-                    <div className="flex flex-wrap gap-2">
-                      {service.industries.slice(0, 2).map((industry, idx) => (
-                        <span key={idx} className="text-xs bg-slate-800/50 text-slate-400 px-3 py-1 rounded-full border border-slate-700/50">
-                          {industry}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* CTA Button */}
-
-                </div>
-
-                {/* Animated Border */}
-                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
-                </div>
-              </div>
+                service={service}
+                index={index}
+              />
             ))}
           </div>
         </div>
@@ -452,98 +577,8 @@ const Services = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                title: "FINAL EXPENSE",
-                description: "Comprehensive final expense insurance solutions for families.",
-                image: "https://images.unsplash.com/photo-1573497491765-dccce02b29df?w=500&h=300&fit=crop",
-                features: ["Guaranteed acceptance", "No medical exams", "Immediate coverage", "Affordable premiums"],
-                status: "ACTIVE",
-                progress: 94
-              },
-              {
-                title: "MVA",
-                description: "Motor vehicle accident insurance protection plans.",
-                image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&h=300&fit=crop",
-                features: ["Accident forgiveness", "24/7 claims", "Rental coverage", "Legal assistance"],
-                status: "ACTIVE",
-                progress: 87
-              },
-              {
-                title: "Affordable Care Act (ACA)",
-                description: "Connecting U.S. clients to ACA insurance plans.",
-                image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&h=300&fit=crop",
-                features: [
-                  "Outbound calls to U.S. clients",
-                  "Lead pre-qualification for ACA",
-                  "Client handoff to agents",
-                  "ACA plan awareness support"
-                ],
-                status: "OPTIMIZING",
-                progress: 76
-              },
-              {
-                title: "Medicare",
-                description: "Complete Medicare supplement insurance solutions.",
-                image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&h=300&fit=crop",
-                features: ["Part A/B coverage", "Prescription drugs", "Dental/vision", "No network restrictions"],
-                status: "ACTIVE",
-                progress: 91
-              }
-            ].map((campaign, index) => (
-              <div key={index} className="group bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500">
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={campaign.image} 
-                    alt={campaign.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  {/* Status Badge */}
-                  <div className="absolute top-4 right-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      campaign.status === 'ACTIVE' 
-                        ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                        : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                    }`}>
-                      {campaign.status}
-                    </span>
-                  </div>
-
-                  <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">{campaign.title}</h3>
-                </div>
-                
-                <div className="p-6">
-                  <p className="text-slate-400 mb-4">{campaign.description}</p>
-                  
-                  {/* Progress Bar */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-slate-400">Performance</span>
-                      <span className="text-purple-400 font-medium">{campaign.progress}%</span>
-                    </div>
-                    <div className="w-full bg-slate-800 rounded-full h-2">
-                      <div 
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000"
-                        style={{ width: `${campaign.progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-2 mb-6">
-                    {campaign.features.slice(0, 3).map((feature, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <CheckCircle className="w-4 h-4 text-purple-400 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-slate-300 text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                
-                </div>
-              </div>
+            {CAMPAIGNS.map((campaign, index) => (
+              <CampaignCard key={index} campaign={campaign} index={index} />
             ))}
           </div>
         </div>

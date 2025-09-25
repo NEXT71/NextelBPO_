@@ -1,7 +1,11 @@
 import { config } from 'dotenv';
 import app from './app.js';
 
-config(); // initialize dotenv
+config();
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Server is healthy' });
+});
 
 const PORT = process.env.PORT || 5000;
 

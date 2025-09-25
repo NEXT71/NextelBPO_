@@ -15,6 +15,9 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('NextelBPO API is running.');
+});
 app.use('/api', contactRoutes);
 app.use('/api', careerRoutes);
 

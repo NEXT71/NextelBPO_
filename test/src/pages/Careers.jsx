@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
   Check, ArrowRight, Zap, Rocket, Stars, Lightbulb, Users, ArrowDown, 
   Activity, TrendingUp, Upload, User, Mail, Phone, FileText 
@@ -48,6 +48,197 @@ const TALENT_NETWORK_BENEFITS = [
   "No obligation - we'll only contact you for relevant opportunities"
 ];
 
+// Pre-define these components outside the main component to prevent recreation
+const FloatingOrbs = () => {
+  const orbs = useMemo(() => 
+    [...Array(8)].map((_, i) => ({
+      id: i,
+      width: Math.random() * 200 + 100,
+      height: Math.random() * 200 + 100,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2
+    })), []
+  );
+
+  return (
+    <>
+      {orbs.map((orb) => (
+        <div
+          key={orb.id}
+          className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
+          style={{
+            width: `${orb.width}px`,
+            height: `${orb.height}px`,
+            left: `${orb.left}%`,
+            top: `${orb.top}%`,
+            animationDelay: `${orb.delay}s`,
+            filter: 'blur(1px)'
+          }}
+        />
+      ))}
+    </>
+  );
+};
+
+const NeuralNetworkLines = () => {
+  const lines = useMemo(() => 
+    [...Array(12)].map((_, i) => ({
+      id: i,
+      x1: Math.random() * 100,
+      y1: Math.random() * 100,
+      x2: Math.random() * 100,
+      y2: Math.random() * 100,
+      delay: i * 0.2
+    })), []
+  );
+
+  return (
+    <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#8B5CF6" />
+          <stop offset="100%" stopColor="#EC4899" />
+        </linearGradient>
+      </defs>
+      {lines.map((line) => (
+        <line
+          key={line.id}
+          x1={`${line.x1}%`}
+          y1={`${line.y1}%`}
+          x2={`${line.x2}%`}
+          y2={`${line.y2}%`}
+          stroke="url(#lineGradient)"
+          strokeWidth="1"
+          className="animate-pulse"
+          style={{ animationDelay: `${line.delay}s` }}
+        />
+      ))}
+    </svg>
+  );
+};
+
+const MetricsDashboard = () => (
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+    {METRICS.map((metric, idx) => (
+      <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="text-purple-400">{metric.icon}</div>
+          <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
+        </div>
+        <div className="text-2xl font-bold text-white">{metric.value}</div>
+      </div>
+    ))}
+  </div>
+);
+
+const CareerBenefitCard = ({ benefit, index }) => (
+  <div
+    className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500"
+  >
+    {/* Hover Glow Effect */}
+    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    
+    {/* Card Content */}
+    <div className="relative p-8 flex flex-col h-full">
+      {/* Icon Section */}
+      <div className="relative mb-6">
+        <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto backdrop-blur-sm border border-purple-500/20">
+          <div className="text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
+            {benefit.icon}
+          </div>
+        </div>
+        {/* Status Indicator */}
+        <div className="absolute -top-2 -right-2">
+          <div className={`w-4 h-4 rounded-full animate-pulse ${
+            benefit.status === 'ACTIVE' ? 'bg-green-400' : 'bg-yellow-400'
+          }`}></div>
+        </div>
+      </div>
+
+      <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-purple-100 transition-colors">
+        {benefit.title}
+      </h3>
+      
+      <p className="text-slate-400 mb-6 text-center text-sm leading-relaxed flex-grow">
+        {benefit.description}
+      </p>
+
+      {/* Features */}
+      <div className="space-y-3 mb-6">
+        {benefit.features.map((feature, idx) => (
+          <div key={idx} className="flex items-center gap-3">
+            <Check className="w-4 h-4 text-purple-400 flex-shrink-0" />
+            <span className="text-slate-300 text-sm">{feature}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Status Badge */}
+      <div className="text-center">
+        <span className={`text-xs px-3 py-1 rounded-full border ${
+          benefit.status === 'ACTIVE' 
+            ? 'bg-green-500/20 text-green-400 border-green-500/30' 
+            : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
+        }`}>
+          {benefit.status}
+        </span>
+      </div>
+    </div>
+
+    {/* Animated Border */}
+    <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
+    </div>
+  </div>
+);
+
+// Fixed Form Input Component
+const FormInput = ({ type, placeholder, name, value, onChange, required = false, icon: Icon }) => (
+  <div className="relative">
+    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">
+      <Icon className="w-5 h-5" />
+    </div>
+    <input
+      type={type}
+      placeholder={placeholder}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm"
+      required={required}
+    />
+  </div>
+);
+
+// Fixed File Upload Component
+const FileUpload = ({ formData, setFormData }) => (
+  <div className="pt-2">
+    <label className="block text-sm font-medium text-slate-300 mb-2">
+      Upload Resume (Required)
+    </label>
+    <div className="flex items-center justify-center w-full">
+      <label className="flex flex-col w-full border-2 border-dashed border-slate-700/50 rounded-lg cursor-pointer hover:bg-slate-800/30 backdrop-blur-sm transition-colors duration-200">
+        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+          <Upload className="w-8 h-8 mb-4 text-slate-500" />
+          <p className="mb-2 text-sm text-slate-400">
+            <span className="font-semibold">Click to upload</span> or drag and drop
+          </p>
+          <p className="text-xs text-slate-500">
+            {formData.resume ? formData.resume.name : 'PDF, DOC, DOCX (MAX. 5MB)'}
+          </p>
+        </div>
+        <input 
+          type="file" 
+          className="hidden" 
+          accept=".pdf,.doc,.docx"
+          onChange={(e) => setFormData(prev => ({...prev, resume: e.target.files[0]}))}
+        />
+      </label>
+    </div>
+  </div>
+);
+
 const Careers = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -58,7 +249,6 @@ const Careers = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Memoized structured data for performance
   const structuredData = useMemo(() => ({
@@ -96,7 +286,13 @@ const Careers = () => {
     return formData.name && formData.email && formData.resume;
   }, [formData.name, formData.email, formData.resume]);
 
-  const handleSubmit = async () => {
+  // Fixed form change handler
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
+
+  const handleSubmit = useCallback(async () => {
     if (!isFormValid) return;
     
     setIsSubmitting(true);
@@ -133,11 +329,17 @@ const Careers = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [isFormValid, formData]);
+
+  const scrollToForm = useCallback(() => {
+    const element = document.getElementById('talent-network-form');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
   useEffect(() => {
     setIsVisible(true);
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
 
     // SEO Meta Tags
     document.title = 'NextelBPO Careers - Join Our Team | BPO Career Opportunities';
@@ -166,7 +368,7 @@ const Careers = () => {
       { property: 'og:title', content: 'NextelBPO Careers - Join Our BPO Team' },
       { property: 'og:description', content: 'Career opportunities at NextelBPO. Join our growing team of BPO professionals with excellent growth opportunities.' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: window.location.href }
+      { property: 'og:url', content: typeof window !== 'undefined' ? window.location.href : '' }
     ];
 
     ogTags.forEach(tag => {
@@ -189,149 +391,7 @@ const Careers = () => {
     script.type = 'application/ld+json';
     script.text = JSON.stringify(structuredData);
     document.head.appendChild(script);
-
-    return () => clearInterval(timer);
   }, [structuredData]);
-
-  // Floating Orbs Background Component
-  const FloatingOrbs = () => (
-    <>
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
-          style={{
-            width: `${Math.random() * 200 + 100}px`,
-            height: `${Math.random() * 200 + 100}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 2}s`,
-            filter: 'blur(1px)'
-          }}
-        />
-      ))}
-    </>
-  );
-
-  // Neural Network Lines Component
-  const NeuralNetworkLines = () => (
-    <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#EC4899" />
-        </linearGradient>
-      </defs>
-      {[...Array(12)].map((_, i) => (
-        <line
-          key={i}
-          x1={`${Math.random() * 100}%`}
-          y1={`${Math.random() * 100}%`}
-          x2={`${Math.random() * 100}%`}
-          y2={`${Math.random() * 100}%`}
-          stroke="url(#lineGradient)"
-          strokeWidth="1"
-          className="animate-pulse"
-          style={{ animationDelay: `${i * 0.2}s` }}
-        />
-      ))}
-    </svg>
-  );
-
-  // Metrics Dashboard Component
-  const MetricsDashboard = () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-      {METRICS.map((metric, idx) => (
-        <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="text-purple-400">{metric.icon}</div>
-            <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
-          </div>
-          <div className="text-2xl font-bold text-white">{metric.value}</div>
-        </div>
-      ))}
-    </div>
-  );
-
-  // Career Benefit Card Component
-  const CareerBenefitCard = ({ benefit, index }) => (
-    <div
-      className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500"
-    >
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      
-      {/* Card Content */}
-      <div className="relative p-8 flex flex-col h-full">
-        {/* Icon Section */}
-        <div className="relative mb-6">
-          <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto backdrop-blur-sm border border-purple-500/20">
-            <div className="text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
-              {benefit.icon}
-            </div>
-          </div>
-          {/* Status Indicator */}
-          <div className="absolute -top-2 -right-2">
-            <div className={`w-4 h-4 rounded-full animate-pulse ${
-              benefit.status === 'ACTIVE' ? 'bg-green-400' : 'bg-yellow-400'
-            }`}></div>
-          </div>
-        </div>
-
-        <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-purple-100 transition-colors">
-          {benefit.title}
-        </h3>
-        
-        <p className="text-slate-400 mb-6 text-center text-sm leading-relaxed flex-grow">
-          {benefit.description}
-        </p>
-
-        {/* Features */}
-        <div className="space-y-3 mb-6">
-          {benefit.features.map((feature, idx) => (
-            <div key={idx} className="flex items-center gap-3">
-              <Check className="w-4 h-4 text-purple-400 flex-shrink-0" />
-              <span className="text-slate-300 text-sm">{feature}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Status Badge */}
-        <div className="text-center">
-          <span className={`text-xs px-3 py-1 rounded-full border ${
-            benefit.status === 'ACTIVE' 
-              ? 'bg-green-500/20 text-green-400 border-green-500/30' 
-              : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
-          }`}>
-            {benefit.status}
-          </span>
-        </div>
-      </div>
-
-      {/* Animated Border */}
-      <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
-      </div>
-    </div>
-  );
-
-  // Form Input Component
-  const FormInput = ({ type, placeholder, name, value, onChange, required = false, icon: Icon }) => (
-    <div className="relative">
-      <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">
-        <Icon className="w-5 h-5" />
-      </div>
-      <input
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm"
-        required={required}
-      />
-    </div>
-  );
 
   return (
     <main className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -445,7 +505,7 @@ const Careers = () => {
 
           <div className="flex justify-center">
             <button
-              onClick={() => document.getElementById('talent-network-form')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={scrollToForm}
               className="group bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-purple-500/25 transform hover:scale-105"
             >
               Submit Your Resume 
@@ -495,7 +555,7 @@ const Careers = () => {
                     placeholder="Full Name"
                     name="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    onChange={handleInputChange}
                     required
                     icon={User}
                   />
@@ -504,7 +564,7 @@ const Careers = () => {
                     placeholder="Email Address"
                     name="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={handleInputChange}
                     required
                     icon={Mail}
                   />
@@ -513,35 +573,11 @@ const Careers = () => {
                     placeholder="Phone Number"
                     name="phone"
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={handleInputChange}
                     icon={Phone}
                   />
                   
-                  <div className="pt-2">
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Upload Resume (Required)
-                    </label>
-                    <div className="flex items-center justify-center w-full">
-                      <label className="flex flex-col w-full border-2 border-dashed border-slate-700/50 rounded-lg cursor-pointer hover:bg-slate-800/30 backdrop-blur-sm transition-colors duration-200">
-                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                          <Upload className="w-8 h-8 mb-4 text-slate-500" />
-                          <p className="mb-2 text-sm text-slate-400">
-                            <span className="font-semibold">Click to upload</span> or drag and drop
-                          </p>
-                          <p className="text-xs text-slate-500">
-                            {formData.resume ? formData.resume.name : 'PDF, DOC, DOCX (MAX. 5MB)'}
-                          </p>
-                        </div>
-                        <input 
-                          type="file" 
-                          className="hidden" 
-                          accept=".pdf,.doc,.docx"
-                          onChange={(e) => setFormData({...formData, resume: e.target.files[0]})}
-                          required
-                        />
-                      </label>
-                    </div>
-                  </div>
+                  <FileUpload formData={formData} setFormData={setFormData} />
                   
                   {submitStatus && (
                     <div className={`p-4 rounded-lg border ${submitStatus.success ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>

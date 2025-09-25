@@ -112,7 +112,7 @@ const Careers = () => {
 
     try {
       // Attempt to send to backend but don't wait for response to show success
-      fetch('http://localhost:5000/api/submit-resume', {
+      fetch('https://nextelbpo.onrender.com/api/submit-resume', {
         method: 'POST',
         body: formDataToSend
       }).catch(() => {}); // Silently catch any errors

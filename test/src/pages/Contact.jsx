@@ -122,7 +122,7 @@ const Contact = () => {
     try {
       // Try to submit to backend if available
       try {
-        await fetch('http://localhost:5000/api/contact', {
+        await fetch('https://nextelbpo.onrender.com/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)

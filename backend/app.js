@@ -9,7 +9,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://www.nextelbpo.co',
+  origin: ['https://www.nextelbpo.co', 'https://nextelbpo.co'],
   credentials: true
 }));
 app.use(bodyParser.json());

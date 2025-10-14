@@ -64,6 +64,148 @@ const CONTACT_MODAL_OPTIONS = [
   }
 ];
 
+// Pre-define these components outside the main component to prevent recreation
+const FloatingOrbs = () => {
+  const orbs = useMemo(() => 
+    [...Array(8)].map((_, i) => ({
+      id: i,
+      width: Math.random() * 200 + 100,
+      height: Math.random() * 200 + 100,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 2
+    })), []
+  );
+
+  return (
+    <>
+      {orbs.map((orb) => (
+        <div
+          key={orb.id}
+          className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
+          style={{
+            width: `${orb.width}px`,
+            height: `${orb.height}px`,
+            left: `${orb.left}%`,
+            top: `${orb.top}%`,
+            animationDelay: `${orb.delay}s`,
+            filter: 'blur(1px)'
+          }}
+        />
+      ))}
+    </>
+  );
+};
+
+const NeuralNetworkLines = () => {
+  const lines = useMemo(() => 
+    [...Array(12)].map((_, i) => ({
+      id: i,
+      x1: Math.random() * 100,
+      y1: Math.random() * 100,
+      x2: Math.random() * 100,
+      y2: Math.random() * 100,
+      delay: i * 0.2
+    })), []
+  );
+
+  return (
+    <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#8B5CF6" />
+          <stop offset="100%" stopColor="#EC4899" />
+        </linearGradient>
+      </defs>
+      {lines.map((line) => (
+        <line
+          key={line.id}
+          x1={`${line.x1}%`}
+          y1={`${line.y1}%`}
+          x2={`${line.x2}%`}
+          y2={`${line.y2}%`}
+          stroke="url(#lineGradient)"
+          strokeWidth="1"
+          className="animate-pulse"
+          style={{ animationDelay: `${line.delay}s` }}
+        />
+      ))}
+    </svg>
+  );
+};
+
+const MetricsDashboard = () => (
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+    {METRICS.map((metric, idx) => (
+      <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="text-purple-400">{metric.icon}</div>
+          <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
+        </div>
+        <div className="text-2xl font-bold text-white">{metric.value}</div>
+      </div>
+    ))}
+  </div>
+);
+
+const ContactInfoCard = ({ info }) => (
+  <div className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-purple-500/10 transition-all duration-300">
+    <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-purple-500/20">
+      {info.icon}
+    </div>
+    <div>
+      <h3 className="font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">
+        {info.title}
+      </h3>
+      {info.type === 'schedule' ? (
+        <div className="text-slate-400 space-y-1">
+          <p>{info.content.primary}</p>
+          <p>{info.content.secondary}</p>
+        </div>
+      ) : info.type === 'address' ? (
+        <address className="not-italic text-slate-400 leading-relaxed">
+          <p>{info.content}</p>
+        </address>
+      ) : (
+        <p className="text-slate-400">
+          {info.href ? (
+            <a href={info.href} className="hover:text-purple-400 transition-colors duration-300">
+              {info.content}
+            </a>
+          ) : (
+            info.content
+          )}
+        </p>
+      )}
+    </div>
+  </div>
+);
+
+// Fixed Form Input Component - this was the main issue
+const FormInput = ({ type, name, value, onChange, placeholder, required = false, rows = null }) => {
+  const inputProps = {
+    name,
+    value,
+    onChange,
+    placeholder,
+    required,
+    className: `w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm ${rows ? 'resize-none' : ''}`
+  };
+
+  return (
+    <div className="space-y-2">
+      <label htmlFor={name} className="block text-slate-300 font-medium capitalize">
+        {name === 'message' ? 'Your Message' : name.replace(/([A-Z])/g, ' $1').trim()}
+      </label>
+      {rows ? (
+        <textarea id={name} rows={rows} {...inputProps} />
+      ) : (
+        <input id={name} type={type} {...inputProps} />
+      )}
+    </div>
+  );
+};
+
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -76,7 +218,6 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const [showCallModal, setShowCallModal] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Memoized structured data for performance
   const structuredData = useMemo(() => ({
@@ -98,7 +239,7 @@ const Contact = () => {
       "telephone": "+1 (659) 220-0667",
       "email": "info@nextelbpo.co",
       "openingHours": "Mo-Sa 18:40-04:30",
-      "url": window.location.origin
+      "url": typeof window !== 'undefined' ? window.location.origin : ''
     }
   }), []);
 
@@ -107,13 +248,13 @@ const Contact = () => {
     return formData.name && formData.email && formData.message;
   }, [formData.name, formData.email, formData.message]);
 
-  // Optimized form change handler
+  // Fixed form change handler - this is the key fix
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     if (!isFormValid) return;
     
     setIsSubmitting(true);
@@ -122,7 +263,7 @@ const Contact = () => {
     try {
       // Try to submit to backend if available
       try {
-        await fetch('http://localhost:5000/api/contact', {
+        await fetch('https://nextelbpo.onrender.com/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
@@ -141,11 +282,22 @@ const Contact = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [isFormValid, formData]);
+
+  const handleModalClose = useCallback(() => {
+    setShowCallModal(false);
+  }, []);
+
+  const handleModalOpen = useCallback(() => {
+    setShowCallModal(true);
+  }, []);
+
+  const handleResetForm = useCallback(() => {
+    setIsSubmitted(false);
+  }, []);
 
   useEffect(() => {
     setIsVisible(true);
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     
     // SEO Meta Tags
     document.title = 'Contact NextelBPO - Get in Touch | BPO Services Inquiry';
@@ -174,7 +326,7 @@ const Contact = () => {
       { property: 'og:title', content: 'Contact NextelBPO - Get in Touch for BPO Services' },
       { property: 'og:description', content: 'Reach out to NextelBPO for BPO service inquiries. Multiple contact channels available with fast response times.' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: window.location.href }
+      { property: 'og:url', content: typeof window !== 'undefined' ? window.location.href : '' }
     ];
 
     ogTags.forEach(tag => {
@@ -197,127 +349,7 @@ const Contact = () => {
     script.type = 'application/ld+json';
     script.text = JSON.stringify(structuredData);
     document.head.appendChild(script);
-
-    return () => clearInterval(timer);
   }, [structuredData]);
-
-  // Floating Orbs Background Component
-  const FloatingOrbs = () => (
-    <>
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
-          style={{
-            width: `${Math.random() * 200 + 100}px`,
-            height: `${Math.random() * 200 + 100}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 2}s`,
-            filter: 'blur(1px)'
-          }}
-        />
-      ))}
-    </>
-  );
-
-  // Neural Network Lines Component
-  const NeuralNetworkLines = () => (
-    <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#EC4899" />
-        </linearGradient>
-      </defs>
-      {[...Array(12)].map((_, i) => (
-        <line
-          key={i}
-          x1={`${Math.random() * 100}%`}
-          y1={`${Math.random() * 100}%`}
-          x2={`${Math.random() * 100}%`}
-          y2={`${Math.random() * 100}%`}
-          stroke="url(#lineGradient)"
-          strokeWidth="1"
-          className="animate-pulse"
-          style={{ animationDelay: `${i * 0.2}s` }}
-        />
-      ))}
-    </svg>
-  );
-
-  // Metrics Dashboard Component
-  const MetricsDashboard = () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-      {METRICS.map((metric, idx) => (
-        <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="text-purple-400">{metric.icon}</div>
-            <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
-          </div>
-          <div className="text-2xl font-bold text-white">{metric.value}</div>
-        </div>
-      ))}
-    </div>
-  );
-
-  // Contact Info Card Component
-  const ContactInfoCard = ({ info }) => (
-    <div className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-purple-500/10 transition-all duration-300">
-      <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-purple-500/20">
-        {info.icon}
-      </div>
-      <div>
-        <h3 className="font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">
-          {info.title}
-        </h3>
-        {info.type === 'schedule' ? (
-          <div className="text-slate-400 space-y-1">
-            <p>{info.content.primary}</p>
-            <p>{info.content.secondary}</p>
-          </div>
-        ) : info.type === 'address' ? (
-          <address className="not-italic text-slate-400 leading-relaxed">
-            <p>{info.content}</p>
-          </address>
-        ) : (
-          <p className="text-slate-400">
-            {info.href ? (
-              <a href={info.href} className="hover:text-purple-400 transition-colors duration-300">
-                {info.content}
-              </a>
-            ) : (
-              info.content
-            )}
-          </p>
-        )}
-      </div>
-    </div>
-  );
-
-  // Form Input Component
-  const FormInput = ({ type, name, value, onChange, placeholder, required = false, rows = null }) => {
-    const Component = rows ? 'textarea' : 'input';
-    const props = {
-      type: !rows ? type : undefined,
-      name,
-      value,
-      onChange,
-      placeholder,
-      required,
-      ...(rows ? { rows } : {}),
-      className: `w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm ${rows ? 'resize-none' : ''}`
-    };
-
-    return (
-      <div className="space-y-2">
-        <label htmlFor={name} className="block text-slate-300 font-medium capitalize">
-          {name === 'message' ? 'Your Message' : name.replace(/([A-Z])/g, ' $1').trim()}
-        </label>
-        <Component id={name} {...props} />
-      </div>
-    );
-  };
 
   return (
     <main className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -439,7 +471,7 @@ const Contact = () => {
                       <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
                       <p className="text-slate-400 mb-6">Your message has been sent successfully. Our team will get back to you soon.</p>
                       <button
-                        onClick={() => setIsSubmitted(false)}
+                        onClick={handleResetForm}
                         className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl"
                       >
                         Send Another Message
@@ -551,7 +583,7 @@ const Contact = () => {
                 <h3 className="text-2xl font-bold text-white mb-6">Ready to Get Started?</h3>
                 <div className="space-y-4">
                   <button 
-                    onClick={() => setShowCallModal(true)}
+                    onClick={handleModalOpen}
                     className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                   >
                     <Users className="w-5 h-5" />
@@ -587,7 +619,7 @@ const Contact = () => {
             </div>
             
             <button
-              onClick={() => setShowCallModal(false)}
+              onClick={handleModalClose}
               className="w-full mt-4 px-4 py-2 border-2 border-slate-700 text-slate-300 rounded-lg hover:bg-slate-800 transition-colors"
             >
               Cancel

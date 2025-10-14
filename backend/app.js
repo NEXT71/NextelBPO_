@@ -9,12 +9,15 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://www.nextelbpo.co',
+  origin: ['https://www.nextelbpo.co', 'https://nextelbpo.co'],
   credentials: true
 }));
 app.use(bodyParser.json());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('NextelBPO API is running.');
+});
 app.use('/api', contactRoutes);
 app.use('/api', careerRoutes);
 

@@ -1,8 +1,14 @@
-import transporter from "../config/email.config.js";
+
+import { Resend } from 'resend';
+import { config } from 'dotenv';
+config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+console.log('RESEND_API_KEY:', process.env.RESEND_API_KEY);
 const sendContactEmail = async ({ name, email, phone, message }) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
+  await resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL,
+    to: process.env.CONTACT_EMAIL,
     subject: `New Contact Form Submission from ${name}`,
     html: `
       <h2>New Contact Form Submission</h2>
@@ -12,15 +18,14 @@ const sendContactEmail = async ({ name, email, phone, message }) => {
       <p><strong>Message:</strong></p>
       <p>${message}</p>
       <p>Received at: ${new Date().toLocaleString()}</p>
-    `
-  };
-
-  return transporter.sendMail(mailOptions);
+    `,
+  });
+  
 };
 
 const sendConfirmationEmail = async ({ name, email, message }) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  await resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL,
     to: email,
     subject: `Thank you for contacting NextelBPO`,
     html: `
@@ -32,16 +37,14 @@ const sendConfirmationEmail = async ({ name, email, message }) => {
       <hr>
       <p>NextelBPO Team</p>
       <p><small>This is an automated message. Please do not reply.</small></p>
-    `
-  };
-
-  return transporter.sendMail(mailOptions);
+    `,
+  });
 };
 
 const sendResumeSubmissionEmail = async ({ name, email, phone, resume }) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
+  await resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL,
+    to: process.env.CONTACT_EMAIL,
     subject: `New Resume Submission from ${name}`,
     html: `
       <h2>New Resume Submission</h2>
@@ -51,22 +54,20 @@ const sendResumeSubmissionEmail = async ({ name, email, phone, resume }) => {
       <p>Received at: ${new Date().toLocaleString()}</p>
       <p>Please find the attached resume.</p>
     `,
-    attachments: [
+    attachments: resume ? [
       {
         filename: resume.filename,
         content: resume.content,
         encoding: 'base64',
         contentType: resume.contentType
       }
-    ]
-  };
-
-  return transporter.sendMail(mailOptions);
+    ] : [],
+  });
 };
 
 const sendResumeConfirmationEmail = async ({ name, email }) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  await resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL,
     to: email,
     subject: `Thank you for your interest in NextelBPO`,
     html: `
@@ -76,12 +77,8 @@ const sendResumeConfirmationEmail = async ({ name, email }) => {
       <hr>
       <p>NextelBPO HR Team</p>
       <p><small>This is an automated message. Please do not reply.</small></p>
-    `
-  };
-
-  return transporter.sendMail(mailOptions);
+    `,
+  });
 };
 
-
-
-export {sendContactEmail, sendConfirmationEmail, sendResumeConfirmationEmail, sendResumeSubmissionEmail}
+export { sendContactEmail, sendConfirmationEmail, sendResumeConfirmationEmail, sendResumeSubmissionEmail };

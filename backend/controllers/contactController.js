@@ -1,4 +1,3 @@
-import transporter from '../config/email.config.js';
 import { sendContactEmail, sendConfirmationEmail } from '../services/email.service.js';
 const submitContactForm = async (req, res, next) => {
   try {

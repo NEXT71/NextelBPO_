@@ -36,7 +36,7 @@ const Services = () => {
         "Customer satisfaction tracking"
       ],
       industries: ["E-commerce", "Healthcare", "Telecommunications", "Financial Services"],
-      image: "https://images.unsplash.com/photo-1553484771-cc0d9b8d2b03?w=500&h=300&fit=crop"
+      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=300&fit=crop"
     },
     {
       id: 3,

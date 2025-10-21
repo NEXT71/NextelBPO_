@@ -5,7 +5,7 @@ config();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 console.log('RESEND_API_KEY:', process.env.RESEND_API_KEY);
-const sendContactEmail = async ({ name, email, phone, message }) => {
+const sendContactEmail = async ({ name, email, phone, message, universal_leadid }) => {
   await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL,
     to: process.env.CONTACT_EMAIL,
@@ -17,6 +17,7 @@ const sendContactEmail = async ({ name, email, phone, message }) => {
       <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
       <p><strong>Message:</strong></p>
       <p>${message}</p>
+      ${universal_leadid ? `<p><strong>Universal LeadiD:</strong> ${universal_leadid}</p>` : ''}
       <p>Received at: ${new Date().toLocaleString()}</p>
     `,
   });

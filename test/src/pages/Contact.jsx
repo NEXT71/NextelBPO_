@@ -212,7 +212,8 @@ const Contact = () => {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    universal_leadid: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -275,7 +276,7 @@ const Contact = () => {
       
       // Always show success to user
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '', universal_leadid: '' });
       
     } catch (err) {
       console.error('Unexpected error:', err);
@@ -298,6 +299,18 @@ const Contact = () => {
 
   useEffect(() => {
     setIsVisible(true);
+    
+    // Watch for LeadiD token population
+    const checkLeadiD = () => {
+      const leadidInput = document.getElementById('leadid_token');
+      if (leadidInput && leadidInput.value && leadidInput.value !== formData.universal_leadid) {
+        setFormData(prev => ({ ...prev, universal_leadid: leadidInput.value }));
+      }
+    };
+    
+    // Check immediately and then periodically
+    checkLeadiD();
+    const leadidInterval = setInterval(checkLeadiD, 1000);
     
     // SEO Meta Tags
     document.title = 'Contact NextelBPO - Get in Touch | BPO Services Inquiry';
@@ -349,6 +362,44 @@ const Contact = () => {
     script.type = 'application/ld+json';
     script.text = JSON.stringify(structuredData);
     document.head.appendChild(script);
+
+    // Jornaya LeadiD Script
+    const jornayaScript = document.createElement('script');
+    jornayaScript.id = 'LeadiDscript';
+    jornayaScript.type = 'text/javascript';
+    const campaignSrc = `//create.lidstatic.com/campaign/${process.env.REACT_APP_JORNAYA_CAMPAIGN_ID}.js?snippet_version=${process.env.REACT_APP_JORNAYA_SNIPPET_VERSION}`;
+    jornayaScript.innerHTML = `
+      (function() {
+        var s = document.createElement('script');
+        s.id = 'LeadiDscript_campaign';
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = '${campaignSrc}';
+        var LeadiDscript = document.getElementById('LeadiDscript');
+        LeadiDscript.parentNode.insertBefore(s, LeadiDscript);
+      })();
+    `;
+    document.body.appendChild(jornayaScript);
+
+    // Noscript fallback
+    const noscript = document.createElement('noscript');
+    const noscriptImg = document.createElement('img');
+    const noscriptSrc = `//create.leadid.com/noscript.gif?lac=${process.env.REACT_APP_JORNAYA_LAC}&lck=${process.env.REACT_APP_JORNAYA_LCK}&snippet_version=${process.env.REACT_APP_JORNAYA_SNIPPET_VERSION}`;
+    noscriptImg.src = noscriptSrc;
+    noscript.appendChild(noscriptImg);
+    document.body.appendChild(noscript);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(leadidInterval);
+      // Cleanup scripts on unmount
+      const existingJornaya = document.getElementById('LeadiDscript');
+      if (existingJornaya) existingJornaya.remove();
+      const existingCampaign = document.getElementById('LeadiDscript_campaign');
+      if (existingCampaign) existingCampaign.remove();
+      const existingNoscript = document.querySelector('noscript img[src*="leadid.com"]');
+      if (existingNoscript) existingNoscript.parentNode.remove();
+    };
   }, [structuredData]);
 
   return (
@@ -517,6 +568,20 @@ const Contact = () => {
                           rows={5}
                           required
                         />
+                        
+                        {/* LeadiD Hidden Input */}
+                        <input id="leadid_token" name="universal_leadid" type="hidden" value={formData.universal_leadid} />
+                        
+                        {/* TCPA Disclosure */}
+                        <div className="space-y-2">
+                          <label className="flex items-start gap-3 text-slate-300">
+                            <input type="checkbox" id="leadid_tcpa_disclosure" className="mt-1" />
+                            <span className="text-sm leading-relaxed">
+                              By submitting this form, you agree to receive communications from NextelBPO and our partners. 
+                              You can unsubscribe at any time. Message and data rates may apply.
+                            </span>
+                          </label>
+                        </div>
                         
                         <button
                           type="button"

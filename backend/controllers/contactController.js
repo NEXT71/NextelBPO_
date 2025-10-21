@@ -1,7 +1,7 @@
 import { sendContactEmail, sendConfirmationEmail } from '../services/email.service.js';
 const submitContactForm = async (req, res, next) => {
   try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, message, universal_leadid } = req.body;
 
     // Basic validation
     if (!name || !email || !message) {
@@ -12,7 +12,7 @@ const submitContactForm = async (req, res, next) => {
     }
 
     // Send emails
-    await sendContactEmail({ name, email, phone, message });
+    await sendContactEmail({ name, email, phone, message, universal_leadid });
     await sendConfirmationEmail({ name, email, message });
 
     res.json({ success: true });

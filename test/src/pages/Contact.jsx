@@ -390,7 +390,6 @@ const Contact = () => {
     document.body.appendChild(noscript);
 
     return () => {
-      clearInterval(timer);
       clearInterval(leadidInterval);
       // Cleanup scripts on unmount
       const existingJornaya = document.getElementById('LeadiDscript');

@@ -11,4 +11,8 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log('Environment check:');
+  console.log('- PORT:', PORT);
+  console.log('- RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'Set' : 'Not set');
+  console.log('- CORS configured for:', process.env.FRONTEND_URL || 'Not set');
 });

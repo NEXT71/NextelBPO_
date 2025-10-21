@@ -1,11 +1,8 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import {
-  Check, Phone, Mail, MapPin, Clock, Send, CheckCircle, ArrowRight, 
+  Check, Phone, Mail, MapPin, Clock, Send, CheckCircle, ArrowRight,
   Zap, Users, MessageCircle, Activity, TrendingUp, Star, User
-} from 'lucide-react';
-import JornayaVerifier from '../components/JornayaVerifier';
-
-// Extract data to separate constants for better maintainability
+} from 'lucide-react';// Extract data to separate constants for better maintainability
 const CONTACT_INFO = [
   {
     icon: <MapPin className="w-6 h-6 text-purple-400" />,
@@ -404,9 +401,6 @@ const Contact = () => {
 
   return (
     <main className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-      {/* Jornaya Debug Component - Remove in production */}
-      <JornayaVerifier />
-      
       {/* Hidden SEO content */}
       <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px' }}>
         <h1>Contact NextelBPO - Get in Touch for BPO Services</h1>

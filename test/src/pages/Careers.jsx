@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
   Check, ArrowRight, Zap, Rocket, Stars, Lightbulb, Users, ArrowDown, 
-  Activity, TrendingUp, Upload, User, Mail, Phone, FileText 
+  Activity, TrendingUp, Upload, User, Mail, Phone, FileText, MapPin
 } from 'lucide-react';
 
 // Extract data to separate constants for better maintainability
@@ -245,6 +245,7 @@ const Careers = () => {
     name: '',
     email: '',
     phone: '',
+    position: '',
     resume: null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -283,8 +284,8 @@ const Careers = () => {
 
   // Memoized form validation
   const isFormValid = useMemo(() => {
-    return formData.name && formData.email && formData.resume;
-  }, [formData.name, formData.email, formData.resume]);
+    return formData.name && formData.email && formData.position && formData.resume;
+  }, [formData.name, formData.email, formData.position, formData.resume]);
 
   // Fixed form change handler
   const handleInputChange = useCallback((e) => {
@@ -302,6 +303,7 @@ const Careers = () => {
     formDataToSend.append('name', formData.name);
     formDataToSend.append('email', formData.email);
     formDataToSend.append('phone', formData.phone || '');
+    formDataToSend.append('position', formData.position || '');
     if (formData.resume) {
       formDataToSend.append('resume', formData.resume);
     }
@@ -548,7 +550,17 @@ const Careers = () => {
               </div>
               
               <div className="lg:w-1/2 p-12 bg-slate-900/50">
-                <h3 className="text-2xl font-bold text-white mb-6">Submit Your Information</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">Submit Your Information</h3>
+                <div className="mb-6 p-4 bg-slate-800/50 rounded-lg border border-slate-700/50">
+                  <p className="text-slate-300 text-sm mb-2"><strong>HR Contact:</strong> Qamar Ali Rana</p>
+                  <p className="text-slate-300 text-sm">
+                    <Phone className="w-4 h-4 inline mr-2" />
+                    +92 370 5546296
+                  </p>
+                  <p className="text-slate-400 text-xs mt-2">
+                    📍 2nd Floor Sabah Plaza, Bank Road, Saddar, Rawalpindi
+                  </p>
+                </div>
                 <div className="space-y-4">
                   <FormInput
                     type="text"
@@ -576,6 +588,25 @@ const Careers = () => {
                     onChange={handleInputChange}
                     icon={Phone}
                   />
+                  
+                  <div className="relative">
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <select
+                      name="position"
+                      value={formData.position}
+                      onChange={handleInputChange}
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm"
+                      required
+                    >
+                      <option value="">Select Position Type</option>
+                      <option value="Verifier">Verifier</option>
+                      <option value="CSR">Customer Service Representative (CSR)</option>
+                      <option value="Closer">Closer</option>
+                      <option value="Business Development Executive">Business Development Executive</option>
+                    </select>
+                  </div>
                   
                   <FileUpload formData={formData} setFormData={setFormData} />
                   
@@ -609,6 +640,37 @@ const Careers = () => {
           </div>
         </div>
       </section>
+
+      {/* Custom Footer for Careers Page */}
+      <footer className="bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white pt-12 pb-6">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold mb-4">Pakistan Office</h3>
+            <div className="max-w-md mx-auto bg-slate-800/50 rounded-lg p-6 border border-slate-700/50">
+              <div className="space-y-3">
+                <div className="flex items-start justify-center">
+                  <MapPin className="w-5 h-5 text-purple-300 mt-0.5 mr-3 flex-shrink-0" />
+                  <span className="text-purple-100">2nd Floor Sabah Plaza, Bank Road, Saddar, Rawalpindi</span>
+                </div>
+                <div className="flex items-center justify-center">
+                  <Phone className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />
+                  <a href="tel:+923705546296" className="text-purple-100 hover:text-white transition-colors">+92 370 5546296</a>
+                </div>
+                <div className="flex items-center justify-center">
+                  <User className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />
+                  <span className="text-purple-100">HR Contact: Qamar Ali Rana</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-purple-800 pt-6 text-center">
+            <p className="text-sm text-purple-300">
+              &copy; {new Date().getFullYear()} NextelBPO. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 };

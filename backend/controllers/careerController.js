@@ -35,7 +35,7 @@ const submitResume = async (req, res, next) => {
         });
       }
 
-      const { name, email, phone } = req.body;
+      const { name, email, phone, position } = req.body;
       const resumeFile = req.file;
 
       // Basic validation
@@ -54,6 +54,7 @@ const submitResume = async (req, res, next) => {
         name, 
         email, 
         phone, 
+        position,
         resume: {
           filename: resumeFile.originalname,
           content: fileContent,

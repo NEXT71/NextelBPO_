@@ -42,16 +42,17 @@ const sendConfirmationEmail = async ({ name, email, message }) => {
   });
 };
 
-const sendResumeSubmissionEmail = async ({ name, email, phone, resume }) => {
+const sendResumeSubmissionEmail = async ({ name, email, phone, position, resume }) => {
   await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL,
     to: process.env.CONTACT_EMAIL,
-    subject: `New Resume Submission from ${name}`,
+    subject: `New Resume Submission from ${name} - ${position || 'Position Not Specified'}`,
     html: `
       <h2>New Resume Submission</h2>
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+      <p><strong>Position Applied:</strong> ${position || 'Not specified'}</p>
       <p>Received at: ${new Date().toLocaleString()}</p>
       <p>Please find the attached resume.</p>
     `,

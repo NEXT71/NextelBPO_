@@ -31,7 +31,7 @@ const Services = () => {
       icon: <Phone className="w-8 h-8" />,
       features: [
         "24/7 availability",
-        "Multilingual support", 
+        "Multilingual support",
         "Call routing",
         "Customer satisfaction tracking"
       ],
@@ -361,12 +361,12 @@ const Services = () => {
             <div className="bg-white/20 backdrop-blur-sm rounded-full px-6 py-3">
               <span className="text-white font-semibold">Ready to get started?</span>
             </div>
-            <button 
-              onClick={() => window.location.href = '/contact'}
+            <a 
+              href="/contact"
               className="bg-white text-purple-600 font-bold px-8 py-3 rounded-full hover:bg-purple-50 transition-all duration-300 transform hover:scale-105"
             >
               Contact Us Today
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -152,13 +152,6 @@ const Hero = () => {
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
           
-          <button 
-            className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-3"
-            onClick={() => setIsPlaying(!isPlaying)}
-          >
-            <Play className="w-5 h-5" />
-            Watch Demo
-          </button>
         </div>
 
         {/* Scroll Indicator */}

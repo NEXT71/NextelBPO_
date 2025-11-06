@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mr-3">
                 <img 
-                  src="/nextelbpologo.jpg" 
+                  src="/nextelbpologo.png" 
                   alt="NextelBPO Logo"
                   className="w-full h-full object-contain"
                 />

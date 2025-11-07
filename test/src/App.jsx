@@ -15,9 +15,6 @@ import TeamPage from './pages/Teampage.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
 
 function AppContent() {
-  const location = useLocation();
-  const showFooter = location.pathname !== '/careers';
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -36,7 +33,7 @@ function AppContent() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </main>
-      {showFooter && <Footer />}
+      <Footer />
     </div>
   );
 }

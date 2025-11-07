@@ -640,37 +640,6 @@ const Careers = () => {
           </div>
         </div>
       </section>
-
-      {/* Custom Footer for Careers Page */}
-      <footer className="bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white pt-12 pb-6">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold mb-4">Pakistan Office</h3>
-            <div className="max-w-md mx-auto bg-slate-800/50 rounded-lg p-6 border border-slate-700/50">
-              <div className="space-y-3">
-                <div className="flex items-start justify-center">
-                  <MapPin className="w-5 h-5 text-purple-300 mt-0.5 mr-3 flex-shrink-0" />
-                  <span className="text-purple-100">2nd Floor Sabah Plaza, Bank Road, Saddar, Rawalpindi</span>
-                </div>
-                <div className="flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />
-                  <a href="tel:+923705546296" className="text-purple-100 hover:text-white transition-colors">+92 370 5546296</a>
-                </div>
-                <div className="flex items-center justify-center">
-                  <User className="w-5 h-5 text-purple-300 mr-3 flex-shrink-0" />
-                  <span className="text-purple-100">HR Contact: Qamar Ali Rana</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-purple-800 pt-6 text-center">
-            <p className="text-sm text-purple-300">
-              &copy; {new Date().getFullYear()} NextelBPO. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 };

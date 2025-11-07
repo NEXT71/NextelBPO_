@@ -147,7 +147,7 @@ const Navbar = () => {
     {/* Logo image with futuristic border effect */}
     <div className="w-16 h-16 rounded-xl flex items-center justify-center overflow-hidden relative z-10 bg-gray-900 border border-gray-700 group-hover:border-purple-500 transition-all duration-500">
       <img 
-        src="/nextelbpologo.png" 
+        src="/nextelbpologo1.png" 
         alt="NextelBPO Logo"
         className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
       />

@@ -6,16 +6,16 @@ import {
 const CONTACT_INFO = [
   {
     icon: <MapPin className="w-6 h-6 text-purple-400" />,
-    title: "NextelBPO Headquarters",
-    content: "838 walker rd STE 21-2 Dover DE 19904",
+    title: "NextelBPO Office",
+    content: "2nd Floor Sabah Plaza, Bank Road, Saddar, Rawalpindi",
     type: "address"
   },
   {
     icon: <Phone className="w-6 h-6 text-purple-400" />,
-    title: "Phone",
-    content: "+1 (659) 220-0667",
+    title: "Phone (HR - Qamar Ali Rana)",
+    content: "+92 370 5546296",
     type: "phone",
-    href: "tel:+16592200667"
+    href: "tel:+923705546296"
   },
   {
     icon: <Mail className="w-6 h-6 text-purple-400" />,
@@ -49,14 +49,14 @@ const CTA_BENEFITS = [
 
 const CONTACT_MODAL_OPTIONS = [
   {
-    href: "https://wa.me/+16592200667",
+    href: "https://wa.me/+923705546296",
     text: "Chat on WhatsApp",
     icon: <MessageCircle className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />,
     bgClass: "from-green-600 to-green-500 hover:from-green-700 hover:to-green-600"
   },
   {
-    href: "tel:+16592200667",
-    text: "Call Directly", 
+    href: "tel:+923705546296",
+    text: "Call Directly",
     icon: <Phone className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />,
     bgClass: "from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
   }
@@ -235,7 +235,7 @@ const Contact = () => {
         "postalCode": "19904",
         "addressCountry": "US"
       },
-      "telephone": "+1 (659) 220-0667",
+      "telephone": "+92 370 5546296",
       "email": "info@nextelbpo.co",
       "openingHours": "Mo-Sa 18:40-04:30",
       "url": typeof window !== 'undefined' ? window.location.origin : ''
@@ -409,7 +409,7 @@ const Contact = () => {
           is ready to assist with lead generation, customer support, insurance sales, and transcription services.
         </p>
         <p>
-          Contact us via phone at +1 (659) 220-0667, email at info@nextelbpo.co, or use our convenient contact form. 
+          Contact us via phone at +92 370 5546296 (HR - Qamar Ali Rana), email at info@nextelbpo.co, or use our convenient contact form. 
           We're available Monday through Saturday from 6:40 PM to 4:30 AM with 24/7 emergency support for existing clients.
         </p>
         <p>
@@ -497,7 +497,7 @@ const Contact = () => {
                   <div className="mt-10 rounded-xl overflow-hidden border border-slate-700/50">
                     <iframe
                       title="NextelBPO Location"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3069.250788830402!2d-75.54148968462361!3d39.17080247952947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b8fb214c2a9d61%3A0x1c32f8f1f1d07d82!2s838%20Walker%20Rd%20STE%2021-2%2C%20Dover%2C%20DE%2019904%2C%20USA!5e0!3m2!1sen!2s!4v1694898200000!5m2!1sen!2s" 
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.0123456789!2d73.049137!3d33.598017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM1JzUyLjkiTiA3M8KwMDInNTYuOSJF!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
                       width="100%"
                       height="250"
                       style={{ border: 0 }}
@@ -664,6 +664,13 @@ const Contact = () => {
           <div className="bg-slate-900 rounded-xl max-w-md w-full p-6 space-y-6 border border-slate-700/50">
             <h3 className="text-2xl font-bold text-white text-center">Contact Our Team</h3>
             <p className="text-slate-400 text-center">Choose your preferred contact method</p>
+            <div className="text-center p-3 bg-slate-800/50 rounded-lg border border-slate-700/50">
+              <p className="text-slate-300 text-sm mb-1"><strong>HR Contact:</strong> Qamar Ali Rana</p>
+              <p className="text-slate-300 text-sm">
+                <Phone className="w-4 h-4 inline mr-2" />
+                +92 370 5546296
+              </p>
+            </div>
             
             <div className="space-y-4">
               {CONTACT_MODAL_OPTIONS.map((option, index) => (

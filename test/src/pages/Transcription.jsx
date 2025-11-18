@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Mic, FileText, Clock, CheckCircle, Shield, ArrowRight, Users, Calendar, Target, Zap, Activity, Star } from 'lucide-react';
+import { Mic, FileText, Clock, CheckCircle, Shield, ArrowRight, Users, Calendar, Target, Zap, Activity, Star, Phone } from 'lucide-react';
 
 const Transcription = () => {
   const [activeTab, setActiveTab] = useState('services');
@@ -572,14 +572,27 @@ const Transcription = () => {
                     window.location.href = `mailto:info@nextelbpo.co?subject=${subject}&body=${body}`;
                   }}
                 >
-                  <div className="flex items-center">
-                    <div className="bg-indigo-500/20 p-3 rounded-lg mr-4">
-                      <FileText className="w-6 h-6 text-indigo-400" />
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <div className="bg-indigo-500/20 p-3 rounded-lg mr-4">
+                        <FileText className="w-6 h-6 text-indigo-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-slate-400 mb-1">Email us at</p>
+                        <div className="text-xl font-semibold text-indigo-400">
+                          info@nextelbpo.co
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-slate-400 mb-1">Contact us at</p>
-                      <div className="text-xl font-semibold text-indigo-400">
-                        info@nextelbpo.co
+                    <div className="flex items-center">
+                      <div className="bg-indigo-500/20 p-3 rounded-lg mr-4">
+                        <Phone className="w-6 h-6 text-indigo-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-slate-400 mb-1">Call us at</p>
+                        <div className="text-xl font-semibold text-indigo-400">
+                          +1 (659) 220-0667
+                        </div>
                       </div>
                     </div>
                   </div>

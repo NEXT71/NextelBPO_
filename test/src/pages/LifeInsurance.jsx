@@ -559,14 +559,27 @@ const LifeInsuranceSales = () => {
                     window.location.href = `mailto:info@nextelbpo.co?subject=${subject}&body=${body}`;
                   }}
                 >
-                  <div className="flex items-center">
-                    <div className="bg-blue-500/20 p-3 rounded-lg mr-4">
-                      <Phone className="w-6 h-6 text-blue-400" />
+                  <div className="space-y-4">
+                    <div className="flex items-center">
+                      <div className="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <Search className="w-6 h-6 text-blue-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-slate-400 mb-1">Email us at</p>
+                        <div className="text-xl font-semibold text-blue-400">
+                          info@nextelbpo.co
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-slate-400 mb-1">Contact us at</p>
-                      <div className="text-xl font-semibold text-blue-400">
-                        info@nextelbpo.co
+                    <div className="flex items-center">
+                      <div className="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <Phone className="w-6 h-6 text-blue-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-slate-400 mb-1">Call us at</p>
+                        <div className="text-xl font-semibold text-blue-400">
+                          +1 (659) 220-0667
+                        </div>
                       </div>
                     </div>
                   </div>

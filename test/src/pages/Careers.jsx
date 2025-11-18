@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
   Check, ArrowRight, Zap, Rocket, Stars, Lightbulb, Users, ArrowDown, 
-  Activity, TrendingUp, Upload, User, Mail, Phone, FileText, MapPin
+  Activity, TrendingUp, Upload, User, Mail, Phone, FileText, MapPin, MessageCircle
 } from 'lucide-react';
 
 // Extract data to separate constants for better maintainability
@@ -551,14 +551,18 @@ const Careers = () => {
               
               <div className="lg:w-1/2 p-12 bg-slate-900/50">
                 <h3 className="text-2xl font-bold text-white mb-2">Submit Your Information</h3>
-                <div className="mb-6 p-4 bg-slate-800/50 rounded-lg border border-slate-700/50">
-                  <p className="text-slate-300 text-sm mb-2"><strong>HR Contact:</strong> Qamar Ali Rana</p>
-                  <p className="text-slate-300 text-sm">
-                    <Phone className="w-4 h-4 inline mr-2" />
-                    +92 370 5546296
-                  </p>
-                  <p className="text-slate-400 text-xs mt-2">
-                    📍 2nd Floor Sabah Plaza, Bank Road, Saddar, Rawalpindi
+                <div className="mb-6">
+                  <a 
+                    href="https://wa.me/+923705546296"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-4 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    Contact HR via WhatsApp
+                  </a>
+                  <p className="text-slate-400 text-xs mt-3 text-center">
+                    Chat with Qamar Ali Rana - HR Manager
                   </p>
                 </div>
                 <div className="space-y-4">

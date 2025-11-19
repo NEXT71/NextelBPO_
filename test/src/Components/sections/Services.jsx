@@ -7,7 +7,6 @@ const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentTime, setCurrentTime] = useState(new Date());
 
   const SERVICES = [
     {
@@ -80,8 +79,6 @@ const Services = () => {
 
   useEffect(() => {
     setIsVisible(true);
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
   }, []);
 
   const handleLearnMoreClick = (serviceTitle) => {
@@ -164,10 +161,8 @@ const Services = () => {
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Status Bar */}
           <div className="inline-flex items-center gap-4 bg-black/20 backdrop-blur-lg border border-purple-500/20 rounded-full px-6 py-3 mb-8">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-purple-100 text-sm font-mono">Service Network: OPERATIONAL</span>
-            <div className="w-1 h-4 bg-purple-500/30"></div>
-            <span className="text-purple-100 text-sm font-mono">{currentTime.toLocaleTimeString()}</span>
+            <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+            <span className="text-purple-100 text-sm font-mono">Service Network</span>
           </div>
 
           <h2 className="text-7xl md:text-8xl font-black text-white mb-8 tracking-tight leading-tight">
@@ -226,24 +221,24 @@ const Services = () => {
               {/* Card */}
               <div className={`
                 relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-2xl overflow-hidden
-                border border-slate-700/50 hover:border-purple-500/50
-                shadow-lg hover:shadow-xl
+                border border-slate-700/50 hover:border-orange-500/50
+                shadow-lg hover:shadow-xl hover:shadow-orange-500/10
                 transform transition-all duration-500
-                ${hoveredService === service.id ? 'scale-105 -translate-y-2' : ''}
-                ${currentIndex === index ? 'ring-2 ring-purple-400 ring-offset-2 ring-offset-slate-950' : ''}
+                ${hoveredService === service.id ? 'scale-105 -translate-y-2 shadow-2xl shadow-orange-500/20' : ''}
+                ${currentIndex === index ? 'ring-2 ring-orange-400 ring-offset-2 ring-offset-slate-950' : ''}
                 h-full
               `}>
                 
                 {/* Highlight Indicator */}
                 {currentIndex === index && (
                   <div className="absolute top-4 right-4 z-20">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full animate-ping"></div>
-                    <div className="absolute top-0 w-3 h-3 bg-purple-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-orange-500 rounded-full animate-ping"></div>
+                    <div className="absolute top-0 w-3 h-3 bg-orange-500 rounded-full"></div>
                   </div>
                 )}
 
                 {/* Hover Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                 {/* Image Section */}
                 <div className="relative overflow-hidden h-48">
@@ -266,10 +261,7 @@ const Services = () => {
                     <div className="flex items-center justify-between text-white">
                       <div className="flex items-center gap-2">
                         <Star className="w-4 h-4 text-purple-400 fill-current" />
-                        <span className="text-sm font-medium">Premium</span>
-                      </div>
-                      <div className="text-sm bg-green-500/20 backdrop-blur-sm px-3 py-1 rounded-full border border-green-500/30 text-green-300">
-                        Active
+                        <span className="text-sm font-medium">Trusted Service</span>
                       </div>
                     </div>
                   </div>
@@ -312,7 +304,7 @@ const Services = () => {
                       e.stopPropagation();
                       handleLearnMoreClick(service.title);
                     }}
-                    className="w-full group/btn bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
+                    className="w-full group/btn bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
                   >
                     <span>Explore Service</span>
                     <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
@@ -321,7 +313,7 @@ const Services = () => {
 
                 {/* Animated Border */}
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-500/20 to-red-500/20 animate-pulse"></div>
                 </div>
               </div>
             </div>
@@ -363,7 +355,7 @@ const Services = () => {
             </div>
             <a 
               href="/contact"
-              className="bg-white text-purple-600 font-bold px-8 py-3 rounded-full hover:bg-purple-50 transition-all duration-300 transform hover:scale-105"
+              className="bg-white text-orange-600 font-bold px-8 py-3 rounded-full hover:bg-orange-50 transition-all duration-300 transform hover:scale-105"
             >
               Contact Us Today
             </a>

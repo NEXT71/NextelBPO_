@@ -4,7 +4,6 @@ import { Globe, Clock, Award, Users, TrendingUp, Activity } from "lucide-react";
 const Stats = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [counts, setCounts] = useState({ clients: 0, retention: 0, agents: 0, uptime: 0 });
-  const [currentTime, setCurrentTime] = useState(new Date());
 
   const stats = [
     { key: 'clients', value: 100, suffix: '+', label: 'Global Clients', icon: <Globe className="w-8 h-8 text-purple-400" /> },
@@ -27,11 +26,6 @@ const Stats = () => {
     if (element) observer.observe(element);
 
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -114,10 +108,8 @@ const Stats = () => {
         <div className="text-center mb-16">
           {/* Status Bar */}
           <div className="inline-flex items-center gap-4 bg-black/20 backdrop-blur-lg border border-purple-500/20 rounded-full px-6 py-3 mb-8">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-purple-100 text-sm font-mono">Performance Metrics: LIVE</span>
-            <div className="w-1 h-4 bg-purple-500/30"></div>
-            <span className="text-purple-100 text-sm font-mono">{currentTime.toLocaleTimeString()}</span>
+            <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+            <span className="text-purple-100 text-sm font-mono">Performance Metrics</span>
           </div>
 
           <h2 className="text-7xl md:text-8xl font-black text-white mb-8 tracking-tight leading-tight">
@@ -214,7 +206,7 @@ const Stats = () => {
             </p>
             <button 
               onClick={() => window.location.href = '/contact'}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold px-8 py-3 rounded-full hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-8 py-3 rounded-full hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Get Started Today
             </button>

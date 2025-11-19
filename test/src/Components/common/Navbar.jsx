@@ -255,7 +255,7 @@ const Navbar = () => {
                     <div className="mt-4 pt-4 border-t border-gray-100">
                       <a 
                         href="/services" 
-                        className="flex items-center justify-center w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 group"
+                        className="flex items-center justify-center w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:shadow-lg transition-all duration-300 group hover:from-orange-600 hover:to-red-600"
                       >
                         View All Services
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -288,7 +288,7 @@ const Navbar = () => {
                     <div className="mt-4 pt-4 border-t border-gray-100">
                       <a 
                         href="/about" 
-                        className="flex items-center justify-center w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 group"
+                        className="flex items-center justify-center w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:shadow-lg transition-all duration-300 group hover:from-orange-600 hover:to-red-600"
                       >
                         Learn More About Us
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -434,7 +434,7 @@ const Navbar = () => {
 
                 {/* Mobile CTA */}
                 <div className="pt-4 border-t border-gray-100">
-                  <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                  <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center hover:from-orange-600 hover:to-red-600">
                     Get Quote
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </button>

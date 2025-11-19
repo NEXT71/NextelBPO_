@@ -133,70 +133,63 @@ const MetricsDashboard = () => (
 );
 
 const CareerBenefitCard = ({ benefit, index }) => (
-  <div
-    className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500"
-  >
-    {/* Hover Glow Effect */}
-    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div className="group relative bg-white border border-black/10 overflow-hidden hover:border-black/30 transition-all duration-500">
+    {/* Hover Effect */}
+    <div className="absolute inset-0 bg-black/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
     
     {/* Card Content */}
-    <div className="relative p-8 flex flex-col h-full">
+    <div className="relative p-10 flex flex-col h-full">
       {/* Icon Section */}
-      <div className="relative mb-6">
-        <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto backdrop-blur-sm border border-purple-500/20">
-          <div className="text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
+      <div className="relative mb-8">
+        <div className="w-16 h-16 bg-black flex items-center justify-center group-hover:bg-black/90 transition-all duration-500 mx-auto">
+          <div className="text-white transition-colors duration-300">
             {benefit.icon}
           </div>
         </div>
         {/* Status Indicator */}
         <div className="absolute -top-2 -right-2">
-          <div className={`w-4 h-4 rounded-full animate-pulse ${
-            benefit.status === 'ACTIVE' ? 'bg-green-400' : 'bg-yellow-400'
+          <div className={`w-3 h-3 ${
+            benefit.status === 'ACTIVE' ? 'bg-black' : 'bg-black/40'
           }`}></div>
         </div>
       </div>
 
-      <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-purple-100 transition-colors">
+      <h3 className="text-2xl font-bold text-black mb-4 text-center tracking-tight">
         {benefit.title}
       </h3>
       
-      <p className="text-slate-400 mb-6 text-center text-sm leading-relaxed flex-grow">
+      <p className="text-black/60 mb-8 text-center leading-relaxed flex-grow">
         {benefit.description}
       </p>
 
       {/* Features */}
-      <div className="space-y-3 mb-6">
+      <div className="space-y-4 mb-8">
         {benefit.features.map((feature, idx) => (
           <div key={idx} className="flex items-center gap-3">
-            <Check className="w-4 h-4 text-purple-400 flex-shrink-0" />
-            <span className="text-slate-300 text-sm">{feature}</span>
+            <Check className="w-4 h-4 text-black flex-shrink-0" />
+            <span className="text-black/70">{feature}</span>
           </div>
         ))}
       </div>
 
       {/* Status Badge */}
       <div className="text-center">
-        <span className={`text-xs px-3 py-1 rounded-full border ${
+        <span className={`text-xs uppercase tracking-[0.2em] px-4 py-2 border ${
           benefit.status === 'ACTIVE' 
-            ? 'bg-green-500/20 text-green-400 border-green-500/30' 
-            : 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
+            ? 'bg-black text-white border-black' 
+            : 'bg-white text-black/60 border-black/20'
         }`}>
           {benefit.status}
         </span>
       </div>
     </div>
-
-    {/* Animated Border */}
-    <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
-    </div>
   </div>
 );
 
 // Fixed Form Input Component
-const FormInput = ({ type, placeholder, name, value, onChange, required = false, icon: Icon }) => (
+const FormInput = ({ type, placeholder, name, value, onChange, required, icon: Icon }) => (
   <div className="relative">
-    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">
+    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black/40">
       <Icon className="w-5 h-5" />
     </div>
     <input
@@ -205,7 +198,7 @@ const FormInput = ({ type, placeholder, name, value, onChange, required = false,
       name={name}
       value={value}
       onChange={onChange}
-      className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm"
+      className="w-full pl-12 pr-4 py-3 bg-white border border-black/10 focus:outline-none focus:border-black placeholder-black/40 transition-all duration-500"
       required={required}
     />
   </div>
@@ -214,17 +207,17 @@ const FormInput = ({ type, placeholder, name, value, onChange, required = false,
 // Fixed File Upload Component
 const FileUpload = ({ formData, setFormData }) => (
   <div className="pt-2">
-    <label className="block text-sm font-medium text-slate-300 mb-2">
+    <label className="block text-sm text-black/60 uppercase tracking-wider mb-2">
       Upload Resume (Required)
     </label>
     <div className="flex items-center justify-center w-full">
-      <label className="flex flex-col w-full border-2 border-dashed border-slate-700/50 rounded-lg cursor-pointer hover:bg-slate-800/30 backdrop-blur-sm transition-colors duration-200">
+      <label className="flex flex-col w-full border-2 border-dashed border-black/10 hover:border-black/20 cursor-pointer transition-all duration-500">
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
-          <Upload className="w-8 h-8 mb-4 text-slate-500" />
-          <p className="mb-2 text-sm text-slate-400">
+          <Upload className="w-8 h-8 mb-4 text-black/40" />
+          <p className="mb-2 text-sm text-black/60">
             <span className="font-semibold">Click to upload</span> or drag and drop
           </p>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-black/40">
             {formData.resume ? formData.resume.name : 'PDF, DOC, DOCX (MAX. 5MB)'}
           </p>
         </div>
@@ -428,58 +421,59 @@ const Careers = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
-        {/* Futuristic Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"></div>
-          
-          {/* Animated Grid */}
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `
-              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
-          }}></div>
-
-          <FloatingOrbs />
-          <NeuralNetworkLines />
-        </div>
+      <section className="relative min-h-screen bg-black text-white flex items-center border-b border-white/10">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-15" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920)' }}></div>
         
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 tracking-tight">
-            Join Our Team
-          </h1>
-          <div className="max-w-4xl mx-auto mb-12">
-            <h2 className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
-              Building the Future Together
-            </h2>
-            <p className="text-lg text-purple-200/80">
-              Where innovation meets opportunity • Where talent thrives • Where careers evolve
-            </p>
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="py-40">
+            <div className="max-w-5xl">
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-8">
+                Career Opportunities
+              </p>
+              
+              <h1 className="text-[96px] font-bold leading-[0.9] tracking-tight mb-8">
+                Build Your{' '}
+                <span className="text-white/30">Career With Us</span>
+              </h1>
+              
+              <p className="text-xl text-white/60 mb-12 max-w-2xl leading-relaxed">
+                Join 200+ professionals across 15+ countries. Submit your resume for future opportunities in BPO excellence.
+              </p>
+              
+              <button 
+                onClick={scrollToForm}
+                className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-white/90 transition-all duration-500"
+              >
+                Join Talent Network
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              
+              <div className="mt-12 flex items-center gap-3">
+                <a 
+                  href="https://wa.me/+923705546296"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white/70 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp HR
+                </a>
+              </div>
+            </div>
           </div>
-
-          <MetricsDashboard />
         </div>
       </section>
 
       {/* Why Work With Us */}
-      <section className="py-24 bg-slate-950 relative">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5CF6' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Zap className="w-5 h-5 text-purple-400" />
-              <span className="text-purple-100 font-medium">Career Benefits</span>
+      <section className="py-32 bg-white border-b border-black/5">
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="mb-16">
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="text-xs uppercase tracking-[0.2em] text-black/40">Career Benefits</span>
             </div>
-            <h2 className="text-5xl font-bold text-white mb-4">Why Choose NextelBPO?</h2>
-            <p className="text-xl text-slate-400">Experience a career that grows with advanced technology</p>
+            <h2 className="text-[56px] font-bold tracking-tight mb-6 leading-tight">Why Choose <span className="text-black/30">NextelBPO?</span></h2>
+            <p className="text-xl text-black/60">Experience a career that grows with advanced technology</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -491,15 +485,14 @@ const Careers = () => {
       </section>
 
       {/* No Openings Message */}
-      <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900">
-        <div className="container mx-auto px-6">
+      <section className="py-32 bg-black">
+        <div className="container mx-auto px-8 max-w-[1600px]">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Stars className="w-5 h-5 text-purple-400" />
-              <span className="text-purple-100 font-medium">Current Status</span>
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="text-xs uppercase tracking-[0.2em] text-white/40">Current Status</span>
             </div>
-            <h2 className="text-5xl font-bold text-white mb-4">No Current Openings</h2>
-            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+            <h2 className="text-[56px] font-bold text-white mb-6 tracking-tight leading-tight">No Current <span className="text-white/30">Openings</span></h2>
+            <p className="text-xl text-white/60 max-w-3xl mx-auto">
               We don't have any open positions at the moment, but we're always excited to hear from talented professionals. 
               Feel free to submit your resume for future opportunities.
             </p>
@@ -508,60 +501,51 @@ const Careers = () => {
           <div className="flex justify-center">
             <button
               onClick={scrollToForm}
-              className="group bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-purple-500/25 transform hover:scale-105"
+              className="group bg-white text-black px-8 py-4 text-sm uppercase tracking-wider hover:bg-white/90 transition-all duration-500 flex items-center justify-center gap-3"
             >
               Submit Your Resume 
-              <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+              <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </button>
           </div>
         </div>
       </section>
 
       {/* General Application CTA */}
-      <section id="talent-network-form" className="py-24 bg-slate-950 relative">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5CF6' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-6xl mx-auto bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden">
+      <section id="talent-network-form" className="py-32 bg-white">
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="max-w-6xl border border-black/10 overflow-hidden">
             <div className="lg:flex">
-              <div className="lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-600 p-12 text-white relative overflow-hidden">
-                {/* Background Effects */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20"></div>
-                <div className="relative z-10">
-                  <h2 className="text-3xl font-bold mb-6">Join Our Talent Network</h2>
-                  <p className="text-purple-100 mb-6 leading-relaxed">
+              <div className="lg:w-1/2 bg-black p-12 text-white">
+                <div>
+                  <h3 className="text-3xl font-bold mb-6">Join Our Talent Network</h3>
+                  <p className="text-white/60 mb-6 leading-relaxed">
                     While we don't have current openings, we're always building our talent pool.
                     Submit your information and we'll contact you when a matching position becomes available.
                   </p>
                   <div className="space-y-3">
                     {TALENT_NETWORK_BENEFITS.map((item, i) => (
                       <div key={i} className="flex items-center">
-                        <Check className="w-5 h-5 text-purple-200 mr-3 flex-shrink-0" />
-                        <span>{item}</span>
+                        <Check className="w-5 h-5 text-white/40 mr-3 flex-shrink-0" />
+                        <span className="text-white/70">{item}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
               
-              <div className="lg:w-1/2 p-12 bg-slate-900/50">
-                <h3 className="text-2xl font-bold text-white mb-2">Submit Your Information</h3>
+              <div className="lg:w-1/2 p-12 bg-white">
+                <h3 className="text-2xl font-bold mb-2">Submit Your Information</h3>
                 <div className="mb-6">
                   <a 
                     href="https://wa.me/+923705546296"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-6 py-4 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="w-full flex items-center justify-center gap-3 bg-black hover:bg-black/90 text-white px-6 py-4 text-sm uppercase tracking-wider transition-all duration-500"
                   >
                     <MessageCircle className="w-5 h-5" />
                     Contact HR via WhatsApp
                   </a>
-                  <p className="text-slate-400 text-xs mt-3 text-center">
+                  <p className="text-black/60 text-xs mt-3 text-center">
                     Chat with Qamar Ali Rana - HR Manager
                   </p>
                 </div>
@@ -594,14 +578,14 @@ const Careers = () => {
                   />
                   
                   <div className="relative">
-                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black/40">
                       <FileText className="w-5 h-5" />
                     </div>
                     <select
                       name="position"
                       value={formData.position}
                       onChange={handleInputChange}
-                      className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm"
+                      className="w-full pl-12 pr-4 py-3 bg-white border border-black/10 focus:outline-none focus:border-black placeholder-black/40 transition-all duration-500"
                       required
                     >
                       <option value="">Select Position Type</option>
@@ -615,8 +599,8 @@ const Careers = () => {
                   <FileUpload formData={formData} setFormData={setFormData} />
                   
                   {submitStatus && (
-                    <div className={`p-4 rounded-lg border ${submitStatus.success ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
-                      {submitStatus.message}
+                    <div className={`p-4 border ${submitStatus.success ? 'bg-black/5 border-black/10' : 'bg-black/5 border-black/10'}`}>
+                      <p className="text-sm">{submitStatus.message}</p>
                     </div>
                   )}
                   
@@ -624,7 +608,7 @@ const Careers = () => {
                     type="button"
                     onClick={handleSubmit}
                     disabled={isSubmitting || !isFormValid}
-                    className={`w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
+                    className={`w-full bg-black text-white py-4 text-sm uppercase tracking-wider hover:bg-black/90 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
                   >
                     {isSubmitting ? (
                       <>

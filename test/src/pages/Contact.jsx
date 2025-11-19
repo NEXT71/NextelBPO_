@@ -5,27 +5,27 @@ import {
 } from 'lucide-react';// Extract data to separate constants for better maintainability
 const CONTACT_INFO = [
   {
-    icon: <MapPin className="w-6 h-6 text-purple-400" />,
+    icon: <MapPin className="w-6 h-6" />,
     title: "NextelBPO Office",
     content: "2nd Floor Sabah Plaza, Bank Road, Saddar, Rawalpindi",
     type: "address"
   },
   {
-    icon: <Phone className="w-6 h-6 text-purple-400" />,
+    icon: <Phone className="w-6 h-6" />,
     title: "Phone (HR - Qamar Ali Rana)",
     content: "+92 370 5546296",
     type: "phone",
     href: "tel:+923705546296"
   },
   {
-    icon: <Mail className="w-6 h-6 text-purple-400" />,
+    icon: <Mail className="w-6 h-6" />,
     title: "Email",
     content: "info@nextelbpo.co",
     type: "email",
     href: "mailto:info@nextelbpo.co"
   },
   {
-    icon: <Clock className="w-6 h-6 text-purple-400" />,
+    icon: <Clock className="w-6 h-6" />,
     title: "Business Hours",
     content: {
       primary: "Monday - Saturday: 6:40 PM - 4:30 AM",
@@ -147,27 +147,29 @@ const MetricsDashboard = () => (
 );
 
 const ContactInfoCard = ({ info }) => (
-  <div className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-purple-500/10 transition-all duration-300">
-    <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-purple-500/20">
-      {info.icon}
+  <div className="group flex items-start gap-4 p-4 hover:bg-black/[0.02] transition-all duration-500">
+    <div className="w-12 h-12 bg-black/5 group-hover:bg-black flex items-center justify-center flex-shrink-0 transition-all duration-500">
+      <div className="text-black/40 group-hover:text-white transition-colors duration-500">
+        {info.icon}
+      </div>
     </div>
     <div>
-      <h3 className="font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">
+      <h3 className="font-bold mb-1 transition-colors">
         {info.title}
       </h3>
       {info.type === 'schedule' ? (
-        <div className="text-slate-400 space-y-1">
+        <div className="text-black/60 space-y-1 text-sm">
           <p>{info.content.primary}</p>
           <p>{info.content.secondary}</p>
         </div>
       ) : info.type === 'address' ? (
-        <address className="not-italic text-slate-400 leading-relaxed">
+        <address className="not-italic text-black/60 leading-relaxed text-sm">
           <p>{info.content}</p>
         </address>
       ) : (
-        <p className="text-slate-400">
+        <p className="text-black/60 text-sm">
           {info.href ? (
-            <a href={info.href} className="hover:text-purple-400 transition-colors duration-300">
+            <a href={info.href} className="hover:text-black transition-colors duration-300">
               {info.content}
             </a>
           ) : (
@@ -187,12 +189,12 @@ const FormInput = ({ type, name, value, onChange, placeholder, required = false,
     onChange,
     placeholder,
     required,
-    className: `w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-slate-400 backdrop-blur-sm ${rows ? 'resize-none' : ''}`
+    className: `w-full px-4 py-3 bg-white border border-black/10 focus:outline-none focus:border-black placeholder-black/40 transition-all duration-500 ${rows ? 'resize-none' : ''}`
   };
 
   return (
     <div className="space-y-2">
-      <label htmlFor={name} className="block text-slate-300 font-medium capitalize">
+      <label htmlFor={name} className="block text-black/60 text-sm uppercase tracking-wider">
         {name === 'message' ? 'Your Message' : name.replace(/([A-Z])/g, ' $1').trim()}
       </label>
       {rows ? (
@@ -216,6 +218,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
   const [showCallModal, setShowCallModal] = useState(false);
 
   // Memoized structured data for performance
@@ -248,13 +251,37 @@ const Contact = () => {
   }, [formData.name, formData.email, formData.message]);
 
   // Fixed form change handler - this is the key fix
-  const handleChange = useCallback((e) => {
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  }, []);
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  }, [errors]);
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    return newErrors;
+  };
 
   const handleSubmit = useCallback(async () => {
-    if (!isFormValid) return;
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      // Focus first error field
+      const firstErrorField = Object.keys(validationErrors)[0];
+      document.querySelector(`[name="${firstErrorField}"]`)?.focus();
+      return;
+    }
     
     setIsSubmitting(true);
     setError(null);
@@ -427,66 +454,70 @@ const Contact = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
-        {/* Futuristic Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"></div>
-          
-          {/* Animated Grid */}
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `
-              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
-          }}></div>
-
-          <FloatingOrbs />
-          <NeuralNetworkLines />
-        </div>
+      <section className="relative min-h-screen bg-black text-white flex items-center border-b border-white/10">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-12" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1920)' }}></div>
         
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 tracking-tight">
-            Get in Touch
-          </h1>
-          <div className="max-w-4xl mx-auto mb-12">
-            <h2 className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
-              Connect with Our Global Network
-            </h2>
-            <p className="text-lg text-purple-200/80">
-              24/7 support • Instant response • Global reach • Seamless communication
-            </p>
+        <div className="relative z-10 container mx-auto px-8 max-w-[1600px]">
+          <div className="py-40">
+            <div className="max-w-5xl">
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-8">
+                Get In Touch
+              </p>
+              
+              <h1 className="text-[clamp(56px,8vw,96px)] font-bold leading-[0.9] tracking-tight mb-8">
+                Let's Talk{' '}
+                <span className="text-white/30">About Your Needs</span>
+              </h1>
+              
+              <p className="text-xl text-white/60 mb-12 max-w-2xl leading-relaxed">
+                24/7 support with sub-2min response time. Connect with our global team for customized BPO solutions.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <a 
+                  href="mailto:info@nextelbpo.co"
+                  className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-white/90 focus:ring-4 focus:ring-white/20 transition-all duration-500"
+                  aria-label="Send us an email"
+                >
+                  Email Us
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+                
+                <button 
+                  onClick={handleModalOpen}
+                  className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-white/20 px-4 py-2 rounded transition-colors"
+                  aria-label="Call us now"
+                >
+                  <Phone className="w-4 h-4" />
+                  Call Now
+                </button>
+              </div>
+            </div>
           </div>
-
-          <MetricsDashboard />
         </div>
       </section>
 
       {/* Main Contact Section */}
-      <section className="py-24 bg-slate-950 relative">
+      <section className="relative py-32 bg-white border-b border-black/5">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5CF6' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Zap className="w-5 h-5 text-purple-400" />
-              <span className="text-purple-100 font-medium">Contact Information</span>
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.02]" style={{ backgroundImage: 'url(https://www.transparenttextures.com/patterns/clean-gray-paper.png)' }}></div>
+        
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="mb-16">
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="text-xs uppercase tracking-[0.2em] text-black/40">Contact Information</span>
             </div>
-            <h2 className="text-5xl font-bold text-white mb-4">Connect with NextelBPO</h2>
-            <p className="text-xl text-slate-400">Multiple channels for seamless communication</p>
+            <h2 className="text-[56px] font-bold tracking-tight mb-6 leading-tight">Connect with <span className="text-black/30">NextelBPO</span></h2>
+            <p className="text-xl text-black/60">Multiple channels for seamless communication</p>
           </div>
 
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl">
             <div className="grid md:grid-cols-2 gap-8">
               {/* Contact Information */}
-              <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden">
-                <div className="p-8 md:p-10">
-                  <h2 className="text-3xl font-bold text-white mb-6">Contact Information</h2>
+              <div className="border border-black/5 hover:border-black/10 transition-all duration-500 overflow-hidden">
+                <div className="p-12">
+                  <h3 className="text-2xl font-bold mb-8">Contact Information</h3>
                   
                   <div className="space-y-6">
                     {CONTACT_INFO.map((info, index) => (
@@ -494,7 +525,7 @@ const Contact = () => {
                     ))}
                   </div>
 
-                  <div className="mt-10 rounded-xl overflow-hidden border border-slate-700/50">
+                  <div className="mt-10 overflow-hidden border border-black/10">
                     <iframe
                       title="NextelBPO Location"
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.0123456789!2d73.049137!3d33.598017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM1JzUyLjkiTiA3M8KwMDInNTYuOSJF!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
@@ -509,33 +540,33 @@ const Contact = () => {
               </div>
 
               {/* Contact Form */}
-              <div id="contact-form" className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden">
-                <div className="p-8 md:p-10">
+              <div id="contact-form" className="border border-black/5 hover:border-black/10 transition-all duration-500 overflow-hidden">
+                <div className="p-12">
                   {isSubmitted ? (
                     <div className="text-center py-8">
-                      <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-green-400/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/20">
-                        <CheckCircle className="w-8 h-8 text-green-400" />
+                      <div className="w-16 h-16 bg-black/5 flex items-center justify-center mx-auto mb-6">
+                        <CheckCircle className="w-8 h-8 text-black/40" />
                       </div>
-                      <h3 className="text-2xl font-bold text-white mb-2">Message Received!</h3>
-                      <p className="text-slate-400 mb-6">Your message has been sent successfully. Our team will get back to you soon.</p>
+                      <h3 className="text-2xl font-bold mb-2">Message Received!</h3>
+                      <p className="text-black/60 mb-6">Your message has been sent successfully. Our team will get back to you soon.</p>
                       <button
                         onClick={handleResetForm}
-                        className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl"
+                        className="bg-black text-white px-6 py-3 text-sm uppercase tracking-wider hover:bg-black/90 transition-all duration-500"
                       >
                         Send Another Message
                       </button>
                     </div>
                   ) : (
                     <>
-                      <h2 className="text-3xl font-bold text-white mb-2">Send Us a Message</h2>
-                      <p className="text-slate-400 mb-8">We typically respond within 24 hours</p>
+                      <h3 className="text-2xl font-bold mb-2">Send Us a Message</h3>
+                      <p className="text-black/60 mb-8">We typically respond within 24 hours</p>
                       
                       <div className="space-y-6">
                         <FormInput
                           type="text"
                           name="name"
                           value={formData.name}
-                          onChange={handleChange}
+                          onChange={handleInputChange}
                           placeholder="Your name"
                           required
                         />
@@ -544,7 +575,7 @@ const Contact = () => {
                           type="email"
                           name="email"
                           value={formData.email}
-                          onChange={handleChange}
+                          onChange={handleInputChange}
                           placeholder="your.email@example.com"
                           required
                         />
@@ -553,14 +584,14 @@ const Contact = () => {
                           type="tel"
                           name="phone"
                           value={formData.phone}
-                          onChange={handleChange}
+                          onChange={handleInputChange}
                           placeholder="+92 300 1234567"
                         />
                         
                         <FormInput
                           name="message"
                           value={formData.message}
-                          onChange={handleChange}
+                          onChange={handleInputChange}
                           placeholder="How can we help you?"
                           rows={5}
                           required
@@ -571,7 +602,7 @@ const Contact = () => {
                         
                         {/* TCPA Disclosure */}
                         <div className="space-y-2">
-                          <label className="flex items-start gap-3 text-slate-300">
+                          <label className="flex items-start gap-3 text-black/60">
                             <input type="checkbox" id="leadid_tcpa_disclosure" className="mt-1" />
                             <span className="text-sm leading-relaxed">
                               By submitting this form, you agree to receive communications from NextelBPO and our partners. 
@@ -584,7 +615,7 @@ const Contact = () => {
                           type="button"
                           onClick={handleSubmit}
                           disabled={isSubmitting || !isFormValid}
-                          className={`w-full flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-4 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed`}
+                          className={`w-full flex items-center justify-center gap-3 bg-black hover:bg-black/90 text-white px-6 py-4 text-sm uppercase tracking-wider transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
                           {isSubmitting ? (
                             <>
@@ -609,44 +640,41 @@ const Contact = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Star className="w-5 h-5 text-purple-400" />
-              <span className="text-purple-100 font-medium">Why Choose NextelBPO</span>
+      <section className="py-32 bg-black">
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="mb-16">
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="text-xs uppercase tracking-[0.2em] text-white/40">Why Choose NextelBPO</span>
             </div>
-            <h2 className="text-5xl font-bold text-white mb-4">Ready to Get Started?</h2>
-            <p className="text-xl text-slate-400">Experience the difference with our comprehensive BPO solutions</p>
+            <h2 className="text-[56px] font-bold text-white mb-6 tracking-tight leading-tight">Ready to <span className="text-white/30">Get Started?</span></h2>
+            <p className="text-xl text-white/60">Experience the difference with our comprehensive BPO solutions</p>
           </div>
 
-          <div className="max-w-6xl mx-auto bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden">
+          <div className="max-w-6xl border border-white/10 overflow-hidden">
             <div className="lg:flex">
-              <div className="lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-600 p-12 text-white relative overflow-hidden">
-                {/* Background Effects */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20"></div>
-                <div className="relative z-10">
-                  <h2 className="text-3xl font-bold mb-6">Why Choose NextelBPO?</h2>
-                  <p className="text-purple-100 mb-6 leading-relaxed">
+              <div className="lg:w-1/2 bg-white p-12">
+                <div>
+                  <h3 className="text-3xl font-bold mb-6">Why Choose NextelBPO?</h3>
+                  <p className="text-black/60 mb-6 leading-relaxed">
                     Experience the difference with our comprehensive BPO solutions designed to drive your business forward.
                   </p>
                   <div className="space-y-3">
                     {CTA_BENEFITS.map((item, i) => (
                       <div key={i} className="flex items-center">
-                        <Check className="w-5 h-5 text-purple-200 mr-3" />
-                        <span>{item}</span>
+                        <Check className="w-5 h-5 text-black/40 mr-3" />
+                        <span className="text-black/70">{item}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
               
-              <div className="lg:w-1/2 p-12 bg-slate-900/50">
-                <h3 className="text-2xl font-bold text-white mb-6">Ready to Get Started?</h3>
+              <div className="lg:w-1/2 p-12 bg-black/[0.02]">
+                <h3 className="text-2xl font-bold mb-6">Ready to Get Started?</h3>
                 <div className="space-y-4">
                   <button 
                     onClick={handleModalOpen}
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                    className="w-full bg-black text-white py-4 text-sm uppercase tracking-wider hover:bg-black/90 transition-all duration-500 flex items-center justify-center gap-2"
                   >
                     <Users className="w-5 h-5" />
                     Contact Our Team
@@ -660,13 +688,13 @@ const Contact = () => {
 
       {/* Call Modal */}
       {showCallModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-slate-900 rounded-xl max-w-md w-full p-6 space-y-6 border border-slate-700/50">
-            <h3 className="text-2xl font-bold text-white text-center">Contact Our Team</h3>
-            <p className="text-slate-400 text-center">Choose your preferred contact method</p>
-            <div className="text-center p-3 bg-slate-800/50 rounded-lg border border-slate-700/50">
-              <p className="text-slate-300 text-sm mb-1"><strong>HR Contact:</strong> Qamar Ali Rana</p>
-              <p className="text-slate-300 text-sm">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white max-w-md w-full p-8 space-y-6 border border-black/10">
+            <h3 className="text-2xl font-bold text-center">Contact Our Team</h3>
+            <p className="text-black/60 text-center">Choose your preferred contact method</p>
+            <div className="text-center p-4 bg-black/5 border-t border-black/5">
+              <p className="text-sm mb-1"><strong>HR Contact:</strong> Qamar Ali Rana</p>
+              <p className="text-sm">
                 <Phone className="w-4 h-4 inline mr-2" />
                 +92 370 5546296
               </p>
@@ -679,9 +707,9 @@ const Contact = () => {
                   href={option.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-full group flex items-center justify-between px-6 py-4 bg-gradient-to-r ${option.bgClass} text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl`}
+                  className="w-full group flex items-center justify-between px-6 py-4 bg-black text-white hover:bg-black/90 transition-all duration-500"
                 >
-                  <span>{option.text}</span>
+                  <span className="text-sm uppercase tracking-wider">{option.text}</span>
                   {option.icon}
                 </a>
               ))}
@@ -689,7 +717,7 @@ const Contact = () => {
             
             <button
               onClick={handleModalClose}
-              className="w-full mt-4 px-4 py-2 border-2 border-slate-700 text-slate-300 rounded-lg hover:bg-slate-800 transition-colors"
+              className="w-full mt-4 px-6 py-3 border border-black/10 hover:border-black text-sm uppercase tracking-wider transition-all duration-500"
             >
               Cancel
             </button>

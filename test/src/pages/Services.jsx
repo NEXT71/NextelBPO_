@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { Search, Phone, FileText, Shield, TrendingUp, Users, Zap, CheckCircle, Star, Activity } from 'lucide-react';
+import { Search, Phone, FileText, Shield, TrendingUp, Users, Zap, CheckCircle, Star, Activity, ArrowRight } from 'lucide-react';
 
 // Extract services data to separate file for better maintainability
 const SERVICES = [
@@ -239,35 +239,28 @@ const Services = () => {
     return (
       <div
         key={service.id}
-        className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 cursor-pointer"
+        className="group relative border border-black/5 hover:border-black overflow-hidden transition-all duration-500 cursor-pointer"
         onClick={() => handleServiceClick(service.path)}
         onMouseEnter={() => setHoveredCard(service.id)}
         onMouseLeave={() => setHoveredCard(null)}
         style={{ animationDelay: `${index * 100}ms` }}
       >
-        {/* Hover Glow Effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        
         {/* Card Content */}
         <div className="relative p-8 flex flex-col h-full">
           {/* Icon Section */}
           <div className="relative mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mx-auto backdrop-blur-sm border border-purple-500/20">
-              <div className="text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
+            <div className="w-20 h-20 bg-black/5 group-hover:bg-black flex items-center justify-center group-hover:scale-110 transition-all duration-500 mx-auto">
+              <div className="text-black/40 group-hover:text-white transition-colors duration-500">
                 {service.icon}
               </div>
             </div>
-            {/* Status Indicator */}
-            <div className="absolute -top-2 -right-2">
-              <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
-            </div>
           </div>
 
-          <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-purple-100 transition-colors">
+          <h3 className="text-2xl font-bold mb-3 text-center transition-colors">
             {service.title}
           </h3>
           
-          <p className="text-slate-400 mb-6 text-center text-sm leading-relaxed flex-grow">
+          <p className="text-black/60 mb-6 text-center text-sm leading-relaxed flex-grow">
             {service.description}
           </p>
 
@@ -275,8 +268,8 @@ const Services = () => {
           <div className="space-y-3 mb-8">
             {service.features.slice(0, 3).map((feature, idx) => (
               <div key={idx} className="flex items-center gap-3">
-                <CheckCircle className="w-4 h-4 text-purple-400 flex-shrink-0" />
-                <span className="text-slate-300 text-sm">{feature}</span>
+                <CheckCircle className="w-4 h-4 text-black/40 flex-shrink-0" />
+                <span className="text-black/70 text-sm">{feature}</span>
               </div>
             ))}
           </div>
@@ -285,7 +278,7 @@ const Services = () => {
           <div className="mb-6">
             <div className="flex flex-wrap gap-2">
               {service.industries.slice(0, 2).map((industry, idx) => (
-                <span key={idx} className="text-xs bg-slate-800/50 text-slate-400 px-3 py-1 rounded-full border border-slate-700/50">
+                <span key={idx} className="text-xs border border-black/10 text-black/60 px-3 py-1 uppercase tracking-wider">
                   {industry}
                 </span>
               ))}
@@ -293,7 +286,7 @@ const Services = () => {
           </div>
 
           {/* CTA Button */}
-          <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 group-hover:shadow-2xl group-hover:shadow-purple-500/20">
+          <button className="w-full bg-black text-white py-3 px-6 hover:bg-black/90 transition-all duration-500 flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
             Explore Service
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -314,60 +307,59 @@ const Services = () => {
     return (
       <div 
         key={index} 
-        className="group bg-slate-900/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500"
+        className="group border border-black/5 hover:border-black overflow-hidden transition-all duration-500"
         style={{ animationDelay: `${index * 100}ms` }}
       >
         <div className="relative h-48 overflow-hidden">
           <img 
             src={campaign.image} 
             alt={campaign.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
           
           {/* Status Badge */}
           <div className="absolute top-4 right-4">
-            <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+            <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wider ${
               campaign.status === 'ACTIVE' 
-                ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                ? 'bg-black text-white' 
+                : 'border border-black/20 text-black/60'
             }`}>
               {campaign.status}
             </span>
           </div>
 
-          <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">{campaign.title}</h3>
+          <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-black">{campaign.title}</h3>
         </div>
         
-        <div className="p-6">
-          <p className="text-slate-400 mb-4">{campaign.description}</p>
+        <div className="p-8">
+          <p className="text-black/60 mb-6">{campaign.description}</p>
           
           {/* Progress Bar */}
-          <div className="mb-4">
+          <div className="mb-6">
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-slate-400">Performance</span>
-              <span className="text-purple-400 font-medium">{campaign.progress}%</span>
+              <span className="text-black/60 uppercase tracking-wider text-xs">Performance</span>
+              <span className="font-medium">{campaign.progress}%</span>
             </div>
-            <div className="w-full bg-slate-800 rounded-full h-2">
+            <div className="w-full bg-black/5 h-2">
               <div 
-                className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000"
+                className="bg-black h-2 transition-all duration-1000"
                 style={{ width: `${campaign.progress}%` }}
               ></div>
             </div>
           </div>
 
-          <ul className="space-y-2 mb-6">
+          <ul className="space-y-3 mb-6">
             {campaign.features.slice(0, 3).map((feature, idx) => (
               <li key={idx} className="flex items-start">
-                <CheckCircle className="w-4 h-4 text-purple-400 mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-slate-300 text-sm">{feature}</span>
+                <CheckCircle className="w-4 h-4 text-black/40 mr-3 mt-0.5 flex-shrink-0" />
+                <span className="text-black/70 text-sm">{feature}</span>
               </li>
             ))}
           </ul>
           
-          <button className="w-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 text-purple-100 font-semibold py-3 px-6 rounded-xl hover:from-purple-700/30 hover:to-pink-700/30 transition-all duration-300 border border-purple-500/30 hover:border-purple-500/50">
+          <button className="w-full bg-black text-white font-semibold py-3 px-6 hover:bg-black/90 transition-all duration-500 text-sm uppercase tracking-wider">
             View Campaign Details
           </button>
         </div>
@@ -408,77 +400,27 @@ const Services = () => {
       </div>
       
       {/* Hero Section */}
-      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
-        {/* Futuristic Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"></div>
-          
-          {/* Animated Grid */}
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `
-              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
-          }}></div>
-
-          {/* Floating Orbs */}
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
-              style={{
-                width: `${Math.random() * 200 + 100}px`,
-                height: `${Math.random() * 200 + 100}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                filter: 'blur(1px)'
-              }}
-            />
-          ))}
-
-          {/* Neural Network Lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#8B5CF6" />
-                <stop offset="100%" stopColor="#EC4899" />
-              </linearGradient>
-            </defs>
-            {[...Array(12)].map((_, i) => (
-              <line
-                key={i}
-                x1={`${Math.random() * 100}%`}
-                y1={`${Math.random() * 100}%`}
-                x2={`${Math.random() * 100}%`}
-                y2={`${Math.random() * 100}%`}
-                stroke="url(#lineGradient)"
-                strokeWidth="1"
-                className="animate-pulse"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              />
-            ))}
-          </svg>
-        </div>
+      <section className="relative py-40 bg-black text-white overflow-hidden border-b border-white/10">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-12" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920)' }}></div>
         
-        <div className="relative z-10 container mx-auto px-6 text-center">
+        <div className="relative z-10 container mx-auto px-8 max-w-[1600px] text-center">
           {/* Status Bar */}
-          <div className="inline-flex items-center gap-4 bg-black/20 backdrop-blur-lg border border-purple-500/20 rounded-full px-6 py-3 mb-8">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-purple-100 text-sm font-mono">System Status: OPERATIONAL</span>
-            <div className="w-1 h-4 bg-purple-500/30"></div>
-            <span className="text-purple-100 text-sm font-mono">{currentTime.toLocaleTimeString()}</span>
+          <div className="inline-flex items-center gap-4 border border-white/10 px-6 py-3 mb-8">
+            <div className="w-2 h-2 bg-white rounded-full"></div>
+            <span className="text-white/60 text-xs font-mono uppercase tracking-wider">System Status: OPERATIONAL</span>
+            <div className="w-px h-4 bg-white/10"></div>
+            <span className="text-white/60 text-xs font-mono uppercase tracking-wider">{currentTime.toLocaleTimeString()}</span>
           </div>
 
-          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 tracking-tight">
-            Our Services
+          <h1 className="text-[96px] font-bold mb-8 tracking-tight">
+            Our <span className="text-white/30">Services</span>
           </h1>
-          <div className="max-w-4xl mx-auto mb-12">
-            <p className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
+          <div className="max-w-4xl mx-auto mb-16">
+            <p className="text-2xl md:text-3xl text-white/60 mb-4 font-light">
               Next-Generation BPO Solutions
             </p>
-            <p className="text-lg text-purple-200/80">
+            <p className="text-lg text-white/40 uppercase tracking-wider">
               Engineered for precision • Optimized for scale • Built for the future
             </p>
           </div>
@@ -490,12 +432,12 @@ const Services = () => {
               { label: "Active Clients", value: "150+", icon: <Users className="w-5 h-5" /> },
               { label: "Response Time", value: "<30s", icon: <Activity className="w-5 h-5" /> }
             ].map((metric, idx) => (
-              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="text-purple-400">{metric.icon}</div>
-                  <span className="text-purple-100 text-sm font-medium">{metric.label}</span>
+              <div key={idx} className="border border-white/10 p-6 group hover:border-white/30 transition-all duration-500">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="text-white/40 group-hover:text-white transition-colors duration-500">{metric.icon}</div>
+                  <span className="text-white/60 text-xs uppercase tracking-wider font-medium">{metric.label}</span>
                 </div>
-                <div className="text-2xl font-bold text-white">{metric.value}</div>
+                <div className="text-3xl font-bold">{metric.value}</div>
               </div>
             ))}
           </div>
@@ -503,22 +445,17 @@ const Services = () => {
       </section>
 
       {/* Service Categories */}
-      <section className="py-24 bg-slate-950 relative">
+      <section className="relative py-32 bg-white border-b border-black/5">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5CF6' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(https://www.transparenttextures.com/patterns/subtle-white-feathers.png)' }}></div>
         </div>
-
-        <div className="container mx-auto px-6 relative z-10">
+        
+        <div className="container mx-auto px-8 max-w-[1600px]">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Zap className="w-5 h-5 text-purple-400" />
-              <span className="text-purple-100 font-medium">Service Categories</span>
-            </div>
-            <h2 className="text-5xl font-bold text-white mb-4">Choose Your Solution</h2>
-            <p className="text-xl text-slate-400">Advanced filtering system for optimal service selection</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Service Categories</p>
+            <h2 className="text-[56px] font-bold tracking-tight mb-6">Choose Your <span className="text-black/30">Solution</span></h2>
+            <p className="text-xl text-black/60">Advanced filtering system for optimal service selection</p>
           </div>
 
           {/* Category Selector */}
@@ -532,21 +469,18 @@ const Services = () => {
               <button
                 key={key}
                 onClick={() => setActiveCategory(key)}
-                className={`group relative px-8 py-4 rounded-2xl font-semibold transition-all duration-500 ${
+                className={`group relative px-8 py-4 font-semibold transition-all duration-500 text-sm uppercase tracking-wider ${
                   activeCategory === key
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-2xl shadow-purple-500/25 scale-105'
-                    : 'bg-slate-800/50 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/50 backdrop-blur-sm'
+                    ? 'bg-black text-white'
+                    : 'border border-black/10 hover:border-black'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span>{label}</span>
-                  <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs">
+                  <div className="w-6 h-6 bg-white/10 flex items-center justify-center text-xs">
                     {count}
                   </div>
                 </div>
-                {activeCategory === key && (
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 opacity-20 animate-pulse"></div>
-                )}
               </button>
             ))}
           </div>
@@ -565,15 +499,15 @@ const Services = () => {
       </section>
 
       {/* Campaigns Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900">
-        <div className="container mx-auto px-6">
+      <section className="relative py-32 bg-white border-t border-black/5">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.03]" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920)' }}></div>
+        
+        <div className="container mx-auto px-8 max-w-[1600px]">
           <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
-              <Star className="w-5 h-5 text-purple-400" />
-              <span className="text-purple-100 font-medium">Active Campaigns</span>
-            </div>
-            <h2 className="text-5xl font-bold text-white mb-4">Specialized Insurance Operations</h2>
-            <p className="text-xl text-slate-400">Mission-critical campaigns powered by advanced technology</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Active Campaigns</p>
+            <h2 className="text-[56px] font-bold tracking-tight mb-6">Specialized Insurance <span className="text-black/30">Operations</span></h2>
+            <p className="text-xl text-black/60">Mission-critical campaigns powered by advanced technology</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

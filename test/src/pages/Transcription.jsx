@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Mic, FileText, Clock, CheckCircle, Shield, ArrowRight, Users, Calendar, Target, Zap, Activity, Star, Phone } from 'lucide-react';
+import { Mail , Mic, FileText, Clock, CheckCircle, Shield, ArrowRight, Users, Calendar, Target, Zap, Activity, Star, Phone } from 'lucide-react';
 
 const Transcription = () => {
   const [activeTab, setActiveTab] = useState('services');
@@ -214,112 +214,48 @@ const Transcription = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white overflow-hidden">
-        {/* Futuristic Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5"></div>
-          
-          {/* Animated Grid */}
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `
-              linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '50px 50px'
-          }}></div>
-
-          {/* Floating Orbs - Reduced for performance */}
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-gradient-to-br from-indigo-400/10 to-purple-600/10 animate-pulse"
-              style={{
-                width: `${Math.random() * 200 + 100}px`,
-                height: `${Math.random() * 200 + 100}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                filter: 'blur(1px)'
-              }}
-            />
-          ))}
-
-          {/* Neural Network Lines - Reduced for performance */}
-          <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#6366F1" />
-                <stop offset="100%" stopColor="#8B5CF6" />
-              </linearGradient>
-            </defs>
-            {[...Array(8)].map((_, i) => (
-              <line
-                key={i}
-                x1={`${Math.random() * 100}%`}
-                y1={`${Math.random() * 100}%`}
-                x2={`${Math.random() * 100}%`}
-                y2={`${Math.random() * 100}%`}
-                stroke="url(#lineGradient)"
-                strokeWidth="1"
-                className="animate-pulse"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              />
-            ))}
-          </svg>
-        </div>
-        
-        <div className="relative z-10 container mx-auto px-6 text-center">
-
-          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-600 tracking-tight">
-            Transcription Services
-          </h1>
-          
-          <div className="max-w-4xl mx-auto mb-12">
-            <p className="text-2xl md:text-3xl text-indigo-100 mb-4 font-light">
-              Accurate, Fast, and Secure Transcription Solutions
-            </p>
-            <p className="text-lg text-indigo-200/80">
-              Professional • HIPAA Compliant • Multi-Industry
-            </p>
+      <section className="relative min-h-screen bg-black text-white flex items-center border-b border-white/10">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-15" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1920)' }}></div>
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="py-40">
+            <div className="max-w-5xl">
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-8">
+                Professional Transcription
+              </p>
+              
+              <h1 className="text-[96px] font-bold leading-[0.9] tracking-tight mb-8">
+                Accurate & Secure{' '}
+                <span className="text-white/30">Transcription Solutions</span>
+              </h1>
+              
+              <p className="text-xl text-white/60 mb-12 max-w-2xl leading-relaxed">
+                99%+ accuracy with HIPAA compliance and 24-48 hour turnaround. Legal, medical, academic, and general transcription.
+              </p>
+              
+              <button 
+                onClick={scrollToContent}
+                className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-white/90 transition-all duration-500"
+              >
+                Explore Services
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
-
-          {/* Metrics Dashboard */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
-            {[
-              { label: "Accuracy Rate", value: "99%+", icon: <Target className="w-5 h-5" /> },
-              { label: "Turnaround Time", value: "24-48h", icon: <Clock className="w-5 h-5" /> },
-              { label: "Industries Served", value: "10+", icon: <Activity className="w-5 h-5" /> }
-            ].map((metric, idx) => (
-              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-indigo-500/20 rounded-2xl p-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="text-indigo-400">{metric.icon}</div>
-                  <span className="text-indigo-100 text-sm font-medium">{metric.label}</span>
-                </div>
-                <div className="text-2xl font-bold text-white">{metric.value}</div>
-              </div>
-            ))}
-          </div>
-
-          <button 
-            onClick={scrollToContent}
-            className="group inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Explore Our Services
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
         </div>
       </section>
 
-      {/* Content Section */}
-      <section ref={contentRef} className="py-24 bg-slate-950 relative">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366F1' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
-        </div>
-
+      {/* Services Section */}
+      <section ref={contentRef} className="py-32 bg-white border-b border-black/5">
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="text-center mb-16">
+            <h2 className="text-[72px] font-bold tracking-tight mb-6">
+              Our{' '}
+              <span className="text-black/30">Services</span>
+            </h2>
+          </div>
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-6lx mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* Tabs Navigation */}
             <div className="flex flex-wrap justify-center gap-4 mb-16">
               {[
@@ -331,10 +267,10 @@ const Transcription = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`group inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                  className={`group inline-flex items-center gap-2 px-6 py-3 font-medium transition-all duration-500 text-sm uppercase tracking-wider ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white border border-slate-700/50'
+                      ? 'bg-black text-white'
+                      : 'border border-black/10 hover:border-black'
                   }`}
                 >
                   {tab.icon}
@@ -344,39 +280,36 @@ const Transcription = () => {
             </div>
 
             {/* Tab Content */}
-            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="border border-black/5">
               {/* Services Tab */}
               {activeTab === 'services' && (
-                <div className="p-8 md:p-12">
-                  <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-full px-6 py-3 mb-6">
-                      <FileText className="w-5 h-5 text-indigo-400" />
-                      <span className="text-indigo-100 font-medium">Professional Transcription</span>
-                    </div>
-                    <h2 className="text-4xl font-bold text-white mb-4">Our Transcription Services</h2>
-                    <p className="text-xl text-slate-400 max-w-3xl mx-auto">Comprehensive transcription solutions across multiple industries and formats</p>
+                <div className="p-12 md:p-16">
+                  <div className="text-center mb-20">
+                    <p className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Service Portfolio</p>
+                    <h2 className="text-[56px] font-bold tracking-tight mb-6">Our Transcription <span className="text-black/30">Services</span></h2>
+                    <p className="text-xl text-black/60">Comprehensive transcription solutions across multiple industries and formats</p>
                   </div>
                   
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-8">
                     {services.map((service, index) => (
-                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-500 transform hover:-translate-y-2">
-                        <div className="flex items-start gap-4 mb-4">
-                          <div className="w-12 h-12 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl flex items-center justify-center">
-                            <div className="text-indigo-400">
+                      <div key={index} className="group border border-black/5 hover:border-black p-8 transition-all duration-500">
+                        <div className="flex items-start gap-4 mb-6">
+                          <div className="bg-black/5 group-hover:bg-black p-4 transition-all duration-500">
+                            <div className="text-black/40 group-hover:text-white transition-colors duration-500">
                               {service.icon}
                             </div>
                           </div>
                           <div>
-                            <h3 className="text-xl font-semibold text-white group-hover:text-indigo-300 transition-colors">{service.title}</h3>
-                            <p className="text-slate-400">{service.description}</p>
+                            <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                            <p className="text-black/60">{service.description}</p>
                           </div>
                         </div>
                         <div className="pl-16">
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="grid grid-cols-2 gap-3">
                             {service.features.map((feature, i) => (
                               <div key={i} className="flex items-center">
-                                <CheckCircle className="w-4 h-4 text-indigo-400 mr-2" />
-                                <span className="text-slate-300">{feature}</span>
+                                <CheckCircle className="w-4 h-4 text-black/40 mr-2" />
+                                <span className="text-black/70 text-sm">{feature}</span>
                               </div>
                             ))}
                           </div>
@@ -385,24 +318,24 @@ const Transcription = () => {
                     ))}
                   </div>
 
-                  <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-2xl p-8 mt-8">
+                  <div className="border border-black/5 hover:border-black p-8 mt-8 transition-all duration-500">
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                        <Clock className="w-8 h-8 text-white" />
+                      <div className="bg-black/5 p-4">
+                        <Clock className="w-8 h-8 text-black/40" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-semibold text-white mb-2">Fast Turnaround Times</h3>
-                        <p className="text-indigo-200">Flexible delivery options to meet your deadlines</p>
+                        <h3 className="text-2xl font-semibold mb-2">Fast Turnaround Times</h3>
+                        <p className="text-black/60">Flexible delivery options to meet your deadlines</p>
                       </div>
                     </div>
-                    <p className="text-slate-300 mb-6 leading-relaxed">
+                    <p className="text-black/70 mb-6 leading-relaxed">
                       We offer flexible turnaround options to meet your deadlines, from same-day emergency transcription 
                       to standard 3-5 business day delivery. Our streamlined workflow and dedicated team ensure consistent, 
                       reliable delivery times without compromising on quality.
                     </p>
                     <div className="flex flex-wrap gap-3">
                       {["Same-day (Rush)", "24-hour", "48-hour", "Standard (3-5 days)", "Bulk Projects"].map((option, i) => (
-                        <span key={i} className="bg-white/10 border border-indigo-500/30 px-4 py-2 rounded-full text-sm font-medium text-indigo-200">
+                        <span key={i} className="border border-black/10 px-4 py-2 text-xs uppercase tracking-wider text-black/60">
                           {option}
                         </span>
                       ))}
@@ -413,37 +346,34 @@ const Transcription = () => {
 
               {/* Industries Tab */}
               {activeTab === 'industries' && (
-                <div className="p-8 md:p-12">
-                  <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-full px-6 py-3 mb-6">
-                      <Star className="w-5 h-5 text-indigo-400" />
-                      <span className="text-indigo-100 font-medium">Industry Expertise</span>
-                    </div>
-                    <h2 className="text-4xl font-bold text-white mb-4">Industries We Serve</h2>
-                    <p className="text-xl text-slate-400">Specialized knowledge across diverse sectors</p>
+                <div className="p-12 md:p-16">
+                  <div className="text-center mb-20">
+                    <p className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Industry Expertise</p>
+                    <h2 className="text-[56px] font-bold tracking-tight mb-6">Industries <span className="text-black/30">We Serve</span></h2>
+                    <p className="text-xl text-black/60">Specialized knowledge across diverse sectors</p>
                   </div>
                   
-                  <div className="grid md:grid-cols-2 gap-6 mb-8">
+                  <div className="grid md:grid-cols-2 gap-8 mb-8">
                     {industries.map((item, index) => (
-                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-500 transform hover:-translate-y-2">
-                        <div className="flex items-start gap-4 mb-4">
-                          <div className="w-12 h-12 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl flex items-center justify-center">
-                            <div className="text-indigo-400">
+                      <div key={index} className="group border border-black/5 hover:border-black p-8 transition-all duration-500">
+                        <div className="flex items-start gap-4 mb-6">
+                          <div className="bg-black/5 group-hover:bg-black p-4 transition-all duration-500">
+                            <div className="text-black/40 group-hover:text-white transition-colors duration-500">
                               {item.icon}
                             </div>
                           </div>
                           <div>
-                            <h3 className="text-xl font-semibold text-white group-hover:text-indigo-300 transition-colors">{item.industry}</h3>
-                            <p className="text-slate-400">{item.description}</p>
+                            <h3 className="text-xl font-semibold mb-2">{item.industry}</h3>
+                            <p className="text-black/60">{item.description}</p>
                           </div>
                         </div>
                         <div className="pl-16">
-                          <h4 className="text-slate-300 font-medium mb-2">Specializations:</h4>
-                          <div className="grid grid-cols-2 gap-1">
+                          <h4 className="text-black/70 font-medium mb-3 text-sm uppercase tracking-wider">Specializations:</h4>
+                          <div className="grid grid-cols-2 gap-2">
                             {item.specialties.map((specialty, i) => (
                               <div key={i} className="flex items-center">
-                                <div className="w-2 h-2 bg-indigo-400 rounded-full mr-2"></div>
-                                <span className="text-slate-300 text-sm">{specialty}</span>
+                                <div className="w-2 h-2 bg-black/40 mr-2"></div>
+                                <span className="text-black/70 text-sm">{specialty}</span>
                               </div>
                             ))}
                           </div>
@@ -452,17 +382,17 @@ const Transcription = () => {
                     ))}
                   </div>
 
-                  <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-2xl p-8">
-                    <h3 className="text-2xl font-semibold text-white mb-4 flex items-center gap-3">
-                      <Zap className="w-8 h-8 text-indigo-400" />
+                  <div className="border border-black/5 hover:border-black p-8 transition-all duration-500">
+                    <h3 className="text-2xl font-semibold mb-4 flex items-center gap-3">
+                      <Zap className="w-8 h-8 text-black/40" />
                       Specialized Transcription
                     </h3>
-                    <p className="text-slate-300 mb-6 leading-relaxed">
+                    <p className="text-black/70 mb-6 leading-relaxed">
                       We work with specialized terminology across industries including technical, financial, and scientific fields. 
                       Our transcribers are trained in industry-specific language and formatting requirements to ensure accuracy 
                       and professional presentation.
                     </p>
-                    <button className="group inline-flex items-center gap-2 text-indigo-400 font-medium hover:text-indigo-300 transition-colors">
+                    <button className="group inline-flex items-center gap-2 text-black/70 font-medium hover:text-black transition-colors text-sm uppercase tracking-wider">
                       Request specialized service 
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </button>
@@ -472,31 +402,26 @@ const Transcription = () => {
 
               {/* Benefits Tab */}
               {activeTab === 'benefits' && (
-                <div className="p-8 md:p-12">
-                  <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-full px-6 py-3 mb-6">
-                      <Shield className="w-5 h-5 text-indigo-400" />
-                      <span className="text-indigo-100 font-medium">Why Choose Us</span>
-                    </div>
-                    <h2 className="text-4xl font-bold text-white mb-4">Why Choose Our Transcription Services</h2>
-                    <p className="text-xl text-slate-400">Professional standards that exceed industry expectations</p>
+                <div className="p-12 md:p-16">
+                  <div className="text-center mb-20">
+                    <p className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Why Choose Us</p>
+                    <h2 className="text-[56px] font-bold tracking-tight mb-6">Key <span className="text-black/30">Benefits</span></h2>
+                    <p className="text-xl text-black/60">Why partner with NextelBPO for transcription</p>
                   </div>
                   
-                  <div className="grid md:grid-cols-3 gap-6">
+                  <div className="grid md:grid-cols-3 gap-8">
                     {benefits.map((benefit, index) => (
-                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-500 transform hover:-translate-y-2">
-                        <div className="w-12 h-12 bg-gradient-to-r from-green-500/20 to-indigo-500/20 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                          <div className="text-green-400">
-                            {benefit.icon}
-                          </div>
+                      <div key={index} className="group border border-black/5 hover:border-black p-8 transition-all duration-500 text-center">
+                        <div className="bg-black/5 group-hover:bg-black p-4 w-fit mx-auto mb-6 transition-all duration-500">
+                          <div className="text-black/40 group-hover:text-white transition-colors duration-500">{benefit.icon}</div>
                         </div>
-                        <h3 className="text-xl font-semibold text-white mb-2 text-center group-hover:text-indigo-300 transition-colors">{benefit.title}</h3>
-                        <p className="text-slate-400 text-center mb-4">{benefit.description}</p>
-                        <div className="space-y-2">
+                        <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
+                        <p className="text-black/60 mb-6">{benefit.description}</p>
+                        <div className="space-y-3">
                           {benefit.features.map((feature, i) => (
                             <div key={i} className="flex items-center justify-center">
-                              <CheckCircle className="w-4 h-4 text-green-400 mr-2" />
-                              <span className="text-slate-300">{feature}</span>
+                              <CheckCircle className="w-4 h-4 text-black/40 mr-2" />
+                              <span className="text-black/70 text-sm">{feature}</span>
                             </div>
                           ))}
                         </div>
@@ -508,25 +433,22 @@ const Transcription = () => {
 
               {/* FAQ Tab */}
               {activeTab === 'faq' && (
-                <div className="p-8 md:p-12">
-                  <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-full px-6 py-3 mb-6">
-                      <CheckCircle className="w-5 h-5 text-indigo-400" />
-                      <span className="text-indigo-100 font-medium">Common Questions</span>
-                    </div>
-                    <h2 className="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
-                    <p className="text-xl text-slate-400">Everything you need to know about our transcription services</p>
+                <div className="p-12 md:p-16">
+                  <div className="text-center mb-20">
+                    <p className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Common Questions</p>
+                    <h2 className="text-[56px] font-bold tracking-tight mb-6">Frequently <span className="text-black/30">Asked Questions</span></h2>
+                    <p className="text-xl text-black/60">Everything you need to know about our transcription services</p>
                   </div>
                   
                   <div className="space-y-4">
                     {faqs.map((faq, index) => (
-                      <div key={index} className="group bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-xl border border-slate-600/50 rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all duration-500">
-                        <div className="p-6">
+                      <div key={index} className="group border border-black/5 hover:border-black overflow-hidden transition-all duration-500">
+                        <div className="p-8">
                           <div className="flex justify-between items-center mb-4">
-                            <h4 className="font-semibold text-white group-hover:text-indigo-300 transition-colors text-lg">{faq.question}</h4>
-                            <ArrowRight className="w-5 h-5 text-indigo-400 transform group-hover:rotate-90 transition-transform duration-300" />
+                            <h4 className="font-semibold transition-colors text-lg">{faq.question}</h4>
+                            <ArrowRight className="w-5 h-5 text-black/40 transform group-hover:rotate-90 transition-transform duration-500" />
                           </div>
-                          <p className="text-slate-400 leading-relaxed">{faq.answer}</p>
+                          <p className="text-black/60 leading-relaxed text-sm">{faq.answer}</p>
                         </div>
                       </div>
                     ))}
@@ -536,16 +458,17 @@ const Transcription = () => {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-slate-950">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl">
+      <section className="py-32 bg-black border-t border-white/10">
+        <div className="container mx-auto px-8 max-w-[1600px]">
+          <div className="max-w-6xl border border-white/10 overflow-hidden">
             <div className="lg:flex">
-              <div className="lg:w-1/2 bg-gradient-to-br from-indigo-600 to-purple-600 p-12 text-white">
+              <div className="lg:w-1/2 bg-white p-12">
                 <h2 className="text-3xl font-bold mb-6">Ready for Professional Transcription?</h2>
-                <p className="text-indigo-100 mb-6 leading-relaxed">
+                <p className="text-black/60 mb-6 leading-relaxed">
                   Join professionals who trust NextelBPO for accurate, secure, and timely transcription services.
                 </p>
                 <div className="space-y-3">
@@ -555,17 +478,17 @@ const Transcription = () => {
                     "24-48 hour turnaround"
                   ].map((item, i) => (
                     <div key={i} className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-indigo-200 mr-3" />
-                      <span>{item}</span>
+                      <CheckCircle className="w-5 h-5 text-black/40 mr-3" />
+                      <span className="text-black/70">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
               
-              <div className="lg:w-1/2 p-12">
-                <h3 className="text-2xl font-bold text-white mb-6">Get Your Quote Today</h3>
+              <div className="lg:w-1/2 p-12 bg-black text-white">
+                <h3 className="text-2xl font-bold mb-6">Get Your Quote Today</h3>
                 <div 
-                  className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-xl p-6 mb-6 cursor-pointer hover:bg-indigo-500/20 transition-colors duration-300"
+                  className="border border-white/10 p-6 mb-6 cursor-pointer hover:border-white/30 transition-all duration-500"
                   onClick={() => {
                     const subject = encodeURIComponent("Transcription Services Inquiry - NextelBPO");
                     const body = encodeURIComponent("Hello NextelBPO team,\n\nI'm interested in learning more about your transcription services.\n\nBest regards,\n[Your Name]");
@@ -574,30 +497,26 @@ const Transcription = () => {
                 >
                   <div className="space-y-4">
                     <div className="flex items-center">
-                      <div className="bg-indigo-500/20 p-3 rounded-lg mr-4">
-                        <FileText className="w-6 h-6 text-indigo-400" />
+                      <div className="bg-white/5 p-3 mr-4">
+                        <Mail className="w-6 h-6 text-white/40" />
                       </div>
                       <div>
-                        <p className="text-sm text-slate-400 mb-1">Email us at</p>
-                        <div className="text-xl font-semibold text-indigo-400">
-                          info@nextelbpo.co
-                        </div>
+                        <p className="text-xs uppercase tracking-wider text-white/40 mb-1">Email us at</p>
+                        <div className="text-lg font-semibold">info@nextelbpo.co</div>
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <div className="bg-indigo-500/20 p-3 rounded-lg mr-4">
-                        <Phone className="w-6 h-6 text-indigo-400" />
+                      <div className="bg-white/5 p-3 mr-4">
+                        <Phone className="w-6 h-6 text-white/40" />
                       </div>
                       <div>
-                        <p className="text-sm text-slate-400 mb-1">Call us at</p>
-                        <div className="text-xl font-semibold text-indigo-400">
-                          +1 (659) 220-0667
-                        </div>
+                        <p className="text-xs uppercase tracking-wider text-white/40 mb-1">Call us at</p>
+                        <div className="text-lg font-semibold">+1 (659) 220-0667</div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <p className="text-slate-400">
+                <p className="text-white/60 text-sm">
                   Our transcription specialists typically respond within 24 hours with a detailed quote and timeline.
                 </p>
               </div>

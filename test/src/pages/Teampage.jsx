@@ -9,18 +9,18 @@ const TEAM_DATA = {
       description: "Visionary leaders shaping our company's future",
       members: [
         {
-          name: "AbuBakar Ahmed",
-          position: "Co-Founder & President",
-          image: "/AbuBakar.jpeg",
-          bio: "Operations expert specializing in process optimization.",
-          linkedin: "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
-        },
-        {
           name: "Maaz Abbasi",
           position: "Co-Founder & CEO",
           image: "/Maaz Abbasi.JPG",
           bio: "10+ years in BPO industry, driving company strategy and growth.",
           linkedin: "https://www.linkedin.com/in/maaz-abbasi-989865172/"
+        },
+        {
+          name: "AbuBakar Ahmed",
+          position: "Co-Founder & President",
+          image: "/AbuBakar.jpeg",
+          bio: "Operations expert specializing in process optimization.",
+          linkedin: "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
         },
         {
           name: "Sameer Malik",
@@ -92,19 +92,18 @@ const TeamPage = () => {
       "employee": [
         {
           "@type": "Person",
-          "name": "AbuBakar Ahmed", 
-          "jobTitle": "Co-Founder & President",
-          "description": "Operations expert specializing in process optimization.",
-          "sameAs": "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
-        },
-        {
-          "@type": "Person",
           "name": "Maaz Abbasi",
           "jobTitle": "Co-Founder & CEO",
           "description": "10+ years in BPO industry, driving company strategy and growth.",
           "sameAs": "https://www.linkedin.com/in/maaz-abbasi-989865172/"
         },
-        
+        {
+          "@type": "Person",
+          "name": "AbuBakar Ahmed", 
+          "jobTitle": "Co-Founder & President",
+          "description": "Operations expert specializing in process optimization.",
+          "sameAs": "https://www.linkedin.com/in/abubakar-ahmad-77baa91a6/"
+        },
         {
           "@type": "Person",
           "name": "Sameer Malik",
@@ -233,143 +232,102 @@ const TeamPage = () => {
     </div>
   );
 
-  // Team Member Card Component with Perspective Effect
-  const TeamMemberCard = ({ member, index, totalCards }) => {
-    const isLeftEdge = index === 0;
-    const isRightEdge = index === totalCards - 1;
-    const isCenterCard = index === 1 && totalCards === 3;
-    
-    let transformStyle = {};
-    let cardOpacity = 1;
-    let zIndex = 10;
-    let scale = 1;
-    
-    if (isLeftEdge) {
-      transformStyle = { 
-        transform: 'perspective(1500px) rotateY(35deg) translateX(80px) translateZ(-100px)',
-        transformOrigin: 'center right'
-      };
-      cardOpacity = 0.6;
-      zIndex = 1;
-      scale = 0.92;
-    } else if (isRightEdge) {
-      transformStyle = { 
-        transform: 'perspective(1500px) rotateY(-35deg) translateX(-80px) translateZ(-100px)',
-        transformOrigin: 'center left'
-      };
-      cardOpacity = 0.6;
-      zIndex = 1;
-      scale = 0.92;
-    } else if (isCenterCard) {
-      transformStyle = {
-        transform: 'perspective(1500px) translateZ(50px) scale(1.05)',
-        transformOrigin: 'center'
-      };
-      zIndex = 20;
-      scale = 1.05;
-    }
-    
-    return (
-      <div
-        className="group relative border border-black/5 hover:border-black overflow-hidden transition-all duration-700 w-[320px] flex-shrink-0 hover:z-30"
-        style={{
-          ...transformStyle,
-          opacity: cardOpacity,
-          zIndex,
-          scale: `${scale}`,
-          transition: 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: isLeftEdge || isRightEdge ? '0 20px 60px rgba(0,0,0,0.15)' : '0 25px 80px rgba(0,0,0,0.2)'
-        }}
-        itemScope
-        itemType="https://schema.org/Person"
-      >
-        <div className="relative p-8 flex flex-col h-full bg-white group-hover:bg-black/[0.02] transition-colors duration-500">
-          {/* Profile image */}
-          <div className="relative mb-6 mx-auto w-32 h-32">
-            <div className="absolute inset-0 rounded-full bg-black/5 group-hover:bg-black/10 transition-all duration-500"></div>
+  // Team Member Card Component
+  const TeamMemberCard = ({ member }) => (
+    <div
+      className="group relative bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all duration-500 transform hover:-translate-y-2"
+      itemScope
+      itemType="https://schema.org/Person"
+    >
+      {/* Hover Glow Effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      
+      <div className="relative p-8 flex flex-col h-full">
+        {/* Profile image with futuristic border */}
+        <div className="relative mb-6 mx-auto w-32 h-32">
+          <div className="absolute inset-0 rounded-full border-2 border-purple-400/30 group-hover:border-purple-400/60 transition-all duration-500"></div>
+          <div className="absolute inset-0 rounded-full border border-pink-400/20 group-hover:border-pink-400/50 transition-all duration-500 delay-75"></div>
           
-            <div className="w-full h-full rounded-full bg-black/5 flex items-center justify-center overflow-hidden relative z-10 group-hover:scale-105 transition-transform duration-500">
-              <img 
-                src={member.image} 
-                alt={member.name}
-                className="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0"
-                itemProp="image"
-                loading="lazy"
-                style={{
-                  filter: isLeftEdge || isRightEdge ? 'brightness(0.8)' : 'brightness(1)',
-                  transition: 'filter 0.5s ease'
-                }}
-              />
-            </div>
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-50/10 to-pink-50/10 flex items-center justify-center overflow-hidden relative z-10 group-hover:scale-105 transition-transform duration-500 border border-slate-700/50">
+            <img 
+              src={member.image} 
+              alt={member.name}
+              className="w-full h-full object-cover rounded-full"
+              itemProp="image"
+              loading="lazy"
+            />
           </div>
-
-          {/* Content */}
-          <div className="relative z-10 text-center flex-grow flex flex-col">
-            <h3 className="text-2xl font-bold mb-2 transition-colors duration-500" itemProp="name">
-              {member.name}
-            </h3>
-            
-            <div className="mb-4">
-              <span className="inline-block px-4 py-2 border border-black/10 text-xs uppercase tracking-wider text-black/60" itemProp="jobTitle">
-                {member.position}
-              </span>
-            </div>
-            
-            <p className="text-black/60 mb-6 leading-relaxed flex-grow text-sm" itemProp="description">
-              {member.bio}
-            </p>
-            
-            {/* Social links */}
-            {member.linkedin && (
-              <div className="flex justify-center">
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center bg-black/5 hover:bg-black border border-black/10 hover:border-black text-black/40 hover:text-white transition-all duration-500"
-                  itemProp="sameAs"
-                  aria-label={`Connect with ${member.name} on LinkedIn`}
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
-            )}
+          
+          {/* Status Indicator */}
+          <div className="absolute -top-2 -right-2">
+            <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
           </div>
         </div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center flex-grow flex flex-col">
+          <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors duration-300" itemProp="name">
+            {member.name}
+          </h3>
+          
+          <div className="mb-4">
+            <span className="inline-block px-4 py-1 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-medium group-hover:from-purple-500/20 group-hover:to-pink-500/20 group-hover:border-purple-400/40 transition-all duration-300" itemProp="jobTitle">
+              {member.position}
+            </span>
+          </div>
+          
+          <p className="text-slate-400 mb-6 leading-relaxed flex-grow" itemProp="description">
+            {member.bio}
+          </p>
+          
+          {/* Social links */}
+          {member.linkedin && (
+            <div className="flex justify-center">
+              <a
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-purple-300 hover:text-white hover:from-purple-600 hover:to-pink-600 hover:border-transparent hover:shadow-lg transition-all duration-300"
+                itemProp="sameAs"
+                aria-label={`Connect with ${member.name} on LinkedIn`}
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+            </div>
+          )}
+        </div>
       </div>
-    );
-  };
+
+      {/* Animated Border */}
+      <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 animate-pulse"></div>
+      </div>
+    </div>
+  );
 
   // Department Section Component
   const DepartmentSection = ({ department }) => (
     <section 
       key={department.name}
       id={department.name.toLowerCase()}
-      className="mb-32 last:mb-0"
+      className="mb-28 last:mb-0"
     >
-      <div className="mb-16 max-w-4xl">
-        <div className="inline-flex items-center gap-3 mb-6">
-          <span className="text-xs uppercase tracking-[0.2em] text-black/40">{department.name} Division</span>
+      <div className="text-center mb-16 max-w-4xl mx-auto">
+        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+          <Zap className="w-5 h-5 text-purple-400" />
+          <span className="text-purple-100 font-medium">{department.name} Division</span>
         </div>
-        <h2 className="text-[56px] font-bold tracking-tight mb-6 leading-tight">
-          {department.name} <span className="text-black/30">Team</span>
+        <h2 className="text-5xl font-bold text-white mb-4">
+          {department.name} Team
         </h2>
-        <p className="text-xl text-black/60 max-w-2xl leading-relaxed">
+        <p className="text-xl text-slate-400 max-w-2xl mx-auto">
           {department.description}
         </p>
       </div>
 
-      {/* Team cards container with perspective effect */}
-      <div 
-        className="flex justify-center gap-12 overflow-visible perspective-container py-12"
-        style={{
-          perspective: '1500px',
-          perspectiveOrigin: 'center center',
-          transformStyle: 'preserve-3d'
-        }}
-      >
-        {department.members.map((member, idx) => (
-          <TeamMemberCard key={member.name} member={member} index={idx} totalCards={department.members.length} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {department.members.map((member) => (
+          <TeamMemberCard key={member.name} member={member} />
         ))}
       </div>
     </section>
@@ -377,13 +335,13 @@ const TeamPage = () => {
 
   // Modal Components
   const NoOpeningsModal = () => (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white max-w-md w-full p-8 space-y-4 border border-black/10">
-        <h3 className="text-2xl font-bold">No Current Openings</h3>
-        <p className="text-black/60">There are no job openings available at the moment. Please check back later.</p>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-slate-900 rounded-xl max-w-md w-full p-6 space-y-4 border border-slate-700/50">
+        <h3 className="text-xl font-bold text-white">No Current Openings</h3>
+        <p className="text-slate-400">There are no job openings available at the moment. Please check back later.</p>
         <button
           onClick={() => setShowNoOpeningsModal(false)}
-          className="w-full mt-4 px-6 py-3 bg-black text-white text-sm uppercase tracking-wider hover:bg-black/90 transition-colors duration-500"
+          className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors"
         >
           Close
         </button>
@@ -392,22 +350,22 @@ const TeamPage = () => {
   );
 
   const HrContactModal = () => (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white max-w-md w-full p-8 space-y-4 border border-black/10">
-        <h3 className="text-2xl font-bold">HR Team Contact</h3>
-        <div className="space-y-4 border-t border-black/5 pt-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-slate-900 rounded-xl max-w-md w-full p-6 space-y-4 border border-slate-700/50">
+        <h3 className="text-xl font-bold text-white">HR Team Contact</h3>
+        <div className="space-y-2">
           <div>
-            <p className="text-xs uppercase tracking-wider text-black/40 mb-1">Name</p>
-            <p className="text-lg font-medium">{HR_CONTACT.name}</p>
+            <p className="text-sm text-slate-500">Name</p>
+            <p className="text-white font-medium">{HR_CONTACT.name}</p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wider text-black/40 mb-1">Phone Number</p>
-            <p className="text-lg font-medium">{HR_CONTACT.phone}</p>
+            <p className="text-sm text-slate-500">Phone Number</p>
+            <p className="text-white font-medium">{HR_CONTACT.phone}</p>
           </div>
         </div>
         <button
           onClick={() => setShowHrContactModal(false)}
-          className="w-full mt-4 px-6 py-3 bg-black text-white text-sm uppercase tracking-wider hover:bg-black/90 transition-colors duration-500"
+          className="w-full mt-4 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-colors"
         >
           Close
         </button>
@@ -436,36 +394,44 @@ const TeamPage = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-40 bg-black text-white overflow-hidden">
-        <div className="relative z-10 container mx-auto px-8 max-w-[1600px]">
-          <div className="max-w-5xl">
-            <h1 className="text-[96px] md:text-[120px] font-bold mb-12 tracking-tight leading-[0.85]">
-              Meet Our
-              <br />
-              <span className="text-white/30">Leadership Team</span>
-            </h1>
-            <p className="text-xl text-white/60 mb-12 max-w-2xl leading-relaxed">
+      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
+        {/* Futuristic Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"></div>
+          
+          {/* Animated Grid */}
+          <div className="absolute inset-0 opacity-20" style={{
+            backgroundImage: `
+              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+
+          <FloatingOrbs />
+          <NeuralNetworkLines />
+        </div>
+        
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 tracking-tight">
+            Meet Our Team
+          </h1>
+          <div className="max-w-4xl mx-auto mb-12">
+            <p className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
+              The Minds Behind Innovation
+            </p>
+            <p className="text-lg text-purple-200/80">
               Global talent • Expert leadership • Innovative thinking • Unified vision
             </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
-              {TEAM_DATA.metrics.map((metric, idx) => (
-                <div key={idx} className="border-l border-white/10 pl-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="text-white/40">{metric.icon}</div>
-                    <span className="text-sm uppercase tracking-wider text-white/40">{metric.label}</span>
-                  </div>
-                  <div className="text-4xl font-bold">{metric.value}</div>
-                </div>
-              ))}
-            </div>
           </div>
+
+          <MetricsDashboard />
         </div>
       </section>
 
       {/* Team Navigation */}
-      <section className="sticky top-0 z-20 bg-white backdrop-blur-sm py-4 border-b border-black/5">
-        <div className="container mx-auto px-8 max-w-[1600px]">
+      <section className="sticky top-0 z-20 bg-slate-950/95 backdrop-blur-sm shadow-lg py-4 border-b border-slate-800">
+        <div className="container mx-auto px-6">
           <div className="flex overflow-x-auto space-x-2 pb-2 scrollbar-hide">
             {TEAM_DATA.departments.map((dept) => (
               <button
@@ -474,10 +440,10 @@ const TeamPage = () => {
                   setActiveDepartment(dept.name);
                   document.getElementById(dept.name.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className={`whitespace-nowrap px-6 py-3 text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
+                className={`whitespace-nowrap px-6 py-2.5 rounded-full font-medium transition-all duration-300 ${
                   activeDepartment === dept.name
-                    ? 'bg-black text-white'
-                    : 'border border-black/10 text-black/60 hover:border-black/20'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md'
+                    : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700/50'
                 }`}
               >
                 {dept.name}
@@ -488,13 +454,8 @@ const TeamPage = () => {
       </section>
 
       {/* Team Sections */}
-      <div className="relative bg-white">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(https://www.transparenttextures.com/patterns/asfalt-light.png)' }}></div>
-        </div>
-        
-        <div className="container mx-auto px-8 max-w-[1600px] py-32">
+      <div className="bg-slate-950">
+        <div className="container mx-auto px-6 py-20">
           {TEAM_DATA.departments.map((department) => (
             <DepartmentSection key={department.name} department={department} />
           ))}
@@ -502,76 +463,55 @@ const TeamPage = () => {
       </div>
 
       {/* Join Team CTA */}
-      <section className="py-32 bg-black">
-        <div className="container mx-auto px-8 max-w-[1600px]">
+      <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900">
+        <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <span className="text-xs uppercase tracking-[0.2em] text-white/40">Career Opportunities</span>
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+              <Star className="w-5 h-5 text-purple-400" />
+              <span className="text-purple-100 font-medium">Career Opportunities</span>
             </div>
-            <h2 className="text-[56px] font-bold text-white mb-6 tracking-tight leading-tight">Join Our <span className="text-white/30">Growing Team</span></h2>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">Be part of the next generation of BPO excellence</p>
+            <h2 className="text-5xl font-bold text-white mb-4">Join Our Growing Team</h2>
+            <p className="text-xl text-slate-400">Be part of the next generation of BPO excellence</p>
           </div>
 
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              {/* Benefits Grid */}
-              {TEAM_DATA.benefits.map((item, index) => (
-                <div key={item} className="group bg-white/5 border border-white/10 p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-500">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors duration-500">
-                      <Check className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-white mb-2">{item.split('&')[0].trim()}</h3>
-                      <p className="text-white/60 text-sm leading-relaxed">
-                        {item.includes('compensation') && 'Competitive salary packages with comprehensive health and wellness benefits'}
-                        {item.includes('Flexible') && 'Remote work options and flexible scheduling to maintain work-life balance'}
-                        {item.includes('learning') && 'Professional development programs and skill enhancement opportunities'}
-                        {item.includes('Impactful') && 'Collaborate with Fortune 500 companies and make a real difference'}
-                      </p>
-                    </div>
+          <div className="max-w-6xl mx-auto bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden">
+            <div className="lg:flex">
+              <div className="lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-600 p-12 text-white relative overflow-hidden">
+                {/* Background Effects */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20"></div>
+                <div className="relative z-10">
+                  <h2 className="text-3xl font-bold mb-6">Join Our Growing Team</h2>
+                  <p className="text-purple-100 mb-6 leading-relaxed">
+                    We're always looking for talented professionals to join the NextelBPO family.
+                  </p>
+                  <div className="space-y-3">
+                    {TEAM_DATA.benefits.map((item) => (
+                      <div key={item} className="flex items-start">
+                        <Check className="w-5 h-5 text-purple-200 mr-3 mt-0.5 flex-shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <button 
-                onClick={() => setShowNoOpeningsModal(true)}
-                className="group relative bg-white text-black px-8 py-6 text-base font-semibold hover:bg-white/90 transition-all duration-500 overflow-hidden"
-              >
-                <div className="relative z-10 flex items-center justify-between">
-                  <span className="uppercase tracking-wider">View Open Positions</span>
-                  <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-500" />
-                </div>
-              </button>
+              </div>
               
-              <button 
-                onClick={() => setShowHrContactModal(true)}
-                className="group relative border-2 border-white/20 text-white px-8 py-6 text-base font-semibold hover:bg-white hover:text-black hover:border-white transition-all duration-500"
-              >
-                <div className="relative z-10 flex items-center justify-between">
-                  <span className="uppercase tracking-wider">Contact HR Team</span>
-                  <Mail className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-500" />
-                </div>
-              </button>
-            </div>
-
-            {/* Quick Stats */}
-            <div className="mt-16 pt-16 border-t border-white/10">
-              <div className="grid grid-cols-3 gap-8 text-center">
-                <div>
-                  <div className="text-4xl font-bold text-white mb-2">50+</div>
-                  <div className="text-sm text-white/40 uppercase tracking-wider">Active Positions</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-white mb-2">15+</div>
-                  <div className="text-sm text-white/40 uppercase tracking-wider">Countries</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-white mb-2">24/7</div>
-                  <div className="text-sm text-white/40 uppercase tracking-wider">Global Support</div>
+              <div className="lg:w-1/2 p-12 bg-slate-900/50">
+                <h3 className="text-2xl font-bold text-white mb-6">Explore Opportunities</h3>
+                <div className="space-y-4">
+                  <button 
+                    onClick={() => setShowNoOpeningsModal(true)}
+                    className="w-full group flex items-center justify-between px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    <span>View Open Positions</span>
+                    <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+                  </button>
+                  <button 
+                    onClick={() => setShowHrContactModal(true)}
+                    className="w-full group flex items-center justify-between px-6 py-4 border-2 border-purple-600 text-purple-400 rounded-xl font-semibold hover:bg-purple-500/10 transition-all"
+                  >
+                    <span>Contact HR Team</span>
+                    <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
             </div>

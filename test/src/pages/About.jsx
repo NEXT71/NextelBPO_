@@ -48,9 +48,9 @@ const TAB_CONTENT = {
 };
 
 const METRICS = [
-  { label: "Years of Excellence", value: "6+", icon: <TrendingUp className="w-6 h-6" /> },
-  { label: "Global Professionals", value: "200+", icon: <Users className="w-6 h-6" /> },
-  { label: "Client Satisfaction", value: "99.9%", icon: <Activity className="w-6 h-6" /> }
+  { label: "Years of Excellence", value: "6+", icon: <TrendingUp className="w-5 h-5" /> },
+  { label: "Global Professionals", value: "200+", icon: <Users className="w-5 h-5" /> },
+  { label: "Client Satisfaction", value: "99.9%", icon: <Activity className="w-5 h-5" /> }
 ];
 
 const About = () => {
@@ -312,98 +312,106 @@ const About = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative bg-black text-white py-40 border-b border-white/10">
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-15" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920)' }}></div>
+      <section className="relative py-40 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
+        {/* Futuristic Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"></div>
+          
+          {/* Animated Grid */}
+          <div className="absolute inset-0 opacity-20" style={{
+            backgroundImage: `
+              linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+
+          <FloatingOrbs />
+          <NeuralNetworkLines />
+        </div>
         
-        <div className="max-w-[1600px] mx-auto px-8">
-          <div className="max-w-4xl">
-            <div className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">About NextelBPO</div>
-            <h1 className="text-[96px] font-bold leading-[0.9] tracking-tight mb-8">
-              Transforming<br />
-              <span className="text-white/30">Business Operations</span>
-            </h1>
-            <p className="text-xl text-white/60 max-w-2xl leading-relaxed">
-              Since 2018, we've been delivering excellence in business process outsourcing with cutting-edge technology and expert professionals.
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <h1 className="text-7xl md:text-8xl font-black mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 tracking-tight">
+            About NextelBPO
+          </h1>
+          
+          <div className="max-w-4xl mx-auto mb-12">
+            <h2 className="text-2xl md:text-3xl text-purple-100 mb-4 font-light">
+              Pioneering BPO Excellence Since 2018
+            </h2>
+            <p className="text-lg text-purple-200/80">
+              Innovation-driven • Globally-focused • Future-ready solutions
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="bg-white py-24 border-b border-black/5">
-        <div className="max-w-[1600px] mx-auto px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-24">
-            {METRICS.map((metric, idx) => (
-              <div key={idx} className="space-y-4">
-                <div className="text-black/40">{metric.icon}</div>
-                <div className="text-[96px] font-bold leading-[0.9] tracking-tight text-black">
-                  {metric.value}
-                </div>
-                <div className="text-sm text-black/40">{metric.label}</div>
-              </div>
-            ))}
-          </div>
+          <MetricsDashboard />
         </div>
       </section>
 
       {/* Story Section */}
-      <section className="bg-black text-white py-32 border-b border-white/10">
-        <div className="max-w-[1600px] mx-auto px-8">
-          <div className="mb-16">
-            <div className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">Our Journey</div>
-            <h2 className="text-[72px] font-bold leading-[0.9] tracking-tight">
-              Our<br />
-              <span className="text-white/30">Story</span>
-            </h2>
+      <section className="py-24 bg-slate-950 relative">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5CF6' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+              <Shield className="w-5 h-5 text-purple-400" />
+              <span className="text-purple-100 font-medium">Our Journey</span>
+            </div>
+            <h2 className="text-5xl font-bold text-white mb-4">Our Story</h2>
+            <p className="text-xl text-slate-400">Building the future of business process outsourcing</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <div className="space-y-6">
-              <div className="bg-white/5 border border-white/10 p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-500">
+              <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 hover:border-purple-500/50 transition-all duration-500">
                 <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <div className="w-12 h-12 bg-white/10 flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center">
+                    <Zap className="w-6 h-6 text-purple-400" />
                   </div>
                   Founded in 2018
                 </h3>
-                <p className="text-white/60 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   NextelBPO was born from a vision to transform how businesses operate. Starting as a small team of dedicated professionals, 
                   our founders Maaz Abbasi and AbuBakar Ahmed set out to create a BPO company that would redefine industry standards.
                 </p>
               </div>
               
-              <div className="bg-white/5 border border-white/10 p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-500">
+              <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 hover:border-purple-500/50 transition-all duration-500">
                 <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <div className="w-12 h-12 bg-white/10 flex items-center justify-center">
-                    <Users className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center">
+                    <Users className="w-6 h-6 text-purple-400" />
                   </div>
                   Global Growth
                 </h3>
-                <p className="text-white/60 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   Today, our team of over 200+ professionals spans multiple continents, delivering exceptional service worldwide. 
                   We've maintained our core values while scaling our operations to serve diverse industries and markets.
                 </p>
               </div>
             </div>
 
-            <div className="bg-white border border-white/10 p-8 text-black">
-              <div className="grid grid-cols-2 gap-8">
-                <div className="text-center border-b border-r border-black/10 pb-6 pr-6">
-                  <div className="text-5xl font-bold mb-2">6+</div>
-                  <div className="text-black/40 text-sm uppercase tracking-wider">Years of Excellence</div>
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl transform hover:scale-[1.02] transition-transform duration-300 backdrop-blur-xl border border-purple-500/20">
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold mb-2">6+</div>
+                  <div className="text-purple-100">Years of Excellence</div>
                 </div>
-                <div className="text-center border-b border-black/10 pb-6">
-                  <div className="text-5xl font-bold mb-2">200+</div>
-                  <div className="text-black/40 text-sm uppercase tracking-wider">Professionals</div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold mb-2">200+</div>
+                  <div className="text-purple-100">Professionals</div>
                 </div>
-                <div className="text-center border-r border-black/10 pr-6 pt-6">
-                  <div className="text-5xl font-bold mb-2">USA</div>
-                  <div className="text-black/40 text-sm uppercase tracking-wider">Primary Market</div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold mb-2">USA</div>
+                  <div className="text-purple-100">Primary Market</div>
                 </div>
-                <div className="text-center pt-6">
-                  <div className="text-5xl font-bold mb-2">99.9%</div>
-                  <div className="text-black/40 text-sm uppercase tracking-wider">Client Satisfaction</div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold mb-2">99.9%</div>
+                  <div className="text-purple-100">Client Satisfaction</div>
                 </div>
               </div>
             </div>
@@ -412,39 +420,48 @@ const About = () => {
       </section>
 
       {/* Mission, Vision, Values */}
-      <section className="bg-white py-32 border-b border-black/5">
-        <div className="max-w-[1600px] mx-auto px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Our Foundation</div>
-              <h2 className="text-[72px] font-bold leading-[0.9] tracking-tight text-black mb-8">
-                What Drives<br />
-                <span className="text-black/30">Our Work</span>
-              </h2>
-            </div>
-            
-            <div className="space-y-8">
-              <div className="flex space-x-4 border-b border-black/10 pb-6">
-                {Object.keys(TAB_CONTENT).map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`text-xs uppercase tracking-wider px-4 py-2 transition-all duration-500 ${
-                      activeTab === tab
-                        ? 'text-black border-b-2 border-black'
-                        : 'text-black/40 hover:text-black/70'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
+      <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+                <Star className="w-5 h-5 text-purple-400" />
+                <span className="text-purple-100 font-medium">Core Values</span>
               </div>
-              
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-black">{currentTabContent.title}</h3>
-                <p className="text-black/60 leading-relaxed text-lg">
-                  {currentTabContent.content}
-                </p>
+              <h2 className="text-5xl font-bold text-white mb-4">What Drives Us</h2>
+              <p className="text-xl text-slate-400">The foundation of everything we do at NextelBPO</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl">
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-1/3 bg-gradient-to-br from-purple-600 to-pink-600 p-8">
+                  <div className="space-y-4">
+                    {Object.keys(TAB_CONTENT).map((tab) => (
+                      <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={`w-full text-left px-6 py-4 rounded-xl font-semibold transition-all duration-300 ${
+                          activeTab === tab
+                            ? 'bg-white text-purple-600 shadow-lg'
+                            : 'text-white hover:bg-white hover:bg-opacity-20'
+                        }`}
+                      >
+                        {TAB_CONTENT[tab].title}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="md:w-2/3 p-8 md:p-12">
+                  <div className="animate-fadeIn">
+                    <h3 className="text-3xl font-bold text-white mb-6">
+                      {currentTabContent.title}
+                    </h3>
+                    <p className="text-slate-300 text-lg leading-relaxed">
+                      {currentTabContent.content}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -452,144 +469,101 @@ const About = () => {
       </section>
 
       {/* Timeline */}
-      <section className="bg-black text-white py-32 border-b border-white/10">
-        <div className="max-w-[1600px] mx-auto px-8">
-          <div className="mb-16">
-            <div className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">Our Journey</div>
-            <h2 className="text-[72px] font-bold leading-[0.9] tracking-tight">
-              Company<br />
-              <span className="text-white/30">Milestones</span>
-            </h2>
-          </div>
-
-          <div className="space-y-12 max-w-3xl">
-            {MILESTONES.map((milestone, index) => (
-              <div key={index} className="flex gap-12 border-b border-white/10 pb-12 last:border-0">
-                <div className="text-[48px] font-bold leading-none text-white/20 min-w-[120px]">
-                  {milestone.year}
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-bold text-white">
-                    {milestone.event}
-                  </h3>
-                  <p className="text-white/60 leading-relaxed">
-                    {milestone.description}
-                  </p>
-                </div>
+      <section className="py-24 bg-slate-950">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+                <Clock className="w-5 h-5 text-purple-400" />
+                <span className="text-purple-100 font-medium">Timeline</span>
               </div>
-            ))}
+              <h2 className="text-5xl font-bold text-white mb-4">Our Journey</h2>
+              <p className="text-xl text-slate-400">Key milestones that shaped our company</p>
+            </div>
+
+            <div className="relative">
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-600 to-pink-600"></div>
+              
+              {MILESTONES.map((milestone, index) => (
+                <TimelineItem key={index} milestone={milestone} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Leadership Team */}
-      <section className="bg-white py-32 border-b border-black/5">
-        <div className="max-w-[1600px] mx-auto px-8">
-          <div className="mb-16">
-            <div className="text-xs uppercase tracking-[0.2em] text-black/40 mb-6">Leadership</div>
-            <h2 className="text-[72px] font-bold leading-[0.9] tracking-tight text-black">
-              Meet Our<br />
-              <span className="text-black/30">Founders</span>
-            </h2>
-          </div>
+      <section className="py-24 bg-gradient-to-br from-slate-950 to-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full px-6 py-3 mb-6">
+                <Users className="w-5 h-5 text-purple-400" />
+                <span className="text-purple-100 font-medium">Leadership</span>
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-4">Leadership Team</h2>
+              <p className="text-xl text-slate-400">The visionary leaders driving NextelBPO's innovation</p>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {LEADERSHIP_TEAM.map((member, index) => (
-              <article
-                key={index}
-                className="group border border-black/5 hover:border-black transition-all duration-700 bg-white"
-              >
-                <div className="aspect-[4/5] overflow-hidden bg-black/5">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                    loading="lazy"
-                  />
-                </div>
-                
-                <div className="p-8 border-t border-black/5 space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-black mb-2">
-                      {member.name}
-                    </h3>
-                    <div className="text-xs uppercase tracking-[0.2em] text-black/40">
-                      {member.position}
-                    </div>
-                  </div>
-                  
-                  <p className="text-black/60 leading-relaxed">
-                    {member.description}
-                  </p>
-                  
-                  <div className="flex space-x-3 pt-4">
-                    {member.social.map((social, idx) => (
-                      <a
-                        key={idx}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-10 h-10 flex items-center justify-center border border-black/10 text-black/40 hover:text-black hover:border-black transition-all duration-500"
-                      >
-                        {social.icon}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
+            <div className="grid md:grid-cols-2 gap-8">
+              {LEADERSHIP_TEAM.map((member, index) => (
+                <LeadershipCard key={index} member={member} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 bg-black">
-        <div className="container mx-auto px-8 max-w-[1600px]">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <span className="text-xs uppercase tracking-[0.2em] text-white/40">Get Started</span>
-            </div>
-            <h2 className="text-[56px] font-bold text-white mb-6 tracking-tight leading-tight">Ready to Partner <span className="text-white/30">With Us?</span></h2>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">Join the thousands of companies that trust NextelBPO for their business transformation.</p>
-          </div>
-
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {[
-                { icon: <Check className="w-6 h-6" />, title: "Customized BPO solutions", desc: "Tailored strategies designed for your specific business needs" },
-                { icon: <Users className="w-6 h-6" />, title: "24/7 customer support", desc: "Round-the-clock assistance from our dedicated team" },
-                { icon: <Star className="w-6 h-6" />, title: "Industry-leading expertise", desc: "Decades of combined experience in BPO excellence" }
-              ].map((item, i) => (
-                <div key={i} className="group bg-white/5 border border-white/10 p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-500">
-                  <div className="w-12 h-12 bg-white/10 flex items-center justify-center mb-6 group-hover:bg-white/20 transition-colors duration-500">
-                    <div className="text-white">{item.icon}</div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                  <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
+      <section className="py-24 bg-slate-950">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="lg:flex">
+              <div className="lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-600 p-12 text-white">
+                <h2 className="text-3xl font-bold mb-6">Ready to Partner With Us?</h2>
+                <p className="text-purple-100 mb-6 leading-relaxed">
+                  Join the thousands of companies that trust NextelBPO for their business transformation.
+                </p>
+                <div className="space-y-3">
+                  {[
+                    "Customized BPO solutions",
+                    "24/7 customer support",
+                    "Industry-leading expertise"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center">
+                      <Check className="w-5 h-5 text-purple-200 mr-3" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <a
-                href="/contact"
-                className="group bg-white text-black px-8 py-6 text-base font-semibold hover:bg-white/90 transition-all duration-500 flex items-center justify-between"
-              >
-                <span className="uppercase tracking-wider">Start Your Project</span>
-                <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-500" />
-              </a>
+              </div>
               
-              <a
-                href="mailto:info@nextelbpo.co"
-                className="group border-2 border-white/20 text-white px-8 py-6 text-base font-semibold hover:bg-white hover:text-black hover:border-white transition-all duration-500 flex items-center justify-between"
-              >
-                <span className="uppercase tracking-wider">Email Us</span>
-                <Mail className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-500" />
-              </a>
-            </div>
-
-            <div className="mt-12 text-center">
-              <p className="text-white/40 text-sm">Our team typically responds within 24 hours to discuss your business needs</p>
+              <div className="lg:w-1/2 p-12">
+                <h3 className="text-2xl font-bold text-white mb-6">Get In Touch</h3>
+                <div 
+                  className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl p-6 mb-6 cursor-pointer hover:bg-purple-500/20 transition-colors duration-200"
+                  onClick={() => {
+                    const subject = encodeURIComponent("Partnership Inquiry - NextelBPO");
+                    const body = encodeURIComponent("Hello NextelBPO team,\n\nI'm interested in learning more about your services.\n\nBest regards,\n[Your Name]");
+                    window.location.href = `mailto:info@nextelbpo.co?subject=${subject}&body=${body}`;
+                  }}
+                >
+                  <div className="flex items-center">
+                    <div className="bg-purple-500/20 p-3 rounded-lg mr-4">
+                      <Mail className="w-6 h-6 text-purple-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-slate-400 mb-1">Email us at</p>
+                      <div className="text-xl font-semibold text-purple-400">
+                        info@nextelbpo.co
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-slate-400">
+                  Our team typically responds within 24 hours to discuss your business needs and how we can help.
+                </p>
+              </div>
             </div>
           </div>
         </div>

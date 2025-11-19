@@ -10,33 +10,59 @@ const OfficeLocationsMap = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  const officePhotos = [
+  // Office locations data
+  const offices = [
     {
       id: 1,
-      src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop",
-      alt: "Modern office interior with workstations",
-      caption: "Main Branch - Sabah Plaza"
+      name: "Nextel BPO - Main Branch",
+      city: "Rawalpindi",
+      address: "Sabah Plaza Saddar, Rawalpindi, Pakistan",
+      description: "Our flagship location in the heart of Rawalpindi's commercial district.",
+      x: 520,
+      y: 180,
+      coordinates: "33.6000,73.0679"
     },
     {
       id: 2,
-      src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=400&fit=crop",
-      alt: "Professional meeting room",
-      caption: "Executive Conference Room"
+      name: "NextelBPO 2.0",
+      city: "Rawalpindi",
+      address: "Near Corner Food Saddar, Rawalpindi, Pakistan",
+      description: "Centrally located office providing comprehensive business solutions.",
+      x: 540,
+      y: 190,
+      coordinates: "33.5980,73.0714"
     },
     {
       id: 3,
-      src: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&h=400&fit=crop",
-      alt: "Team collaboration space",
-      caption: "Open Collaboration Area"
+      name: "NextelBPO 3.0",
+      city: "Rawalpindi",
+      address: "Commercial Market B Block, Satellite Town, Rawalpindi, Pakistan",
+      description: "Modern facility in the bustling Satellite Town commercial area.",
+      x: 580,
+      y: 220,
+      coordinates: "33.6204,73.1587"
     },
     {
       id: 4,
-      src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=400&fit=crop",
-      alt: "Technology workspace",
-      caption: "Tech Operations Center"
+      name: "NextelBPO 4.0",
+      city: "Rawalpindi",
+      address: "Kalma Chowk, Rawalpindi, Pakistan",
+      description: "Community-focused office delivering personalized business services.",
+      x: 500,
+      y: 280,
+      coordinates: "33.5607,73.0011"
+    },
+    {
+      id: 5,
+      name: "NextelBPO 5.0",
+      city: "Rawalpindi",
+      address: "Commercial Market D Block, Satellite Town, Rawalpindi, Pakistan",
+      description: "Our newest location with state-of-the-art facilities and services.",
+      x: 450,
+      y: 160,
+      coordinates: "33.5931,73.0494"
     }
   ];
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (autoRotate && !isHovering) {
@@ -333,31 +359,7 @@ const OfficeLocationsMap = () => {
           </div>
         </div>
 
-        {/* Office Photo Carousel */}
-        <div className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl mb-16">
-          <div className="p-6 border-b border-slate-700/50">
-            <h3 className="text-2xl font-bold text-white text-center">Our Modern Facilities</h3>
-            <p className="text-slate-400 text-center mt-2">State-of-the-art workspaces designed for productivity</p>
-          </div>
-          <div className="relative overflow-hidden">
-            <div className="flex animate-scroll">
-              {[...officePhotos, ...officePhotos].map((photo, index) => (
-                <div key={`${photo.id}-${index}`} className="flex-shrink-0 w-80 mx-4">
-                  <div className="bg-gradient-to-br from-slate-800 to-slate-700 rounded-2xl overflow-hidden shadow-lg">
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-4">
-                      <p className="text-white font-medium">{photo.caption}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        
 
         {/* Office Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Play, ChevronDown, ArrowRight, Zap, Calculator, DollarSign } from "lucide-react";
+import { Play, ChevronDown, ArrowRight, Zap } from "lucide-react";
 
 // Extract data to separate constants for better maintainability
 const HERO_TEXTS = [
@@ -111,63 +111,6 @@ const Hero = () => {
     </div>
   );
 
-  // Savings Calculator Component
-  const SavingsCalculator = () => {
-    const [monthlySpend, setMonthlySpend] = useState(10000);
-    const [savings, setSavings] = useState(0);
-
-    useEffect(() => {
-      // Calculate potential savings (60% reduction)
-      const calculatedSavings = monthlySpend * 0.6;
-      setSavings(calculatedSavings);
-    }, [monthlySpend]);
-
-    return (
-      <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 max-w-md mx-auto">
-        <div className="flex items-center gap-3 mb-4">
-          <Calculator className="w-6 h-6 text-orange-400" />
-          <h3 className="text-xl font-bold text-white">Estimate Your Savings</h3>
-        </div>
-        
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm text-blue-100 mb-2">
-              Current Monthly BPO Spend ($)
-            </label>
-            <input
-              type="range"
-              min="1000"
-              max="100000"
-              step="1000"
-              value={monthlySpend}
-              onChange={(e) => setMonthlySpend(Number(e.target.value))}
-              className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer"
-            />
-            <div className="flex justify-between text-sm text-blue-200 mt-1">
-              <span>$1K</span>
-              <span className="font-bold text-white">${(monthlySpend / 1000).toFixed(0)}K</span>
-              <span>$100K</span>
-            </div>
-          </div>
-          
-          <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-lg p-4 border border-orange-500/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-orange-200">Potential Annual Savings</p>
-                <p className="text-2xl font-bold text-white">${(savings * 12 / 1000).toFixed(0)}K</p>
-              </div>
-              <DollarSign className="w-8 h-8 text-orange-400" />
-            </div>
-          </div>
-          
-          <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:from-orange-600 hover:to-red-600 transform hover:scale-105">
-            Get Detailed Quote
-          </button>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video/Image */}
@@ -201,50 +144,37 @@ const Hero = () => {
       <AnimatedParticles />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Main Content */}
-          <div>
-            <div className="inline-block relative mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-              <div className="relative p-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-full">
-                <Zap className="w-12 h-12 text-white" />
-              </div>
-            </div>
-            
-            <div className="mb-8 overflow-hidden h-24 flex items-center justify-center">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-0 transition-all duration-1000 transform leading-tight">
-                {HERO_TEXTS[currentText]}
-              </h1>
-            </div>
-            
-            <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-blue-100 leading-relaxed">
-              Join 500+ companies saving up to 60% on operational costs with our 
-              comprehensive BPO solutions. 24/7 support, 99.9% accuracy, global scale.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <a href="/contact" className="group bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-2xl font-bold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-orange-500/25 transform hover:scale-105 hover:from-orange-600 hover:to-red-600">
-                Get Started Today
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a href="#services" className="group border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 flex items-center justify-center gap-3">
-                View Services
-                <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-              </a>
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div>
+          <div className="inline-block relative mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
+            <div className="relative p-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-full">
+              <Zap className="w-12 h-12 text-white" />
             </div>
           </div>
           
-          {/* Right Column - Calculator */}
-          <div className="hidden lg:block">
-            <SavingsCalculator />
+          <div className="mb-8 min-h-48 flex items-center justify-center px-4">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-0 transition-all duration-1000 transform leading-tight text-center">
+              {HERO_TEXTS[currentText]}
+            </h1>
           </div>
-        </div>
+          
+          <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-blue-100 leading-relaxed">
+            Join 500+ companies saving up to 60% on operational costs with our 
+            comprehensive BPO solutions. 24/7 support, 99.9% accuracy, global scale.
+          </p>
 
-        {/* Mobile Calculator */}
-        <div className="lg:hidden mt-12">
-          <SavingsCalculator />
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <a href="/contact" className="group bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-2xl font-bold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-orange-500/25 transform hover:scale-105 hover:from-orange-600 hover:to-red-600">
+              Get Started Today
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#services" className="group border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 flex items-center justify-center gap-3">
+              View Services
+              <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+            </a>
+          </div>
         </div>
 
         {/* Scroll Indicator */}

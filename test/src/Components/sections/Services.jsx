@@ -14,6 +14,8 @@ const Services = () => {
       title: "Lead Generation",
       description: "Targeted lead generation services to help you build a high-quality sales pipeline and increase conversions.",
       icon: <Search className="w-8 h-8" />,
+      color: "from-blue-500 to-cyan-500",
+      accentColor: "blue",
       features: [
         "Targeted lead sourcing",
         "Lead qualification",
@@ -21,13 +23,16 @@ const Services = () => {
         "Performance analytics"
       ],
       industries: ["Insurance", "Financial Services", "Real Estate", "Healthcare"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      ctaText: "Explore Lead Gen Solutions"
     },
     {
       id: 2,
       title: "Inbound Services",
       description: "Professional inbound call handling and customer service to enhance your customer experience.",
       icon: <Phone className="w-8 h-8" />,
+      color: "from-green-500 to-emerald-500",
+      accentColor: "green",
       features: [
         "24/7 availability",
         "Multilingual support",
@@ -35,13 +40,16 @@ const Services = () => {
         "Customer satisfaction tracking"
       ],
       industries: ["E-commerce", "Healthcare", "Telecommunications", "Financial Services"],
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=300&fit=crop"
+      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=300&fit=crop",
+      ctaText: "View Customer Service Solutions"
     },
     {
       id: 3,
       title: "Transcriptions",
       description: "Accurate and fast transcription services for medical, legal, and general business needs.",
       icon: <FileText className="w-8 h-8" />,
+      color: "from-purple-500 to-indigo-500",
+      accentColor: "purple",
       features: [
         "99% accuracy guarantee",
         "Fast turnaround",
@@ -49,13 +57,16 @@ const Services = () => {
         "Multiple file formats"
       ],
       industries: ["Medical", "Legal", "Media", "Education"],
-      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&h=300&fit=crop"
+      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&h=300&fit=crop",
+      ctaText: "Discover Transcription Services"
     },
     {
       id: 4,
       title: "Life Insurance Sales",
       description: "Specialized outbound sales services for life insurance providers to boost policy sales.",
       icon: <Shield className="w-8 h-8" />,
+      color: "from-orange-500 to-red-500",
+      accentColor: "orange",
       features: [
         "Trained insurance agents",
         "Lead nurturing",
@@ -63,7 +74,8 @@ const Services = () => {
         "Sales reporting"
       ],
       industries: ["Life Insurance", "Financial Planning", "Estate Planning", "Retirement Services"],
-      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&h=300&fit=crop"
+      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500&h=300&fit=crop",
+      ctaText: "Explore Insurance Sales Solutions"
     }
   ];
 
@@ -250,10 +262,17 @@ const Services = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                   
                   {/* Icon Overlay */}
-                  <div className="absolute top-4 left-4 p-3 bg-white/10 backdrop-blur-sm rounded-xl transform transition-all duration-500 group-hover:scale-110 border border-white/20">
-                    <div className="text-purple-300">
+                  <div className={`absolute top-4 left-4 p-3 bg-gradient-to-br ${service.color} backdrop-blur-sm rounded-xl transform transition-all duration-500 group-hover:scale-110 border border-white/20`}>
+                    <div className="text-white">
                       {service.icon}
                     </div>
+                  </div>
+
+                  {/* Service Badge */}
+                  <div className={`absolute top-4 right-4 px-3 py-1 bg-${service.accentColor}-500/20 backdrop-blur-sm rounded-full border border-${service.accentColor}-500/30`}>
+                    <span className={`text-xs font-medium text-${service.accentColor}-300`}>
+                      {service.title.split(' ')[0]}
+                    </span>
                   </div>
 
                   {/* Quick Stats */}
@@ -306,7 +325,7 @@ const Services = () => {
                     }}
                     className="w-full group/btn bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
                   >
-                    <span>Explore Service</span>
+                    <span>{service.ctaText}</span>
                     <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
                 </div>

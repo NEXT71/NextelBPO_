@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Phone, Mail, MapPin, Clock, ArrowRight, Globe, Shield, Award, Users, BookOpen, Briefcase, HeartHandshake, Zap } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, MapPin, Clock, ArrowRight, Globe, Shield, Award, Users, BookOpen, Briefcase, HeartHandshake, Zap, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -27,7 +27,18 @@ const Footer = () => {
               Delivering excellence in business process outsourcing with cutting-edge technology and expert professionals.
             </p>
             <div className="flex space-x-4">
-              {/* Social media icons would go here */}
+              <a href="#" className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                <Facebook className="w-5 h-5 text-white" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-sky-500 hover:bg-sky-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                <Twitter className="w-5 h-5 text-white" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-blue-700 hover:bg-blue-800 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                <Linkedin className="w-5 h-5 text-white" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                <Instagram className="w-5 h-5 text-white" />
+              </a>
             </div>
           </div>
 
@@ -39,8 +50,14 @@ const Footer = () => {
               <li><a href="/about" className="text-purple-200 hover:text-white transition-colors">About Us</a></li>
               <li><a href="/careers" className="text-purple-200 hover:text-white transition-colors">Careers</a></li>
               <li><a href="/contact" className="text-purple-200 hover:text-white transition-colors">Contact</a></li>
-              <li><a href="/privacy-policy" className="text-purple-200 hover:text-white transition-colors">Privacy Policy</a></li>
             </ul>
+            {/* Prominent Privacy Policy Link */}
+            <div className="pt-4 border-t border-purple-700">
+              <a href="/privacy-policy" className="inline-flex items-center text-purple-200 hover:text-white transition-colors font-medium">
+                <Shield className="w-4 h-4 mr-2 text-purple-300" />
+                Privacy Policy
+              </a>
+            </div>
           </div>
 
           {/* Services */}

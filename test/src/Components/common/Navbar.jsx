@@ -86,10 +86,10 @@ const Navbar = () => {
   <div className="container mx-auto px-4">
     <div className="flex justify-between items-center text-sm">
       <div className="flex items-center space-x-6">
-        <div className="flex items-center space-x-2">
-          <Phone className="w-4 h-4 text-purple-300" />
-          <span>+1 (659) 220-0667</span>
-        </div>
+        <a href="tel:+16592200667" className="flex items-center space-x-2 hover:bg-white/10 px-3 py-2 rounded-lg transition-all duration-300 group">
+          <Phone className="w-5 h-5 text-purple-300 group-hover:text-white" />
+          <span className="text-lg font-semibold text-white group-hover:text-purple-200">+1 (659) 220-0667</span>
+        </a>
         <div className="flex items-center space-x-2">
           <Mail className="w-4 h-4 text-purple-300" />
           <span>info@nextelbpo.co</span>
@@ -318,7 +318,9 @@ const Navbar = () => {
 
             {/* CTA Button & Mobile Toggle */}
             <div className="flex items-center space-x-4">
-             
+              <a href="/contact" className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:from-orange-600 hover:to-red-600 transform hover:scale-105">
+                Get Quote
+              </a>
 
               {/* Mobile Menu Toggle */}
               <button

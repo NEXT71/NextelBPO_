@@ -10,59 +10,30 @@ const OfficeLocationsMap = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  const offices = [
-    { 
-      id: 1, 
-      name: 'Nextel BPO - Main Branch', 
-      city: 'Rawalpindi, Pakistan', 
-      x: 450, 
-      y: 200,
-      address: 'Sabah Plaza Saddar, Rawalpindi',
-      x: 510, 
-      y: 200,
-      address: 'Sabah Plaza Saddar, Rawalpindi',
-      description: 'Our flagship location in the heart of Rawalpindi\'s commercial district.',
-      coordinates: '33.59813938627853, 73.04900650108829'
+  const officePhotos = [
+    {
+      id: 1,
+      src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop",
+      alt: "Modern office interior with workstations",
+      caption: "Main Branch - Sabah Plaza"
     },
-    { 
-      id: 2, 
-      name: 'NextelBPO 2.0', 
-      city: 'Rawalpindi, Pakistan', 
-      x: 500, 
-      y: 250,
-      address: 'Near Corner Food Saddar, Rawalpindi',
-      description: 'Centrally located office providing comprehensive business solutions.',
-      coordinates: '33.600000, 73.050000'
+    {
+      id: 2,
+      src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=400&fit=crop",
+      alt: "Professional meeting room",
+      caption: "Executive Conference Room"
     },
-    { 
-      id: 3, 
-      name: 'NextelBPO 3.0', 
-      city: 'Rawalpindi, Pakistan', 
-      x: 650, 
-      y: 100,
-      address: 'Commercial Market B Block, Satellite Town',
-      description: 'Modern facility in the bustling Satellite Town commercial area.',
-      coordinates: '33.6385163826533, 73.06287297064223'
+    {
+      id: 3,
+      src: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&h=400&fit=crop",
+      alt: "Team collaboration space",
+      caption: "Open Collaboration Area"
     },
-    { 
-      id: 4, 
-      name: 'NextelBPO 4.0', 
-      city: 'Rawalpindi, Pakistan', 
-      x: 560, 
-      y: 300,
-      address: 'Kalma Chowk, Rawalpindi',
-      description: 'Community-focused office delivering personalized business services.',
-      coordinates: '33.575514505093224, 73.03289072639484'
-    },
-    { 
-      id: 5, 
-      name: 'NextelBPO 5.0', 
-      city: 'Rawalpindi, Pakistan', 
-      x: 550, 
-      y: 100,
-      address: 'Commercial Market D Block, Satellite Town',
-      description: 'Our newest location with state-of-the-art facilities and services.',
-      coordinates: '33.640000, 73.065000'
+    {
+      id: 4,
+      src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=400&fit=crop",
+      alt: "Technology workspace",
+      caption: "Tech Operations Center"
     }
   ];
 
@@ -340,6 +311,52 @@ const OfficeLocationsMap = () => {
               </g>
             ))}
           </svg>
+        </div>
+
+        {/* Interactive Google Map */}
+        <div className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl mb-16">
+          <div className="p-6 border-b border-slate-700/50">
+            <h3 className="text-2xl font-bold text-white text-center">Interactive Office Locations</h3>
+            <p className="text-slate-400 text-center mt-2">Click on markers to get directions</p>
+          </div>
+          <div className="relative h-96">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.0123456789!2d73.049137!3d33.598017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzPCsDM1JzUyLjkiTiA3M8KwMDInNTYuOSJF!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="NextelBPO Office Locations"
+            ></iframe>
+          </div>
+        </div>
+
+        {/* Office Photo Carousel */}
+        <div className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden shadow-2xl mb-16">
+          <div className="p-6 border-b border-slate-700/50">
+            <h3 className="text-2xl font-bold text-white text-center">Our Modern Facilities</h3>
+            <p className="text-slate-400 text-center mt-2">State-of-the-art workspaces designed for productivity</p>
+          </div>
+          <div className="relative overflow-hidden">
+            <div className="flex animate-scroll">
+              {[...officePhotos, ...officePhotos].map((photo, index) => (
+                <div key={`${photo.id}-${index}`} className="flex-shrink-0 w-80 mx-4">
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-700 rounded-2xl overflow-hidden shadow-lg">
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4">
+                      <p className="text-white font-medium">{photo.caption}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Office Cards Grid */}

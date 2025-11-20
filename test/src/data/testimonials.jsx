@@ -6,7 +6,7 @@ const TESTIMONIALS = [
     company: "TechStart Inc.",
     quote: "Their customer support team helped us scale from 100 to 10,000+ customers seamlessly. The quality and professionalism are unmatched.",
     rating: 5,
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face"
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&h=60&fit=crop&crop=face&auto=format&q=80"
   },
   {
     name: "Michael Chen",

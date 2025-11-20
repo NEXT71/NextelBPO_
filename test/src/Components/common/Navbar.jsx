@@ -82,7 +82,7 @@ const Navbar = () => {
   return (
     <>
      {/* Top Info Bar - Updated with Social Icons */}
-<div className="hidden lg:block bg-gradient-to-r from-slate-900 via-purple-900 to-indigo-900 text-white py-2">
+<div className="hidden md:block bg-gradient-to-r from-slate-900 via-purple-900 to-indigo-900 text-white py-2">
   <div className="container mx-auto px-4">
     <div className="flex justify-between items-center text-sm">
       <div className="flex items-center space-x-6">
@@ -223,7 +223,7 @@ const Navbar = () => {
 </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8">
               <a 
                 href="/" 
                 className="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-300 relative group"
@@ -325,7 +325,7 @@ const Navbar = () => {
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
               >
                 {isMenuOpen ? (
                   <X className="w-6 h-6 text-gray-700" />
@@ -338,7 +338,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
+        <div className={`md:hidden transition-all duration-300 overflow-hidden ${
           isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="border-t border-gray-100 bg-white">

@@ -10,8 +10,8 @@ const HERO_TEXTS = [
 
 const HERO_CONFIG = {
   textRotationInterval: 3000,
-  totalParticles: 50,
-  totalNeuralLines: 12
+  totalParticles: 20, // Reduced from 50 for better performance
+  totalNeuralLines: 6 // Reduced from 12 for better performance
 };
 
 const Hero = () => {
@@ -51,13 +51,13 @@ const Hero = () => {
   // Floating Orbs Background Component
   const FloatingOrbs = () => (
     <>
-      {[...Array(8)].map((_, i) => (
+      {[...Array(4)].map((_, i) => ( // Reduced from 8 for better performance
         <div
           key={i}
           className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
           style={{
-            width: `${Math.random() * 200 + 100}px`,
-            height: `${Math.random() * 200 + 100}px`,
+            width: `${Math.random() * 150 + 75}px`, // Smaller size
+            height: `${Math.random() * 150 + 75}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
             animationDelay: `${Math.random() * 2}s`,

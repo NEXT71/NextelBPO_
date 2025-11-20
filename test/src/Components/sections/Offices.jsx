@@ -119,13 +119,13 @@ const OfficeLocationsMap = () => {
         }}></div>
 
         {/* Floating Orbs */}
-        {[...Array(8)].map((_, i) => (
+        {[...Array(4)].map((_, i) => ( // Reduced from 8 for better performance
           <div
             key={i}
             className="absolute rounded-full bg-gradient-to-br from-purple-400/10 to-pink-600/10 animate-pulse"
             style={{
-              width: `${Math.random() * 200 + 100}px`,
-              height: `${Math.random() * 200 + 100}px`,
+              width: `${Math.random() * 150 + 75}px`, // Smaller size
+              height: `${Math.random() * 150 + 75}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 2}s`,
@@ -142,7 +142,7 @@ const OfficeLocationsMap = () => {
               <stop offset="100%" stopColor="#EC4899" />
             </linearGradient>
           </defs>
-          {[...Array(12)].map((_, i) => (
+          {[...Array(6)].map((_, i) => ( // Reduced from 12 for better performance
             <line
               key={i}
               x1={`${Math.random() * 100}%`}
